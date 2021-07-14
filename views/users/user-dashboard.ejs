@@ -1,0 +1,45 @@
+<div class="page-header" style="max-width: 50ch;">
+    <h1><%= pageTitle %></h1>
+</div>
+
+<header class="main-header">
+    <div class="welcome-user">
+        <h5>Welcome <%= user.fname %></h5>
+    </div>
+    <div class="user-settings-button">
+        <a href="/users/update-profile"><i class="fas fa-user-edit"></i></a>
+    </div>
+</header>
+
+
+<main>
+    <section>
+
+        <img src="<%= user.user_background_image %>" alt="<%= user.fname %> <%= user.lname %>'s Avatar">
+        
+    </section>
+    
+    <section class="video-selection">
+        <div class="section-header">
+            <h3>Your Saved Movies</h3>
+        </div>
+        <div class="slider">
+            <div class="movie-list">
+                <% user.movie_list.forEach(function(video) { %>
+                    <div class="video-thumb">
+                        <img src="<%= video.movie_poster %>" alt="">
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="full-user-data" style="background: steelblue; padding: 5px; margin-top: 50px; max-width: 100%;">
+            <p style="color: #fff;"><%= user %></p>
+        </div>
+    </section>
+
+
+</main>

@@ -1,0 +1,243 @@
+
+<div class="page-header">
+    <h1>Update Your Profile</h1>
+</div>
+
+
+<div class="main-header">
+    <h5><a href="/users/dashboard">Back to Dashboard</a></h5>
+</div>
+
+<section class="spread-form">
+    <form action="/users/update-profile_method=PATCH" method="post">
+        <div class="input-section">
+            <div class="input-header">
+                <h5>Name</h5>
+            </div>
+            <div class="input-data">
+                <label for="fName">First</label>
+                <input type="text" name="fname" id="fName" value="<%= user.fname %>">
+            </div>
+            
+            <div class="input-data">
+                <label for="lName">Last</label>
+                <input type="text" name="lname" id="lName" value="<%= user.lname %>">
+            </div>
+
+        </div>
+
+        <div class="input-section">
+            <div class="input-header">
+                <h5>Contact</h5>
+            </div>
+
+            <div class="input-data">
+                <label for="phone1"><i class="fas fa-phone"></i></label>
+                <input type="number" name="phone1" id="phone1" value="<%= user.phone1 %>">
+            </div>
+            <div class="input-data">
+                <label for="phone2"><i class="fas fa-mobile"></i></label>
+                <input type="number" name="phone2" id="phone2" value="<%= user.phone2 %>">
+            </div>
+            <div class="input-data">
+                <label for="email2"><i class="far fa-envelope"></i></label>
+                <input type="email" name="email2" id="email2" value="<%= user.email2 %>">
+            </div>
+        </div>
+
+
+        <div class="input-section">
+            <div class="input-header">
+                <h5>Social Media</h5>
+            </div>
+            <div class="input-data">
+                <label for="instagram"><i class="fab fa-instagram"></i></label>
+                <input type="text" name="instagram" id="instagram" value="<%= user.social.instagram %>">
+            </div>
+            <div class="input-data">
+                <label for="rumble"><i class="fab fa-ravelry"></i></label>
+                <input type="text" name="rumble" id="rumble" value="<%= user.social.rumble %>">
+            </div>
+            <div class="input-data">
+                <label for="discord"><i class="fab fa-discord"></i></label>
+                <input type="text" name="discord" id="discord" value="<%= user.social.discord %>">
+            </div>
+            <div class="input-data">
+                <label for="twitter"><i class="fab fa-twitter"></i></label>
+                <input type="text" name="twitter" id="twitter" value="<%= user.social.twitter %>">
+            </div>
+            <div class="input-data">
+                <label for="facebook"><i class="fab fa-facebook-f"></i></label>
+                <input type="text" name="facebook" id="facebook" value="<%= user.social.facebook %>">
+            </div>
+            <div class="input-data">
+                <label for="linkedin"><i class="fab fa-linkedin-in"></i></label>
+                <input type="text" name="linkedin" id="linkedin" value="<%= user.social.linkedin %>">
+            </div>
+            <div class="input-data">
+                <label for="tiktok"><i class="fab fa-tiktok"></i></label>
+                <input type="text" name="tiktok" id="tiktok" value="<%= user.social.tiktok %>">
+            </div>
+            <div class="input-data">
+                <label for="foursquare"><i class="fab fa-foursquare"></i></label>
+                <input type="text" name="foursquare" id="foursquare" value="<%= user.social.foursquare %>">
+            </div>
+            <div class="input-data">
+                <label for="google_plus"><i class="fab fa-google-plus-g"></i></label>
+                <input type="text" name="google_plus" id="google_plus" value="<%= user.social.google_plus %>">
+            </div>
+            <div class="input-data">
+                <label for="pinterest"><i class="fab fa-pinterest-p"></i></label>
+                <input type="text" name="pinterest" id="pinterest" value="<%= user.social.pinterest %>">
+            </div>
+            <div class="input-data">
+                <label for="snapchat"><i class="fab fa-snapchat-ghost"></i></label>
+                <input type="text" name="snapchat" id="snapchat" value="<%= user.social.snapchat %>">
+            </div>
+            <div class="input-data">
+                <label for="reddit"><i class="fab fa-reddit-alien"></i></label>
+                <input type="text" name="reddit" id="reddit" value="<%= user.social.reddit %>">
+            </div>
+            <div class="input-data">
+                <label for="slack"><i class="fab fa-slack-hash"></i></label>
+                <input type="text" name="slack" id="slack" value="<%= user.social.slack %>">
+            </div>
+            <div class="input-data">
+                <label for="twitch"><i class="fab fa-twitch"></i></label>
+                <input type="text" name="twitch" id="twitch" value="<%= user.social.twitch %>">
+            </div>
+            <div class="input-data">
+                <label for="whatsapp"><i class="fab fa-whatsapp"></i></label>
+                <input type="text" name="whatsapp" id="whatsapp" value="<%= user.social.whatsapp %>">
+            </div>
+            <div class="input-data">
+                <label for="telegram"><i class="fab fa-telegram-plane"></i></label>
+                <input type="text" name="telegram" id="telegram" value="<%= user.social.telegram %>">
+            </div>
+            <div class="input-data">
+                <label for="youtube"><i class="fab fa-youtube"></i></label>
+                <input type="text" name="youtube" id="youtube" value="<%= user.social.youtube %>">
+            </div>
+        </div>
+
+        <div class="input-section">
+            <div class="input-header">
+                <h5>Developers</h5>
+            </div>
+            <div class="input-data">
+                <label for="codepen"><i class="fab fa-codepen"></i></label>
+                <input type="text" name="codepen" id="codepen" value="<%= user.social.codepen %>">
+            </div>
+            <div class="input-data">
+                <label for="github"><i class="fab fa-github-alt"></i></label>
+                <input type="text" name="github" id="github" value="<%= user.social.github %>">
+            </div>
+            <div class="input-data">
+                <label for="kickstarter"><i class="fab fa-kickstarter-k"></i></label>
+                <input type="text" name="kickstarter" id="kickstarter" value="<%= user.social.kickstarter %>">
+            </div>
+            <div class="input-data">
+                <label for="stackOverflow"><i class="fab fa-stack-overflow"></i></label>
+                <input type="text" name="stack_overflow" id="stackOverflow" value="<%= user.social.stack_overflow %>">
+            </div>
+            <div class="input-data">
+                <label for="figma"><i class="fab fa-figma"></i></label>
+                <input type="text" name="figma" id="figma" value="<%= user.social.figma %>">
+            </div>
+            <div class="input-data">
+                <label for="dribble"><i class="fab fa-dribbble"></i></label>
+                <input type="text" name="dribble" id="dribble" value="<%= user.social.dribble %>">
+            </div>
+        </div>
+        
+        <div class="input-section">
+            <div class="input-header">
+                <h5>Gaming</h5>
+            </div>
+            <div class="input-data">
+                <label for="playstation"><i class="fab fa-playstation"></i></label>
+                <input type="text" name="playstation" id="playstation"  value="<%= user.social.playstation %>">
+            </div>
+            <div class="input-data">
+                <label for="xbox"><i class="fab fa-xbox"></i></label>
+                <input type="text" name="xbox" id="xbox" value="<%= user.social.xbox %>">
+            </div>
+        </div>
+
+        <div class="input-section">
+            <div class="input-header">
+                <h5>Financial</h5>
+            </div>
+            <div class="input-data">
+                <label for="paypal"><i class="fab fa-paypal"></i></label>
+                <input type="text" name="paypal" id="paypal" value="<%= user.paypal %>">
+            </div>
+            <div class="input-data">
+                <label for="patreon"><i class="fab fa-patreon"></i></label>
+                <input type="text" name="patreon" id="patreon" value="<%= user.patreon %>">
+            </div>
+        </div>
+
+        <div class="input-section address-inputs">
+            <div class="input-header">
+                <h5>Shipping Address</h5>
+            </div>
+            <div class="input-data">
+                <label for="street1">Street 1</label>
+                <input type="text" name="street1" id="street1" value="<%= user.street1 %>">
+            </div>
+            <div class="input-data">
+                <label for="street2">Street 2</label>
+                <input type="text" name="street2" id="street2" value="<%= user.street2 %>">
+            </div>
+            <div class="input-data">
+                <label for="city">City</label>
+                <input type="text" name="city" id="city" value="<%= user.city %>">
+            </div>
+            <div class="input-data">
+                <label for="state">State</label>
+                <input type="text" name="state" id="state" value="<%= user.state %>">
+            </div>
+            <div class="input-data">
+                <label for="zip">Zip</label>
+                <input type="text" name="zip" id="zip" value="<%= user.zip %>">
+            </div>
+            <div class="input-data">
+                <label for="country">Country</label>
+                <input type="text" name="country" id="country" value="<%= user.country %>">
+            </div>
+        </div>
+        <div class="input-section">
+            <div class="input-header">
+                <h5>Color Scheme</h5>
+            </div>
+            <div class="input-container">
+                <div class="input-data">
+                    <label for="favColor1">Main Color</label>
+                    <input type="color" name="favColor1" id="favColor1" value="<%= user.favColor1 %>">
+                </div>
+                <div class="input-data">
+                    <label for="favColor2">Accent Color</label>
+                    <input type="color" name="favColor2" id="favColor2" value="<%= user.favColor2 %>">
+                </div>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <div class="input-header">
+                <h5>Preferences</h5>
+            </div>
+            <div class="dropdown-data">
+                <label for="measuring_system">Measuring System</label>
+                <select name="measuring_system" id="measuring_system">
+                    <option value="imperial" selected>Imperial</option>
+                    <option value="metric">Metric</option>
+                </select>
+            </div>
+            <div class="boolean-data">
+                <label for="wants_hints">Hints</label>
+                <input type="checkbox" name="wants_hints" id="wants_hints" checked>
+            </div>
+        </div>
+    </form>
+</section>
