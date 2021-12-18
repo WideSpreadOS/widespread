@@ -1,0 +1,17 @@
+<style>
+
+</style>
+<div class="page-title">
+    <h2>
+        <%= className.name %>
+    </h2>
+</div>
+
+<%- include('../partials/menus/academy'); %>
+
+<% learningPoints.forEach(function(learningPoint) { %>
+    <h5>
+        <%= learningPoint.section_header %>
+    </h5>
+    <p><%= learningPoint.section_body %></p>
+<% }) %>

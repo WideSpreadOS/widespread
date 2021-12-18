@@ -1,0 +1,87 @@
+<style>
+    #companyList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        z-index: 1;
+    }
+    .company-card {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        width: 90%;
+        margin-bottom: 15px;
+        padding: 5px;
+    }
+    .company-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .company-header h5 {
+        text-align: right;
+        font-size: 1.2rem;
+        padding: 8px;
+    }
+    .company-header img {
+        max-height: 50px;
+        border-radius: 6px;
+
+    }
+    .company-intro {
+        padding: 8px;
+        margin-top: 8px;
+        border-top: outset 1px rgba(135, 206, 250, 0.5);
+    }
+    .company-intro p {
+        color: #fff;
+    }
+    .company-contact {
+        margin-top: 8px;
+        border-top: inset 1px rgba(135, 206, 250, 0.5);
+        padding: 5px;
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    .company-contact a {
+        text-decoration: none;
+        color: lightskyblue;
+    }
+</style>
+
+<div class="page-title">
+    <h2>
+        Business
+    </h2>
+</div>
+<%- include('../partials/menus/business'); %>
+
+
+<div class="page-header">
+    <h4>All Companies</h4>
+</div>
+<div id="companyList">
+    <% allCompanies.forEach(function(company) { %>
+        <div class="company-card">
+            <div class="company-header">
+                <img src="/image/<%= company.logo %>" alt="<%= company.company_name %>'s Logo">
+                <h5><%= company.company_name %></h5>
+            </div>
+            <div class="company-info">
+                <div class="company-intro">
+                    <p><%= company.company_bio %></p>
+                </div>
+                <div class="company-contact">
+                    <div id="phone"><p><a href="tel:<%= company.company_phone %>"><%= company.company_phone %></a></p></div>
+                    <div id="website"><p><a href="<%= company.company_website %>"><%= company.company_website %></a></p></div>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 // Welcome Page
 router.get('/', (req, res) => {
-    const currentUser = null
+    let currentUser = null
       res.render('welcome', {page: 'Welcome to WideSpread'});
   });
 

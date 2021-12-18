@@ -1,3 +1,119 @@
+<style>
+
+    .spread-form {
+        background: #000;
+    }
+    .input-section {
+        margin-bottom: 5px;
+    }
+    .input-header {
+        text-align: center;
+        padding: 5px;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    .input-data {
+        margin-bottom: 3px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .input-data label {
+        background: rgba(255, 255, 255, 0.25);
+        color: #fff;
+        text-align: center;
+        width: 20%;
+        font-size: 1rem;
+        padding: 4px;
+    }
+    .input-data input {
+        background: rgba(135, 206, 250, 0.5);
+        width: 80%;
+        font-size: 1rem;
+        padding: 4px;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        outline: none;
+        border: inset 2px lightskyblue;
+        border-right: none;
+        box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+    .dropdown-data {
+        color: #fff;
+        text-align: center;
+    }
+    .boolean-data {
+        color: #fff;
+        text-align: center;
+    }
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 999999; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        backdrop-filter: blur(4px);
+        box-shadow: inset 0 0 50px rgba(255, 0, 0, 0.25);
+    }
+    #openDelModal {
+        background: rgba(255, 0, 0, 0.75);
+        margin-top: 30px;
+        margin-bottom: 60px;
+        width: 50%;
+        margin-left: 25%;
+        outline: none;
+        border: outset 2px red;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 1.2rem;
+        padding: 5px;
+    }
+    /* Modal Content */
+    .modal-content {
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 6px;
+        margin: auto;
+        padding: 10px;
+        border: 1px outset rgba(136, 136, 136, 0.75);
+        width: 80%;
+    }
+    .modal-content p {
+        padding: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    /* The Close Button */
+    .close {
+        color: red;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    #deleteButton {
+        background: rgba(255, 0, 0, 0.75);
+        border: outset 1px red;
+        color: #fff;
+        padding: 5px;
+        text-align: center;
+    }
+</style>
 
 <div class="page-header">
     <h1>Update Your Profile</h1>
@@ -9,7 +125,7 @@
 </div>
 
 <section class="spread-form">
-    <form action="/users/update-profile_method=PATCH" method="post">
+    <form action="/users/update-profile?_method=PATCH" method="post">
         <div class="input-section">
             <div class="input-header">
                 <h5>Name</h5>
@@ -36,7 +152,7 @@
                 <input type="number" name="phone1" id="phone1" value="<%= user.phone1 %>">
             </div>
             <div class="input-data">
-                <label for="phone2"><i class="fas fa-mobile"></i></label>
+                <label for="phone2"><i class="fas fa-phone"></i></label>
                 <input type="number" name="phone2" id="phone2" value="<%= user.phone2 %>">
             </div>
             <div class="input-data">
@@ -213,11 +329,11 @@
             </div>
             <div class="input-container">
                 <div class="input-data">
-                    <label for="favColor1">Main Color</label>
+                    <label for="favColor1">Main</label>
                     <input type="color" name="favColor1" id="favColor1" value="<%= user.favColor1 %>">
                 </div>
                 <div class="input-data">
-                    <label for="favColor2">Accent Color</label>
+                    <label for="favColor2">Accent</label>
                     <input type="color" name="favColor2" id="favColor2" value="<%= user.favColor2 %>">
                 </div>
             </div>
@@ -238,6 +354,44 @@
                 <label for="wants_hints">Hints</label>
                 <input type="checkbox" name="wants_hints" id="wants_hints" checked>
             </div>
+            <button type="submit">Update Profile</button>    
         </div>
     </form>
+    <button id="openDelModal">Delete Account</button>
+    <!-- Double Check Delete Account Modal -->
+    <div id="deleteModal" class="modal">
+        
+        <!-- Modal Content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Are you sure you want delete your account?</p>
+            <p>All your data will be lost.</p>
+            <form action="/users/delete?_method=DELETE" method="post">
+                <button type="submit" id="deleteButton" onclick="doubleCheck()">Delete Account</button>
+            </form>
+        </div>
+    
+    </div>
 </section>
+
+
+
+<script>
+    const modal = document.getElementById("deleteModal");
+    const btn = document.getElementById("openDelModal");
+    const span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }   
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

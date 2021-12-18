@@ -1,57 +1,43 @@
 <style>
   @media screen and (min-width: 300px) {
     .form-container {
-      background: rgba(255, 255, 255, 0.25);
-      border-top: outset 3px lightskyblue;
-      border-bottom: outset 3px lightskyblue;
+      background: #555;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 10px;
     }
-    .card-header h1 {
+    .form-container form {
+      width: 80%;
+    }
+    .form-container h5 {
+      padding: 10px;
+      font-size: 1.5rem;
       text-align: center;
-      font-size: 2rem;
-      padding: 20px;
     }
     .input-group {
       display: flex;
+      flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      width: 90%;
+      padding: 5px;
     }
-    .input-data {
+    .input-group label {
       width: 100%;
     }
-    .input-data label {
+    .form-container button {
       width: 100%;
-    }
-    .input-data input {
-      background:rgba(135, 206, 250, 0.25);
-    }
-    button {
-      width: 80%;
-      margin-left: 10%;
-      background: rgba(135, 206, 250, 0.3);
-      outline: none;
-      border: none;
-      padding: 10px;
-      font-size: 1.7rem;
-      color: lightskyblue;
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-    }
-    .login-link {
-      padding: 20px;
-      text-align: center;
-      margin-top: 30px;
-    }
-    .login-link p {
-      color: #fff;
+      margin-top: 10px;
+      margin-bottom: 30px;
     }
   }
 </style>
 
-
+<div class="form-container">
 <form action="/users/login" method="POST">
-    <div class="glass">
-      <h5><i class="fas fa-sign-in-alt"></i>  Login</h5>
+      <h5>Login</h5>
       <div class="input-group">
         <label for="email">Email</label>
         <input
@@ -62,7 +48,7 @@
           placeholder="Enter your email"
           />
       </div>
-      <div class="form-group">
+      <div class="input-group">
         <label for="password">Password</label>
         <input
           type="password"
@@ -71,7 +57,6 @@
           placeholder="Enter your password"
           />
       </div>
-    </div>
     <button type="submit">Login</button>
   </form>
 </div>
