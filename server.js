@@ -9,7 +9,6 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const fs = require('fs');
-
 const path = require('path');
 const ejs = require('ejs');
 
@@ -19,6 +18,7 @@ const mongodb = require('mongodb');
 const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
+const crypto = require('crypto');
 
 
 
