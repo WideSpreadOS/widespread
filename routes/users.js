@@ -130,7 +130,13 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => {
     res.render('users/user-dashboard', {pageTitle: 'Dashboard', user});
 });
 
-router.get('/update-profile', ensureAuthenticated, (req, res) => {
+router.get('/settings', ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    const userId = req.user.id;
+    res.render('users/user-settings', {pageTitle: 'Settings', user});
+});
+
+router.get('/settings/update-profile', ensureAuthenticated, (req, res) => {
     const user = req.user;
     res.render('users/update-profile', {pageTitle: 'Update Your Profile', user})
 });

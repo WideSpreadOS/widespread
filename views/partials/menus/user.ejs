@@ -1,0 +1,20 @@
+<style>
+    #userMenu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        overflow-x: auto;
+        padding: 5px;
+        background: #000;
+    }
+
+</style>
+
+<div id="userMenu">
+    <div class="menu-item"><a class="<%= pageTitle == 'Dashboard' ? 'menu-link active' : 'menu-link' %>" href="/users/dashboard">Dashboard</a></div>
+    <div class="menu-item"><a class="<%= pageTitle == 'Settings' ? 'menu-link active' : 'menu-link' %>" href="/users/settings">Settings</a></div>
+    <div class="menu-item"><a class="<%= pageTitle == 'Inventory' ? 'menu-link active' : 'menu-link' %>" href="/users/inventory">Inventory</a></div>
+    <div class="menu-item"><a class="<%= pageTitle == 'Contacts' ? 'menu-link active' : 'menu-link' %>" href="/users/contacts">Contacts</a></div>
+    <div class="menu-item"><a class="<%= pageTitle == 'Calander' ? 'menu-link active' : 'menu-link' %>" href="/users/calander">Calander</a></div>
+    <div class="menu-item"><a class="<%= pageTitle == 'Help' ? 'menu-link active' : 'menu-link' %>" href="/users/help">Help</a></div>
+</div>

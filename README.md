@@ -18,3 +18,21 @@ A new way to internet.
 
 ### What is FlexFloor?
 -----
+
+
+
+
+### Notes
+
+##### EJS Snippets
+
+
+    <a class="<%= pageTitle == 'Dashboard' ? 'menu-item active' : 'menu-item' %>"></a>
+
+
+
+    
+
+
+    
+
