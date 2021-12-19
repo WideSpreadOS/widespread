@@ -17,7 +17,7 @@ const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
 const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage');
+const { GridFsStorage } = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 
 
@@ -40,39 +40,6 @@ const { ensureAuthenticated } = require('./config/auth');
 mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
-
-let gfs;
-
-//Init gfs
-const conn = mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-conn.once('open', () => {
-    // Init stream
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
-})
-
-//Create storage object
-const storage = new GridFsStorage({
-    url: db,
-    file: (req, file) => {
-        return new Promise((resolve, reject) => {
-            crypto.randomBytes(16, (err, buf) => {
-                if (err) {
-                    return reject(err);
-                }
-                const filename = req.user.lname + '-' + req.user.fname + '_' + req.user._id + '_' + buf.toString('hex') + path.extname(file.originalname);
-                const fileInfo = {
-                    filename: filename,
-                    bucketName: 'uploads'
-                };
-                resolve(fileInfo);
-            });
-        });
-    }
-});
-
-const upload = multer({ storage });
-
 
 // Middleware
 app.use(bodyParser.json());
@@ -106,6 +73,41 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     next();
 })
+
+
+
+let gfs;
+
+//Init gfs
+const conn = mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+conn.once('open', () => {
+    // Init stream
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection('uploads');
+})
+
+//Create storage object
+const storage = new GridFsStorage({
+    url: db,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+                if (err) {
+                    return reject(err);
+                }
+                const filename = req.user.lname + '-' + req.user.fname + '_' + req.user._id + '_' + buf.toString('hex') + path.extname(file.originalname);
+                const fileInfo = {
+                    filename: filename,
+                    bucketName: 'uploads'
+                };
+                resolve(fileInfo);
+            });
+        });
+    }
+});
+
+const upload = multer({ storage });
+
 
 // Routes
 app.use('/', require('./routes/index'));
