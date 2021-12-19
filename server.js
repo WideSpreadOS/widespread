@@ -17,7 +17,7 @@ const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
 const multer = require('multer');
-const { GridFsStorage } = require('multer-gridfs-storage');
+const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 
 
