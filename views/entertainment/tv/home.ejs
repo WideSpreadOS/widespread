@@ -1,0 +1,60 @@
+<style>
+
+</style>
+
+<div class="zone-title">
+    <h1>
+        <%= zone %>
+    </h1>
+</div>
+
+
+<%- include('../../partials/menus/entertainment'); %>
+
+
+    <div class="sub-zone-title">
+        <h2>
+            <%= subZone %>
+        </h2>
+    </div>
+
+    <%- include('../../partials/menus/sub/entertainment/tv'); %>
+
+        <div class="sub-zone-page-title">
+            <h2>
+                <%= subZonePage %>
+            </h2>
+        </div>
+
+        <div class="spread-container-anchor">
+            <div class="spread-container-header">
+                <h5>Popular Shows</h5>
+            </div>
+            <div class="spread-container">
+                <% returnedData.forEach(function(show) { %>
+                    <div class="spread-container-image-item">
+                        <a href="/entertainment/tv/show/<%= show.id %>">
+                            <img src="https://image.tmdb.org/t/p/w500<%= show.poster_path %>" alt="">
+                        </a>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+
+        <div class="spread-container-anchor">
+            <div class="spread-container-header">
+                <h5>Your Shows</h5>
+            </div>
+            <div class="spread-container">
+                <% shows.forEach(function(show) { %>
+                    <div class="spread-container-image-item">
+                        <a href="/entertainment/tv/show/<%= show.link %>">
+                            <img src="https://image.tmdb.org/t/p/w500<%= show.poster %>" alt="">
+                        </a>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+
+
+

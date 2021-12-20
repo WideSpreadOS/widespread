@@ -10,11 +10,13 @@
 
 </style>
 
+
+
 <div id="userMenu">
-    <div class="menu-item"><a class="<%= pageTitle == 'Dashboard' ? 'menu-link active' : 'menu-link' %>" href="/users/dashboard">Dashboard</a></div>
-    <div class="menu-item"><a class="<%= pageTitle == 'Settings' ? 'menu-link active' : 'menu-link' %>" href="/users/settings">Settings</a></div>
-    <div class="menu-item"><a class="<%= pageTitle == 'Inventory' ? 'menu-link active' : 'menu-link' %>" href="/users/inventory">Inventory</a></div>
-    <div class="menu-item"><a class="<%= pageTitle == 'Contacts' ? 'menu-link active' : 'menu-link' %>" href="/users/contacts">Contacts</a></div>
-    <div class="menu-item"><a class="<%= pageTitle == 'Calander' ? 'menu-link active' : 'menu-link' %>" href="/users/calander">Calander</a></div>
-    <div class="menu-item"><a class="<%= pageTitle == 'Help' ? 'menu-link active' : 'menu-link' %>" href="/users/help">Help</a></div>
+    <div class="menu-item <%= subZone=='Dashboard' ? 'menu-link active' : 'menu-link' %>"><a href="/users/dashboard">Dashboard</a></div>
+    <div class="menu-item <%= subZone=='Settings' ? 'menu-link active' : 'menu-link' %>"><a href="/users/settings">Settings</a></div>
+    <div class="menu-item <%= subZone=='Inventory' ? 'menu-link active' : 'menu-link' %>"><a href="/users/inventory">Inventory</a></div>
+    <div class="menu-item <%= subZone=='Contacts' ? 'menu-link active' : 'menu-link' %>"><a href="/users/contacts">Contacts</a></div>
+    <div class="menu-item <%= subZone=='Calander' ? 'menu-link active' : 'menu-link' %>"><a href="/users/calander">Calander</a></div>
+    <div class="menu-item <%= subZone=='Help' ? 'menu-link active' : 'menu-link' %>"><a href="/users/help">Help</a></div>
 </div>

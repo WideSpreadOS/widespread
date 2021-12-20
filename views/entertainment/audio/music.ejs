@@ -199,18 +199,33 @@
         width: 100%;
     }
 </style>
-
+ 
 <div class="zone-title">
-    <h1>Entertainment</h1>
+    <h1>
+        <%= zone %>
+    </h1>
 </div>
+
 
 <%- include('../../partials/menus/entertainment'); %>
 
-<div class="page-title">
-    <h2>Music</h2>
-</div>
 
-<%- include('../../partials/menus/sub/music'); %>
+    <div class="sub-zone-title">
+        <h2>
+            <%= subZone %>
+        </h2>
+    </div>
+
+    <%- include('../../partials/menus/sub/entertainment/audio'); %>
+
+        <div class="sub-zone-page-title">
+            <h2>
+                <%= subZonePage %>
+            </h2>
+        </div>
+
+
+
 
 <div class="add-audio-form">
     <form action="/upload-user-audio" method="post" enctype="multipart/form-data">

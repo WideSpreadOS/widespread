@@ -121,7 +121,25 @@ font-family: 'Roboto', sans-serif;
         padding: 10px;
     }
     .page-title h2 {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.75);
+        text-shadow: 0 0 5px rgba(135, 206, 250, 0.75);
+        text-align: center;
+    }
+    .sub-zone-title {
+        padding: 10px;
+    }
+    .sub-zone-title h2 {
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.75);
+        text-shadow: 0 0 5px rgba(135, 206, 250, 0.75);
+        text-align: center;
+    }
+    .sub-zone-page-title {
+        padding: 10px;
+    }
+    .sub-zone-page-title h2 {
+        font-size: 1.2rem;
         color: rgba(255, 255, 255, 0.75);
         text-shadow: 0 0 5px rgba(135, 206, 250, 0.75);
         text-align: center;
@@ -136,12 +154,20 @@ font-family: 'Roboto', sans-serif;
         font-size: 1.3rem;
     }
     .menu-item {
+        width: 100%;
+        text-align: center;
+        border-top: outset 1px #fff;
+        border-bottom: outset 1px #fff;
+        margin-bottom: 8px;
         padding: 5px;
+        background: rgba(135, 206, 250, 0.25);
+        box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.25), 0 0 5px rgba(0, 0, 0, 0.5);
     }
     .menu-item a {
         padding: 5px;
         text-decoration: none;
         font-size: 1.2rem;
+        color: #fff;
     }
 
     .menu-link {
@@ -151,6 +177,10 @@ font-family: 'Roboto', sans-serif;
     .active {
         color: rgba(135, 206, 250, 0.75);
         text-shadow: 0 0 10px #fff;
+    }
+
+    .active a {
+        color: lightskyblue;
     }
 
 
@@ -281,4 +311,70 @@ font-family: 'Roboto', sans-serif;
 
     .show {
         display: block;
+    }
+
+
+
+    /* SPREAD CONTAINERS */
+    .spread-container-anchor {
+        margin: 0 auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 5px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 8px;
+        backdrop-filter: blur(4px);
+        width: 90%;
+
+    }
+    .spread-container-header {
+        border-bottom: outset 1px lightskyblue;
+        margin-bottom: 15px;
+
+    }
+    .spread-container-header h5 {
+        text-align: center;
+        font-size: 1.3rem;
+        padding: 8px;
+        color: #fff;
+    }
+    .spread-container {
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 8px;
+    }
+
+    .h-scroller {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+
+    /* SPREAD CONTAINER ITEMS */
+
+
+
+    .spread-container-box-item {
+        width: 250px;
+        min-width: 150px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 6px;
+        padding: 10px;
+        min-height: 300px;
+        
+    }
+    .spread-container-image-item {
+        width: 150px;
+        height: auto;
+    }
+
+    .spread-container-image-item img {
+        width: 100%;
+        max-width: 100%;
+        min-height: 100%;
+        border-radius: 6px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
     }

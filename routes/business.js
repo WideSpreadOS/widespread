@@ -38,7 +38,7 @@ router.get('/news', (req, res) => {
 /* JOB SEARCH */
 
 router.get('/job-search', (req, res) => {
-    res.render('academy/job-search/home')
+    res.render('business/job-search/home')
 });
 
 

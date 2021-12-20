@@ -1,0 +1,98 @@
+<style>
+    .show-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        min-height: 100vh;
+        z-index: -50;
+    }
+    .show-image img {
+        width: 100%;
+        min-height: 100%;
+    }
+    .show-data {
+        width: 80%;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(4px);
+        border-radius: 8px;
+        text-shadow: 0 0 2px #000;
+    }
+    .show-data h3 {
+        font-size: 3rem;
+        color: lightskyblue;
+        text-align: center;
+        padding: 10px;
+    }
+    .show-data p {
+        margin: 0 auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 80%;
+        padding: 20px;
+        font-size: 2rem;
+        color: #fff;
+
+    }
+    .video-stream {
+        min-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .video-stream iframe {
+        border-radius: 6px;    
+        height: 100%;
+        min-height: 90vh;
+        width: 90%;
+
+    }
+</style>
+
+<div class="zone-title">
+    <h1>
+        <%= zone %>
+    </h1>
+</div>
+
+
+<%- include('../../partials/menus/entertainment'); %>
+
+
+    <div class="sub-zone-title">
+        <h2>
+            <%= subZone %>
+        </h2>
+    </div>
+
+    <%- include('../../partials/menus/sub/entertainment/tv'); %>
+
+        <div class="sub-zone-page-title">
+            <h2>
+                <%= subZonePage %>
+            </h2>
+        </div>
+
+
+
+    <div class="show-image">
+        <img src="https://image.tmdb.org/t/p/w500<%= returnedData.still_path %>" alt="">
+    </div>
+    <div class="show-container">
+        <div class="show-data">
+            <h3>
+                <%= returnedData.name %>
+            </h3>
+            <p>
+                <%= returnedData.overview %>
+            </p>
+        </div>
+        <div class="video-stream">
+            <iframe
+                src="https://www.2embed.ru/embed/tmdb/tv?id=<%= showId %>&s=<%= returnedData.season_number %>&e=<%= returnedData.episode_number %>"
+                frameborder="0" width="100%" allowfullscreen="true"></iframe>
+        </div>
+    </div>

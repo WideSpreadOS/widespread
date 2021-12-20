@@ -27,11 +27,8 @@ const UserPhoto = require('./models/UserPhoto');
 const UserAudio = require('./models/UserAudio');
 
 
-
-
-
-
 require('./config/passport')(passport);
+
 // DB Config
 const db = require('./config/keys').MongoURI;
 const { ensureAuthenticated } = require('./config/auth');
@@ -41,10 +38,13 @@ mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true, useFindAn
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
 
+
 // Middleware
 app.use(bodyParser.json());
+
 // Static
 app.use(express.static('public'));
+
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
@@ -59,6 +59,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -74,8 +75,7 @@ app.use((req, res, next) => {
     next();
 })
 
-
-
+// Multer
 let gfs;
 
 //Init gfs
@@ -115,6 +115,8 @@ app.use('/users', require('./routes/users'));
 app.use('/academy', require('./routes/academy'));
 app.use('/business', require('./routes/business'));
 app.use('/entertainment', require('./routes/entertainment'));
+app.use('/news', require('./routes/news'));
+app.use('/wellness', require('./routes/wellness'));
 
 
 app.get('/files', (req, res) => {

@@ -3,14 +3,25 @@
 </style>
 
 <div class="zone-title">
-    <h1>Entertainment</h1>
+    <h1>
+        <%= zone %>
+    </h1>
 </div>
+
 
 <%- include('../../partials/menus/entertainment'); %>
 
-<div class="page-title">
-    <h2>Audio Home</h2>
-</div>
 
-<%- include('../../partials/menus/sub/music'); %>
+    <div class="sub-zone-title">
+        <h2>
+            <%= subZone %>
+        </h2>
+    </div>
 
+    <%- include('../../partials/menus/sub/entertainment/audio'); %>
+
+        <div class="sub-zone-page-title">
+            <h2>
+                <%= subZonePage %>
+            </h2>
+        </div>

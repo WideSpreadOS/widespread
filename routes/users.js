@@ -127,18 +127,18 @@ router.get('/test', ensureAuthenticated, async (req, res) => {
 router.get('/dashboard', ensureAuthenticated, (req, res) => {
     const user = req.user;
     const userId = req.user.id;
-    res.render('users/user-dashboard', {pageTitle: 'Dashboard', user});
+    res.render('users/user-dashboard', { subZone: 'Dashboard', zone: 'User', user});
 });
 
 router.get('/settings', ensureAuthenticated, (req, res) => {
     const user = req.user;
     const userId = req.user.id;
-    res.render('users/user-settings', {pageTitle: 'Settings', user});
+    res.render('users/user-settings', { subZone: 'Settings', zone: 'User', user});
 });
 
 router.get('/settings/update-profile', ensureAuthenticated, (req, res) => {
     const user = req.user;
-    res.render('users/update-profile', {pageTitle: 'Update Your Profile', user})
+    res.render('users/update-profile', { subZonePage: 'Update Your Profile', subZone: 'Settings', zone: 'User', user})
 });
 
 router.patch('/update-profile', ensureAuthenticated, async (req, res) => {

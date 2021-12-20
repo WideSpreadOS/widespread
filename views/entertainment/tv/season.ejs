@@ -1,0 +1,62 @@
+<style>
+    .episode {
+        width: 200px;
+        background: red;
+    }
+    a {
+        color: lightskyblue;
+        font-size: 2rem;
+        text-decoration: none;
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+    }
+    p {
+        color: #fff;
+        padding: 10px;
+        font-size: 1.3rem;
+    }
+
+</style>
+
+<div class="zone-title">
+    <h1>
+        <%= zone %>
+    </h1>
+</div>
+
+
+<%- include('../../partials/menus/entertainment'); %>
+
+
+    <div class="sub-zone-title">
+        <h2>
+            <%= subZone %>
+        </h2>
+    </div>
+
+    <%- include('../../partials/menus/sub/entertainment/tv'); %>
+
+        <div class="sub-zone-page-title">
+            <h2>
+                <%= subZonePage %>
+            </h2>
+        </div>
+
+
+
+            
+            <div class="spread-container-anchor">
+
+                <div class="spread-container">
+                    <% returnedData.episodes.forEach(function(episode) { %>
+                        
+                        <div class="spread-container-box-item">
+                                            <div class="spread-container-header">
+                                                <a href="/entertainment/tv/show/<%= showId %>/<%= episode.season_number %>/<%= episode.episode_number %>">Episode <%= episode.episode_number %></a>
+                                            </div>
+                                 <p><%= episode.overview %></p>
+                            </div>
+                            <% }) %>
+                    </div>
+                </div>
