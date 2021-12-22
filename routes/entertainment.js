@@ -108,7 +108,9 @@ router.get('/tv/show/:showId/:seasonId/:episodeId', (req, res) => {
 /* MOVIES */
 
 router.get('/movies', async (req, res) => {
-    res.render('entertainment/movies/home', { subZone: "Movies", zone: 'Entertainment', subZonePage: 'Home' })
+    const movies = await Movie.find()
+
+    res.render('entertainment/movies/home', { subZone: "Movies", zone: 'Entertainment', subZonePage: 'Home', movies })
 });
 
 
