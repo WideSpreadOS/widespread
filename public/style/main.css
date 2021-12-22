@@ -87,6 +87,10 @@ font-family: 'Gruppo', cursive;
 font-family: 'Roboto', sans-serif;
 */
 
+button {
+    font-family: 'Gruppo', cursive;
+
+}
 
 /* USER CUSTOMIZATIONS */
     .user-background-image {
