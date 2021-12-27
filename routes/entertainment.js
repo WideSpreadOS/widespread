@@ -133,6 +133,23 @@ router.get('/movies/:movie', (req, res) => {
     });
 });
 
+router.get('/vr/movies/:movie', (req, res) => {
+    const movie = req.params.movie;
+    const apiKey = 'd3722e71'
+    const options = {
+        method: 'GET',
+        url: `http://www.omdbapi.com/?apikey=${apiKey}&t=${movie}`
+    };
+
+    axios.request(options).then(function (response) {
+        const returnedData = response.data;
+        console.log(returnedData)
+        res.render('entertainment/movies/vr-title', { layout: 'vr', subZone: "Home", zone: 'Entertainment', returnedData, movie })
+    }).catch(function (error) {
+        console.error(error);
+    });
+});
+
 
 /* AUDIO */
 

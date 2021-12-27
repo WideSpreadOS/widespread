@@ -1,0 +1,36 @@
+<a-camera>
+    <a-cursor></a-cursor>
+
+</a-camera>
+<a-text value="Dashboard" color="lightskyblue" position="0 4 -4" align="center" scale="2 2 2"></a-text>
+<a-entity log id="userPhotos"></a-entity>
+
+
+
+<a-text value="Your Movies" color="lightskyblue" position="0 3 -4" align="center"></a-text>
+<% let startingPoint = 0 %>
+<a-entity position="-4 1.5 -4">
+    <% currentUser.movie_list.forEach(function(movie) { %>
+        <a-entity position="<%- startingPoint++ %> 0 0">
+            <a-link href="/entertainment/vr/movies/<%= movie.movie_link %>" title="<%= movie.movie_name %>" position="0 0 0.1" scale="0.3 0.3 0.3" image="<%= movie.movie_poster %>" color="lightskyblue"></a-link>
+            <a-image src="<%= movie.movie_poster %>" position="0 -1 0"></a-image>
+        </a-entity>
+    <% }) %>
+</a-entity>
+
+
+
+<a-sky src="/image/<%= currentUser.user_vr_background_image %>"></a-sky>
+<script>
+    
+    AFRAME.registerComponent('log', {
+            init: function () {
+                console.log('Hello, World!');
+            }
+        });
+
+
+
+
+
+</script>

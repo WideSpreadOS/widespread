@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WideSpread VR</title>
+
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
+</head>
+<body>
+    <%- include('./partials/layout/core-menu'); %>
+    <a-scene>
+        <%- body %>
+
+
+        <a-camera>
+            <a-cursor color="lightskyblue">
+        
+            </a-cursor>
+        </a-camera>
+    </a-scene>
+</body>
+</html>

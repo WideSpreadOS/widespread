@@ -1,0 +1,31 @@
+<style>
+
+    iframe {
+        opacity: 0.4;
+        width: 50%;
+        max-height: 50%;
+        height: 50vh;
+        position: absolute;
+        bottom: 80px;
+        left: 25%;
+        z-index: 1;
+        overflow: hidden;
+        border-radius: 6px;
+        transition: ease-in 0.5s;
+    }
+    iframe:hover {
+        opacity: 1;
+        transition: ease-in 0.5s;
+    }
+</style>
+<a-text color="lightskyblue" value="<%= returnedData.Title %>" position="0 5 -5" scale="2 2 2"color="black" align="center"></a-text>
+<a-text color="lightskyblue" value="<%= returnedData.Director %>" position="0 4.5 -5" color="black" align="center"></a-text>
+<a-text color="lightskyblue" value="<%= returnedData.Plot %>" position="0 3.5 -5" color="black" align="center"></a-text>
+</a-entity>
+
+
+            <iframe src="https://www.2embed.ru/embed/imdb/movie?id=<%= returnedData.imdbID %>" frameborder="0"
+                allowfullscreen="true" ></iframe>
+
+<a-curvedimage src="<%= returnedData.Poster %>" height="12" radius="6" theta-length="130" rotation="0 115 0 "></a-curvedimage>
+<a-sky color="#000"></a-sky>
