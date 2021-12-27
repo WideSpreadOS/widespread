@@ -7,11 +7,31 @@
 
 
 
-<a-text value="Your Movies" color="lightskyblue" position="0 3 -4" align="center"></a-text>
-<% let startingPoint = 0 %>
-<a-entity position="-4 1.5 -4">
+<% let friendStartingPoint = 0 %>
+<a-entity position="-4 1.5 0" rotation="0 90 0" scale="1 .5 1">
+    <a-text value="Your Friends" color="lightskyblue" position="0 1 0" align="center"></a-text>
+    <% user.friends.forEach(function(friend) { %>
+        <a-entity position="<%- friendStartingPoint-- %> 0 0" opacity="0.8">
+            <a-text width="2" geometry="primitive: plane" value="<%= friend.fname %> <%= friend.lname %>" color="#fff" align="center" scale="1 1 1" line-height="1"></a-text>    
+        </a-entity>
+    <% }) %>
+</a-entity>
+
+<% let photoStartingPoint = 0 %>
+<a-entity position="-4 1.5 -4" rotation="0 0 0">
+    <a-text value="Your Photos" color="lightskyblue" position="0 1 0" align="center"></a-text>
+    <% userPhotos.forEach(function(photo) { %>
+        <a-entity position="<%- photoStartingPoint++ %> 0 0">
+            <a-image src="/image/<%= photo.img.data %>"></a-image>
+        </a-entity>
+    <% }) %>
+</a-entity>
+
+<% let movieStartingPoint = 0 %>
+<a-entity position="4 1.5 -4" rotation="0 -90 0">
+    <a-text value="Your Movies" color="lightskyblue" position="0 1 0" align="center"></a-text>
     <% currentUser.movie_list.forEach(function(movie) { %>
-        <a-entity position="<%- startingPoint++ %> 0 0">
+        <a-entity position="<%- movieStartingPoint++ %> 0 0">
             <a-link href="/entertainment/vr/movies/<%= movie.movie_link %>" title="<%= movie.movie_name %>" position="0 0 0.1" scale="0.3 0.3 0.3" image="<%= movie.movie_poster %>" color="lightskyblue"></a-link>
             <a-image src="<%= movie.movie_poster %>" position="0 -1 0"></a-image>
         </a-entity>

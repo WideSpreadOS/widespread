@@ -8,17 +8,20 @@ const { readUserData, allUserPosts, getUserPosts } = require("../modules/user/us
 
 /* Models */
 const User = require('../models/User');
+const UserPhoto = require('../models/UserPhoto');
 
 
 
 // VR Dashboard Page
-router.get('/users/dashboard', (req, res) => {
+router.get('/users/dashboard', ensureAuthenticated, async (req, res) => {
     const currentUser = req.user;
-    let photoAlbum = currentUser.user_inspread_images;
-    console.log(currentUser)
+    const userId = req.user.id;
+    const user = await User.findById(userId).populate('friends').exec()
+    const userPhotos = await UserPhoto.find({'image_owner': {$eq: currentUser.id}})
+        
 
-
-    res.render('vr/dashboard', { layout: 'vr', currentPageTitle: 'VR', currentUser });
+    res.render('vr/dashboard', { layout: 'vr', currentPageTitle: 'VR', currentUser, userPhotos, user
+ });
 })
 
 
