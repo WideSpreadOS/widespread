@@ -130,16 +130,44 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => {
     res.render('users/user-dashboard', { subZone: 'Dashboard', zone: 'User', user});
 });
 
+
+
+
+
+
 router.get('/settings', ensureAuthenticated, (req, res) => {
     const user = req.user;
     const userId = req.user.id;
-    res.render('users/user-settings', { subZone: 'Settings', zone: 'User', user});
+    res.render('users/user-settings', { subZone: 'Settings', zone: 'User', subZonePage: 'Home', user});
 });
 
 router.get('/settings/update-profile', ensureAuthenticated, (req, res) => {
     const user = req.user;
-    res.render('users/update-profile', { subZonePage: 'Update Your Profile', subZone: 'Settings', zone: 'User', user})
+    res.render('users/settings/update-profile', { subZonePage: 'Update Your Profile', subZone: 'Settings', zone: 'User', user})
 });
+
+router.get('/settings/prefrences', ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    res.render('users/settings/prefrences', { subZonePage: 'Prefrences', subZone: 'Settings', zone: 'User', user})
+});
+
+router.get('/settings/privacy', ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    res.render('users/settings/privacy', { subZonePage: 'Privacy', subZone: 'Settings', zone: 'User', user})
+});
+
+router.get('/settings/security', ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    res.render('users/settings/security', { subZonePage: 'Security', subZone: 'Settings', zone: 'User', user})
+});
+
+router.get('/settings/help', ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    res.render('users/settings/help', { subZonePage: 'Help', subZone: 'Settings', zone: 'User', user})
+});
+
+
+
 
 router.patch('/update-profile', ensureAuthenticated, async (req, res) => {
     const userId = req.user.id;
@@ -153,5 +181,9 @@ router.delete('/delete', ensureAuthenticated, async (req, res) => {
     await User.findByIdAndDelete(user);
     res.redirect('/users/login')
 });
+
+
+
+
 
 module.exports = router;

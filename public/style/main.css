@@ -159,6 +159,7 @@ button {
     }
     .menu-item {
         width: 100%;
+        min-width: fit-content;
         text-align: center;
         border-top: outset 1px #fff;
         border-bottom: outset 1px #fff;

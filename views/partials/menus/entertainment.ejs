@@ -1,5 +1,5 @@
 <style>
-    #businessMenu {
+    #entertainmentMenu {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -8,11 +8,11 @@
     }
 </style>
 
-<div id="businessMenu">
-    <div class="menu-item"><a href="/entertainment/tv">TV</a></div>
-    <div class="menu-item"><a href="/entertainment/movies">Movies</a></div>
-    <div class="menu-item"><a href="/entertainment/audio">Audio</a></div>
-    <div class="menu-item"><a href="/entertainment/books">Books</a></div>
-    <div class="menu-item"><a href="/entertainment/events">Events</a></div>
-    <div class="menu-item"><a href="/entertainment/help">Help</a></div>
+<div id="entertainmentMenu">
+    <div class="menu-item <%= subZone=='TV' ? 'menu-link active' : 'menu-link' %>"><a href="/entertainment/tv">TV</a></div>
+    <div class="menu-item <%= subZone=='Movies' ? 'menu-link active' : 'menu-link' %>"><a href="/entertainment/movies">Movies</a></div>
+    <div class="menu-item <%= subZone=='Audio' ? 'menu-link active' : 'menu-link' %>"><a href="/entertainment/audio">Audio</a></div>
+    <div class="menu-item <%= subZone=='Books' ? 'menu-link active' : 'menu-link' %>"><a href="/entertainment/books">Books</a></div>
+    <div class="menu-item <%= subZone=='Events' ? 'menu-link active' : 'menu-link' %>"><a href="/entertainment/events">Events</a></div>
+    <div class="menu-item <%= subZone=='Help' ? 'menu-link active' : 'menu-link' %>"><a href="/entertainment/help">Help</a></div>
 </div>
