@@ -9,35 +9,14 @@
     }
 </style>
 
-<div class="zone-title">
-    <h1>
-        <%= zone %>
-    </h1>
-</div>
-
 
 <%- include('../../partials/menus/entertainment'); %>
 
+<%- include('../../partials/menus/sub/entertainment/tv', {showName: subZone, showId: returnedData.id}); %>
 
-    <div class="sub-zone-title">
-        <h2>
-            <%= subZone %>
-        </h2>
-    </div>
-
-    <%- include('../../partials/menus/sub/entertainment/tv'); %>
-
-        <div class="sub-zone-page-title">
-            <h2>
-                <%= subZonePage %>
-            </h2>
-        </div>
-
-
-        <p><%= showId %></p>
-                <h1>
-                    <%= returnedData.name %>
-                </h1>
+<div class="sub-zone-page-title">
+    <h2><%= subZonePage %></h2>
+</div>
 
         <% returnedData.seasons.forEach(function(season) { %>
             <a href="/entertainment/tv/show/<%= showId %>/<%= season.season_number %>">Season <%= season.season_number %></a>

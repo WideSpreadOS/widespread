@@ -50,8 +50,9 @@ router.get('/tv/show/:showId', (req, res) => {
 
     axios.request(options).then(function (response) {
         const returnedData = response.data;
+        const showName = returnedData.name;
         console.log(returnedData)
-        res.render('entertainment/tv/show', { subZone: "TV", zone: 'Entertainment', subZonePage: '', returnedData, showId });
+        res.render('entertainment/tv/show', { subZone: "TV", zone: 'Entertainment', subZonePage: showName, returnedData, showId });
     }).catch(function (error) {
         console.error(error);
     });
@@ -65,18 +66,21 @@ router.get('/tv/show/:showId/:seasonId', (req, res) => {
     const showId = req.params.showId;
     const seasonId = req.params.seasonId;
     const apiKey = process.env.TMDB_API_KEY
-    const options = {
-        method: 'GET',
-        url: `https://api.themoviedb.org/3/tv/${showId}/season/${seasonId}?api_key=${apiKey}`
-    };
 
-    axios.request(options).then(function (response) {
-        const returnedData = response.data;
-        console.log(returnedData)
-        res.render('entertainment/tv/season', { subZone: "TV", zone: 'Entertainment', subZonePage: '', returnedData, showId });
-    }).catch(function (error) {
-        console.error(error);
-    });
+    axios.all([
+        // Show Name
+        axios.get(`https://api.themoviedb.org/3/tv/${showId}?api_key=${apiKey}`),
+        // Season Data
+        axios.get(`https://api.themoviedb.org/3/tv/${showId}/season/${seasonId}?api_key=${apiKey}`)
+    ]).then(axios.spread((showData, seasonData) => {
+        const show = showData.data;
+        const showName = showData.id
+        const season = seasonData.data;
+        console.log(`Show: ${show} \n \n \n \n`)
+        console.log(`Season: ${season} \n \n \n \n`)
+        res.render('entertainment/tv/season', { subZone: "TV", zone: 'Entertainment', subZonePage: showName, show, season, showId });
+    }))
+
 
 })
 

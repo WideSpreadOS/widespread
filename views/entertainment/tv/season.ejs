@@ -19,23 +19,10 @@
 
 </style>
 
-<div class="zone-title">
-    <h1>
-        <%= zone %>
-    </h1>
-</div>
-
-
 <%- include('../../partials/menus/entertainment'); %>
 
 
-    <div class="sub-zone-title">
-        <h2>
-            <%= subZone %>
-        </h2>
-    </div>
-
-    <%- include('../../partials/menus/sub/entertainment/tv'); %>
+<%- include('../../partials/menus/sub/entertainment/tv', {showName: show.name, showId: showId}); %>
 
         <div class="sub-zone-page-title">
             <h2>
@@ -49,7 +36,7 @@
             <div class="spread-container-anchor">
 
                 <div class="spread-container">
-                    <% returnedData.episodes.forEach(function(episode) { %>
+                    <% season.episodes.forEach(function(episode) { %>
                         
                         <div class="spread-container-box-item">
                                             <div class="spread-container-header">
