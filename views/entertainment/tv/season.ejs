@@ -24,10 +24,19 @@
 
 <%- include('../../partials/menus/sub/entertainment/tv', {showName: show.name, showId: showId}); %>
 
+<%- include('../../partials/menus/sub/entertainment/tv-show', {showName: subZonePage, seasonsList: show.seasons, seasonName: currentPage, showId: showId}); %>
+
         <div class="sub-zone-page-title">
             <h2>
                 <%= subZonePage %>
             </h2>
+        </div>
+        
+
+        <div class="page-title">
+            <h3>
+                <%= currentPage %>
+            </h3>
         </div>
 
 

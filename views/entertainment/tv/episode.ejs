@@ -15,6 +15,7 @@
     .show-data {
         width: 80%;
         margin: 0 auto;
+        margin-top: 30px;
         background: rgba(255, 255, 255, 0.25);
         backdrop-filter: blur(4px);
         border-radius: 8px;
@@ -32,6 +33,7 @@
         margin-bottom: 20px;
         width: 80%;
         padding: 20px;
+        padding-bottom: 30px;
         font-size: 2rem;
         color: #fff;
 
@@ -58,41 +60,31 @@
     </h1>
 </div>
 
-
 <%- include('../../partials/menus/entertainment'); %>
 
 
-    <div class="sub-zone-title">
-        <h2>
-            <%= subZone %>
-        </h2>
-    </div>
+    <%- include('../../partials/menus/sub/entertainment/tv', {showName: show.name, showId: showId}); %>
 
-    <%- include('../../partials/menus/sub/entertainment/tv'); %>
+        <%- include('../../partials/menus/sub/entertainment/tv-show', {showName: subZonePage, seasonsList: show.seasons,
+            seasonName: currentPage, showId: showId}); %>
 
-        <div class="sub-zone-page-title">
-            <h2>
-                <%= subZonePage %>
-            </h2>
-        </div>
-
-
+        <%- include('../../partials/menus/sub/entertainment/tv-season', { episodeList: season.episodes, episodeNumber: episode.episode_number}); %>
 
     <div class="show-image">
-        <img src="https://image.tmdb.org/t/p/w500<%= returnedData.still_path %>" alt="">
+        <img src="https://image.tmdb.org/t/p/w500<%= episode.still_path %>" alt="">
     </div>
     <div class="show-container">
         <div class="show-data">
             <h3>
-                <%= returnedData.name %>
+                <%= episode.name %>
             </h3>
             <p>
-                <%= returnedData.overview %>
+                <%= episode.overview %>
             </p>
         </div>
         <div class="video-stream">
             <iframe
-                src="https://www.2embed.ru/embed/tmdb/tv?id=<%= showId %>&s=<%= returnedData.season_number %>&e=<%= returnedData.episode_number %>"
+                src="https://www.2embed.ru/embed/tmdb/tv?id=<%= showId %>&s=<%= episode.season_number %>&e=<%= episode.episode_number %>"
                 frameborder="0" width="100%" allowfullscreen="true"></iframe>
         </div>
     </div>

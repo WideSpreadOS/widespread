@@ -12,7 +12,9 @@
 
 <%- include('../../partials/menus/entertainment'); %>
 
-<%- include('../../partials/menus/sub/entertainment/tv', {showName: subZone, showId: returnedData.id}); %>
+<%- include('../../partials/menus/sub/entertainment/tv'); %>
+
+<%- include('../../partials/menus/sub/entertainment/tv-show', {showName: subZonePage, seasonsList: returnedData.seasons, seasonName: '', seasonList: returnedData.seasons, showId: returnedData.id}); %>
 
 <div class="sub-zone-page-title">
     <h2><%= subZonePage %></h2>
