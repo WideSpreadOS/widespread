@@ -113,6 +113,7 @@ const upload = multer({ storage });
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/vr', require('./routes/vr'));
+app.use('/socialspread', require('./routes/socialspread'));
 app.use('/academy', require('./routes/academy'));
 app.use('/business', require('./routes/business'));
 app.use('/entertainment', require('./routes/entertainment'));
