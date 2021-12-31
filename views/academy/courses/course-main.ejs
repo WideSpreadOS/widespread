@@ -8,7 +8,7 @@
     <h2><%= course.course %></h2>
 </div>
 
-<%- include('../partials/menus/academy'); %>
+<%- include('../../partials/menus/academy'); %>
 
 <% course.classes.forEach(function(className) { %>
     <p><a href="/academy/course/<%= course.id %>/class/<%= className.id %>"><%= className.name %></a></p>

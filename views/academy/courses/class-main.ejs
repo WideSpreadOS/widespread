@@ -1,13 +1,15 @@
 <style>
 
 </style>
+
+<%- include('../../partials/menus/academy'); %>
+<%- include('../../partials/menus/sub/academy/courses', { classes: course.classes, currentCourse: course.id, currentPage: className.name}); %>
+
 <div class="page-title">
     <h2>
         <%= className.name %>
     </h2>
 </div>
-
-<%- include('../partials/menus/academy'); %>
 
 <% learningPoints.forEach(function(learningPoint) { %>
     <h5>

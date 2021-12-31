@@ -13,6 +13,19 @@ const Spread = require('../models/Spread');
 
 router.get('/', async (req, res) => {
     const user = req.user;
+    const postIds = await Post.find();
+    let userLikes = []
+    postIds.forEach(post => {
+        user.likedPosts.forEach(likedPost => {
+            if (likedPost == post.id) {
+                userLikes.push(post.id)
+            } else {
+                return
+            }
+
+        })
+    })
+    console.log(userLikes)
     const allPosts = await Post.find().populate('author').populate(
         {
             path: 'comments',
@@ -22,8 +35,8 @@ router.get('/', async (req, res) => {
                 model: 'User'
             }
         }).exec()
-    console.log(allPosts)
-    res.render('socialspread/home', { subZone: "Home", zone: 'SocialSpread', allPosts, user })
+
+    res.render('socialspread/home', { subZone: "Home", zone: 'SocialSpread', allPosts, user, userLikes })
 });
 
 

@@ -77,6 +77,12 @@
         word-wrap: break-word;
         width: 95%;
     }
+    .spread-post-content textarea:read-only {
+        padding: 8px;
+        resize: none;
+        width: 100%;
+        height: 100%;
+    }
     .spread-post-actions {
         display: flex;
         flex-direction: row;
@@ -248,6 +254,8 @@
     <img src="<%= user.user_background_image %>" alt="">
 </div>
 
+
+<h1>User Likes: <%= userLikes %></h1>
 <div class="spread-feed-container">
     <% allPosts.forEach(function(post) { %>
         <div class="spread-post-container">
@@ -258,6 +266,7 @@
                 <div class="edit-post">
                     <span>
                         <% if(user.id == post.author.id){ %>
+                            <i id="editBtn<%= post.id %>" class="far fa-edit" style="color: purple"></i>
                             <a style="color: #fff;" href="/users/post/edit/<%= post.id%>"><small><i class="far fa-edit" style="color: yellow"></i></small></a>
                         <% } else { %>
                             <span style="display: none;"></span>
@@ -287,7 +296,14 @@
                                         <%= post.createdAt.toLocaleDateString() %>
                                 </small></p>
                         </div>
-                    <p><%= post.postBody %></p>
+                        <% if(user.id==post.author.id){ %>
+                           <form action="" method="post">
+                               <textarea readonly name="postBody" value="<%= post.postBody %>" id="postBody<%= post.id %>" placeholder="<%= post.postBody %>"></textarea>
+                           </form>
+                        <% } else { %>
+                            <p><%= post.postBody %></p>
+                        <% } %>
+
                 </div>
             </div>
             <div class="spread-post-actions">
@@ -295,8 +311,7 @@
                     <div class="reaction-button">
                         <form action="/socialspread/post/<%= post.id %>/like?_method=PATCH" method="post">
                             <input type="text" name="likedBy" value="<%= user.id %>" hidden="true">
-                            <% let likedPosts = user.likedPosts.forEach(function(liked) {if (post.id == liked) {return true}}) %>
-                            <% if (likedPosts != post.id) { %>
+                            <% if (userLikes == post.id) { %>
                             <button type="submit"><i class="far fa-heart"></i></button>
                             <% } else {  %>
                                 <button type="submit"><i class="fas fa-heart"></i></button>
@@ -375,3 +390,10 @@
         </div>
     <% }) %>
 </div>
+
+
+<script>
+
+    
+
+</script>

@@ -56,13 +56,31 @@ select {
 }
 input {
     font-family: 'Gruppo', cursive;
-    color: #000;
+    color: #fff;
     font-size: 1rem;
 }
 input::placeholder {
     font-family: 'Gruppo', cursive;
-    color: #000;
+    color: #fff;
     font-size: 1rem;
+}
+textarea {
+    font-family: 'Gruppo', cursive;
+    color: #fff;
+    font-size: 1rem;
+}
+textarea::placeholder {
+    font-family: 'Gruppo', cursive;
+    color: #fff;
+    font-size: 1rem;
+}
+textarea:read-only {
+    font-family: 'Gruppo', cursive;
+    color: #fff;
+    font-size: 1rem;
+    background: transparent;
+    outline: none;
+    border: none;
 }
 blockquote, q {
 	quotes: none;
