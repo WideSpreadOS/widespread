@@ -1,10 +1,53 @@
 <style>
-
+    .coming-soon {
+        color: orangered;
+        font-size: 1.6rem;
+        width: 90%;
+        margin: 0 auto;
+        background: rgba(255, 166, 0, 0.5);
+        text-shadow: 0 0 3px #000;
+    }
+    .coming-soon h5 {
+        text-align: center;
+        padding: 8px;
+    }
+    .coming-soon ol {
+        list-style-type: circle;
+        margin-left: 30px;
+        padding: 10px;
+    }
+    .coming-soon li {
+        text-shadow: 0 0 3px #000;
+    }
+    
 </style>
+
+<%- include('../partials/menus/academy'); %>
 
 <div class="page-title">
     <h2>Academy Home</h2>
 </div>
 
-<%- include('../partials/menus/academy'); %>
+<div class="coming-soon">
+    <h5>Coming Soon</h5>
+    <ol>
+        <li>Your Desk</li>
+            <ol>
+                <li>Grades</li>
+                <li>Tests</li>
+                <li>Notebooks</li>
+                <li>Saved Resources</li>
+                <li>Link Trees</li>
+            </ol>
+        <li>Tutoring Help</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ol>
+</div>
 
