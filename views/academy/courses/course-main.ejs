@@ -1,15 +1,96 @@
 <style>
-    p {
-        font-size: 2rem;
+    .page-background {
+        position: fixed;
+        z-index: -10;
+        top: 0;
+        left: 0;
+        min-width: 100vw;
+        max-width: 100vw;
+        min-height: 100vh;
+    }
+    .page-background img {
+        min-width: 100%;
+        max-width: 100vw;
+        min-height: 100vh;
+        opacity: 0.5;
+    }
+    .page-title {
+        margin-top: 20px;
+        width: 100%;
+        min-width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 5px lightskyblue;
+    }
+    .page-title h3 {
+        text-transform: capitalize;
+        padding: 6px;
+    }
+    .class-list {
+        width: 100%;
+        margin-top: 30px;
+    }
+    .class-list a {
+        text-decoration: none;
+        color: #fff;
+    }
+    .class-item {
+        margin-bottom: 20px;
+        width: 100%;
+        min-width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 5px lightskyblue;
+    }
+    
+    .class-header {
+    }
+    .class-header h3 {
+        font-size: 1.3rem;
+        text-align: center;
+        padding: 10px;
+    }
+    .class-body p {
+        padding: 12px;
+        font-size: 1.1rem;
+        color: #fff;
+        padding-bottom: 15px;
+        text-indent: 15px;
     }
 </style>
 
-<div class="page-title">
-    <h2><%= course.course %></h2>
+<%- include('../../partials/menus/academy'); %>
+<%- include('../../partials/menus/sub/academy/course', {classes: course.classes, course: course}); %>
+
+<div class="page-background">
+    <img src="/image/<%= course.background_image %>" alt="">
 </div>
 
-<%- include('../../partials/menus/academy'); %>
+<div class="page-title">
+    <h2>
+        <%= course.course %>
+    </h2>
+    <h3>
+        <%= course.subject %>
+    </h3>
+</div>
 
-<% course.classes.forEach(function(className) { %>
-    <p><a href="/academy/course/<%= course.id %>/class/<%= className.id %>"><%= className.name %></a></p>
-<% }) %>
+
+<div class="class-list">
+    <% course.classes.forEach(function(className) { %>
+        <a href="/academy/course/<%= course.id %>/class/<%= className.id %>">
+            <div class="class-item">
+                <div class="class-header">
+                    <h3><%= className.name %></h3>
+                </div>
+                <div class="class-body">
+                    <p><%= className.description %></p>
+                </div>
+            </div>
+        </a>
+    <% }) %>
+</div>
