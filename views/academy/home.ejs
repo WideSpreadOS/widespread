@@ -1,23 +1,74 @@
 <style>
     .coming-soon {
-        color: orangered;
+        color: orange;
         font-size: 1.6rem;
         width: 90%;
         margin: 0 auto;
-        background: rgba(255, 166, 0, 0.5);
+        margin-top: 30px;
+        background: rgba(135, 206, 250, 0.5);
         text-shadow: 0 0 3px #000;
+        border-radius: 6px;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
     }
     .coming-soon h5 {
         text-align: center;
+        color: orange;
+        font-weight: bold;
+        font-size: 2rem;
         padding: 8px;
     }
     .coming-soon ol {
-        list-style-type: circle;
+        list-style-type:lower-roman;
+        margin-left: 30px;
+        padding: 10px;
+    }
+    .coming-soon>ol>ol {
+        list-style-type:lower-alpha;
+        margin-left: 30px;
+        padding: 10px;
+    }
+    .coming-soon>ol>ol>ol {
+        list-style-type:decimal;
         margin-left: 30px;
         padding: 10px;
     }
     .coming-soon li {
         text-shadow: 0 0 3px #000;
+    }
+
+    .zone-main-vertical-menu {
+        width: 100%;
+        background: rgba(135, 206, 250, 0.5);
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .zone-main-vertical-menu-header h2 {
+        font-size: 2rem;
+    }
+    .zone-main-vertical-item {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .zone-main-vertical-item a {
+        padding: 10px;
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.5rem;
     }
     
 </style>
@@ -28,6 +79,16 @@
     <h2>Academy Home</h2>
 </div>
 
+<div class="zone-main-vertical-menu">
+    <div class="zone-main-vertical-menu-header">
+        <h2>Accessible Now</h2>
+    </div>
+    <div class="zone-main-vertical-item">
+        <a href="/academy/all-courses">All Courses</a>
+    </div>
+
+
+</div>
 <div class="coming-soon">
     <h5>Coming Soon</h5>
     <ol>
@@ -37,17 +98,15 @@
                 <li>Tests</li>
                 <li>Notebooks</li>
                 <li>Saved Resources</li>
+                    <ol>
+                        <li>Text</li>
+                        <li>Images</li>
+                        <li>Videos</li>
+                        <li>URL's</li>
+                    </ol>
                 <li>Link Trees</li>
             </ol>
         <li>Tutoring Help</li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
     </ol>
 </div>
 
