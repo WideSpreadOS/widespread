@@ -119,6 +119,7 @@ app.use('/business', require('./routes/business'));
 app.use('/entertainment', require('./routes/entertainment'));
 app.use('/news', require('./routes/news'));
 app.use('/wellness', require('./routes/wellness'));
+app.use('/things', require('./routes/things'));
 
 
 app.get('/files', (req, res) => {
