@@ -131,6 +131,34 @@ router.get('/movies', async (req, res) => {
     res.render('entertainment/movies/home', { subZone: "Movies", zone: 'Entertainment', subZonePage: 'Home', movies })
 });
 
+
+/* Movie Search */
+
+
+router.post('/movies/search', (req, res) => {
+    const movieString = req.body.movie;
+    const convertedString = movieString.replace(/\s/g, '+')
+    res.redirect(`/entertainment/search/movies/${convertedString}`);
+});
+
+router.get('/search/movies/:query', (req, res) => {
+    const query = req.params.query;
+    const apiKey = 'd3722e71'
+    const options = {
+        method: 'GET',
+        url: `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}`
+    };
+
+    axios.request(options).then(function (response) {
+        const returnedData = response.data;
+        console.log(returnedData)
+        res.render('entertainment/movies/movie-search-results', { returnedData, query });
+    }).catch(function (error) {
+        console.error(error);
+    });
+});
+
+
 router.get('/movies/:movie', (req, res) => {
     const movie = req.params.movie;
     const apiKey = 'd3722e71'
@@ -143,6 +171,28 @@ router.get('/movies/:movie', (req, res) => {
         const returnedData = response.data;
         console.log(returnedData)
         res.render('entertainment/movies/title', { subZone: "Home", zone: 'Entertainment', returnedData, movie })
+    }).catch(function (error) {
+        console.error(error);
+    });
+});
+
+router.get('/photos/movies/:imdbID', (req, res) => {
+    const imdbID = req.params.imdbID;
+
+    var options = {
+        method: 'GET',
+        url: 'https://imdb8.p.rapidapi.com/title/get-all-images',
+        params: { tconst: imdbID },
+        headers: {
+            'x-rapidapi-host': 'imdb8.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('entertainment/movies/movie-info-photos', { returnedData })
     }).catch(function (error) {
         console.error(error);
     });
@@ -165,6 +215,43 @@ router.get('/vr/movies/:movie', (req, res) => {
     });
 });
 
+
+router.post('/movies/save', ensureAuthenticated, async (req, res) => {
+    const user = req.user._id;
+    const movieLink = req.body.movie_title;
+    const movieName = req.body.movie_name;
+    const moviePoster = req.body.movie_poster;
+    await User.findByIdAndUpdate(user,
+        { $addToSet: { movie_list: { movie_link: movieLink, movie_name: movieName, movie_poster: moviePoster } } },
+    )
+    res.redirect(`/entertainment/movies/${movieName}`)
+});
+
+
+
+router.post('/movies/add-to-recommended', ensureAuthenticated, (req, res) => {
+    const movieString = req.body.name;
+    const convertedString = movieString.replace(/\s/g, '+');
+    let genres = [];
+    let allGenres = req.body.genre;
+    let allGenresArray = allGenres.split(', ')
+    allGenresArray.forEach(genre => {
+        genres.push(genre)
+    })
+
+    const movie = new Movie({
+        name: movieString,
+        link: convertedString,
+        poster: req.body.poster,
+        genre: req.body.genre,
+        genres: genres,
+        rated: req.body.rated,
+        for_kids: req.body.for_kids
+    })
+    movie.save()
+    res.redirect('/entertainment/movies');
+
+})
 
 /* AUDIO */
 

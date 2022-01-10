@@ -2,9 +2,12 @@
 
 </style>
 
-<div class="page-title">
-    <h2>
-        Entertainment
-    </h2>
-</div>
+
 <%- include('../partials/menus/entertainment'); %>
+
+<div class="movie-search">
+    <form action="/entertainment/movies/search" method="POST">
+        <input type="text" name="movie" id="movie" placeholder="Search for movies...">
+        <button type="submit">Search Movies</button>
+    </form>
+</div>
