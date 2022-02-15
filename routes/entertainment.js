@@ -131,6 +131,15 @@ router.get('/movies', async (req, res) => {
     res.render('entertainment/movies/home', { subZone: "Movies", zone: 'Entertainment', subZonePage: 'Home', movies })
 });
 
+/* Movie by Category */
+router.get('/category', async (req, res) => {
+    let genre = req.query.genre
+
+    const movies = await Movie.find({genres: [{$eq: genre}]})
+    console.log(genre, movies)
+    res.render('entertainment/movies/home', { subZone: "Movies", zone: 'Entertainment', subZonePage: 'Home', movies })
+});
+
 
 /* Movie Search */
 

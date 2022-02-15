@@ -1,5 +1,5 @@
 <style>
-    #nutritionMenu {
+    #fitnessMenu {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -8,10 +8,12 @@
     }
 </style>
 
-<div id="nutritionMenu">
-    <div class="menu-item"><a href="/wellness/nutrition/diet">Diet</a></div>
-    <div class="menu-item"><a href="/wellness/nutrition/food">Food</a></div>
-    <div class="menu-item"><a href="/wellness/nutrition/menu">Menu</a></div>
-    <div class="menu-item"><a href="/wellness/nutrition/history">History</a></div>
-    <div class="menu-item"><a href="/wellness/nutrition/help">Help</a></div>
+
+<div id="fitnessMenu">
+    <div class="menu-item <%= subZonePage=='Home' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/nutrition">Home</a></div>
+    <div class="menu-item <%= subZonePage=='Diet' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/nutrition/diet">Diet</a></div>
+    <div class="menu-item <%= subZonePage=='Food' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/nutrition/food">Food</a></div>
+    <div class="menu-item <%= subZonePage=='Menu' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/nutrition/menu">Menu</a></div>
+    <div class="menu-item <%= subZonePage=='History' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/nutrition/history">History</a></div>
+    <div class="menu-item <%= subZonePage=='Help' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/nutrition/help">Help</a></div>
 </div>

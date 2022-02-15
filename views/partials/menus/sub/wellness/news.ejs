@@ -9,7 +9,7 @@
 </style>
 
 <div id="wellnessNewsMenu">
-    <div class="menu-item"><a href="/wellness/news/top">Top</a></div>
-    <div class="menu-item"><a href="/wellness/news/new">New</a></div>
-    <div class="menu-item"><a href="/wellness/news/categories">Categories</a></div>
+    <div class="menu-item <%= subZonePage=='Top' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/news">Top</a></div>
+    <div class="menu-item <%= subZonePage=='New' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/news/new">New</a></div>
+    <div class="menu-item <%= subZonePage=='Categories' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/news/categories">Categories</a></div>
 </div>

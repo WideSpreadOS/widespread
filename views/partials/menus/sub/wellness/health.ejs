@@ -8,12 +8,13 @@
     }
 </style>
 
+
 <div id="healthMenu">
-    <div class="menu-item"><a href="/wellness/health/user-health">Your Health</a></div>
-    <div class="menu-item"><a href="/wellness/health/appointments">Appointments</a></div>
-    <div class="menu-item"><a href="/wellness/health/research">Research</a></div>
-    <div class="menu-item"><a href="/wellness/health/learn">Learn</a></div>
-    <div class="menu-item"><a href="/wellness/health/history">History</a></div>
-    <div class="menu-item"><a href="/wellness/health/specialists">Speialists</a></div>
-    <div class="menu-item"><a href="/wellness/health/help">Help</a></div>
+    <div class="menu-item <%= subZonePage=='Your Health' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/health">Your Health</a></div>
+    <div class="menu-item <%= subZonePage=='Appointments' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/health/appointments">Appointments</a></div>
+    <div class="menu-item <%= subZonePage=='Specialists' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/health/specialists">Specialists</a></div>
+    <div class="menu-item <%= subZonePage=='Research' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/health/research">Research</a></div>
+    <div class="menu-item <%= subZonePage=='Learn' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/health/learn">Learn</a></div>
+    <div class="menu-item <%= subZonePage=='History' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/health/history">History</a></div>
+    <div class="menu-item <%= subZonePage=='Help' ? 'menu-link active' : 'menu-link' %>"><a href="/wellness/health/help">Help</a></div>
 </div>
