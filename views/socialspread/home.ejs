@@ -62,9 +62,13 @@
         border-bottom-right-radius: 4px;
         box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
+    .post-time {
+        margin-bottom: 10px;
+    }
     .post-time small {
         font-size: 0.7rem;
         margin-bottom: 8px;
+
     }
     .spread-post-content {
         width: 80%;
@@ -181,8 +185,7 @@
         max-width: 80%;
         background: rgba(51, 51, 51, 0.5);
         backdrop-filter: blur(4px);
-        border-bottom-left-radius: 6px;
-        margin-left: 20%;
+        border-bottom-right-radius: 6px;
         margin-bottom: 40px;
         padding-bottom: 3px;
     }
@@ -255,7 +258,6 @@
 </div>
 
 
-<h1>User Likes: <%= userLikes %></h1>
 <div class="spread-feed-container">
     <% allPosts.forEach(function(post) { %>
         <div class="spread-post-container">
@@ -266,7 +268,6 @@
                 <div class="edit-post">
                     <span>
                         <% if(user.id == post.author.id){ %>
-                            <i id="editBtn<%= post.id %>" class="far fa-edit" style="color: purple"></i>
                             <a style="color: #fff;" href="/users/post/edit/<%= post.id%>"><small><i class="far fa-edit" style="color: yellow"></i></small></a>
                         <% } else { %>
                             <span style="display: none;"></span>
@@ -292,14 +293,13 @@
                 <div class="spread-post-content">
                         <div class="post-time">
                             <p><small>
+                                <%= post.createdAt.toLocaleDateString() %>
                                     <%= post.createdAt.toLocaleTimeString() %>
-                                        <%= post.createdAt.toLocaleDateString() %>
                                 </small></p>
                         </div>
                         <% if(user.id==post.author.id){ %>
-                           <form action="" method="post">
-                               <textarea readonly name="postBody" value="<%= post.postBody %>" id="postBody<%= post.id %>" placeholder="<%= post.postBody %>"></textarea>
-                           </form>
+
+                           <p><%= post.postBody %></p>
                         <% } else { %>
                             <p><%= post.postBody %></p>
                         <% } %>
@@ -375,8 +375,8 @@
                         <div class="spread-post-comment-content">
                             <div class="comment-time">
                                 <p><small>
+                                    <%= comment.createdAt.toLocaleDateString() %>
                                         <%= comment.createdAt.toLocaleTimeString() %>
-                                            <%= comment.createdAt.toLocaleDateString() %>
                                     </small></p>
                             </div>
                             <p>
@@ -391,7 +391,9 @@
     <% }) %>
 </div>
 
-
+<div class="end-of-feed" style="text-align: center; margin-bottom: 30px;">
+    <h5>This is the beginning of space time.</h5>
+</div>
 <script>
 
     
