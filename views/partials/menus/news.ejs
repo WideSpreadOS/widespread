@@ -1,0 +1,22 @@
+<style>
+    #newsMenu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        overflow-x: auto;
+        background: #000;
+    }
+</style>
+
+<div id="newsMenu">
+    <div class="menu-item <%= subZone=='Home' ? 'menu-link active' : 'menu-link' %>"><a href="/news">Home</a></div>
+    <div class="menu-item <%= subZone=='Local' ? 'menu-link active' : 'menu-link' %>"><a href="/news/local">Local</a></div>
+    <div class="menu-item <%= subZone=='National' ? 'menu-link active' : 'menu-link' %>"><a href="/news/national">National</a></div>
+    <div class="menu-item <%= subZone=='International' ? 'menu-link active' : 'menu-link' %>"><a href="/news/international">International</a></div>
+    <div class="menu-item <%= subZone=='Business' ? 'menu-link active' : 'menu-link' %>"><a href="/news/business">Business</a></div>
+    <div class="menu-item <%= subZone=='Health' ? 'menu-link active' : 'menu-link' %>"><a href="/news/health">Health</a></div>
+    <div class="menu-item <%= subZone=='Technology' ? 'menu-link active' : 'menu-link' %>"><a href="/news/technology">Technology</a></div>
+    <div class="menu-item <%= subZone=='Politics' ? 'menu-link active' : 'menu-link' %>"><a href="/news/politics">Politics</a></div>
+    <div class="menu-item <%= subZone=='Events' ? 'menu-link active' : 'menu-link' %>"><a href="/news/events">Events</a></div>
+</div>
+
