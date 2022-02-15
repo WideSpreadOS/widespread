@@ -289,6 +289,12 @@ app.delete('/delete-image/:fileId', (req, res) => {
     });
 
 
+// 404 Page
+app.use(async function (req, res) {
+    res.status(400);
+    res.render('404', { title: '404: File Not Found' });
+});
+
 
 
 const PORT = process.env.PORT || 3000;

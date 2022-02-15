@@ -7,8 +7,9 @@
         background: rgba(135, 206, 250, 0.25);
         backdrop-filter: blur(4px);
         margin-top: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     }
-
+    
     .spread-post-header {
         padding: 5px;
         display: flex;
@@ -18,23 +19,25 @@
         background: #555;
         margin-bottom: 8px;
         opacity: 0.8;
-        box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
     }
     .spread-post-header h5 {
         font-size: 1.3rem;
+        font-weight: bolder;
+        text-shadow: 0 0 10px #000;
     }
     .edit-post {
-        width: 75px;
+        width: 50px;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: space-between;
     }
     .edit-post i {
-        font-size: 1.3rem;
-        font-weight: lighter;
-        opacity: 0.75;
+        font-size: 1.1rem;
+        font-weight: 300;
+        opacity: 0.5;
     }
     .spread-post-body {
         display: flex;
@@ -95,7 +98,7 @@
         padding-bottom: 5px;
         background: rgba(0, 0, 0, 0.25);
         border-top: outset 1px rgba(255, 255, 255, 0.5);
-        box-shadow: 0 -3px 4px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.25);
         backdrop-filter: blur(4px);
     }
 
@@ -185,12 +188,22 @@
         max-width: 80%;
         background: rgba(51, 51, 51, 0.5);
         backdrop-filter: blur(4px);
-        border-bottom-right-radius: 6px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.25);
+        border-bottom-right-radius: 16px;
+        border-right: outset 2px lightskyblue;
+        border-bottom: outset 2px lightskyblue;
         margin-bottom: 40px;
         padding-bottom: 3px;
     }
+    .spread-post-comments-header {
+        text-align: center;
+        padding: 8px;
+    }
     .spread-post-comment-container {
-        margin-bottom: 8px;
+        margin-bottom: 24px;
+    }
+    .spread-post-comment-container:last-of-type {
+        margin-bottom: 12px;
     }
     .spread-post-comment-header {
         display: flex;
@@ -215,6 +228,7 @@
         align-items: flex-start;
         justify-content: space-between;
     }
+
     .spread-post-comment-author-image {
         width: 20%;
         max-width: 20%;
@@ -268,14 +282,14 @@
                 <div class="edit-post">
                     <span>
                         <% if(user.id == post.author.id){ %>
-                            <a style="color: #fff;" href="/users/post/edit/<%= post.id%>"><small><i class="far fa-edit" style="color: yellow"></i></small></a>
+                            <a style="color: #fff; text-shadow: 0 0 3px #fff;" href="/users/post/edit/<%= post.id%>"><small><i class="far fa-edit" style="color: yellow"></i></small></a>
                         <% } else { %>
                             <span style="display: none;"></span>
                         <% } %>
                     </span>
                     <span>
                         <% if(user.id == post.author.id){ %>
-                            <a href="/users/post/<%= post.id%>" style="text-shadow: 0 0 1px #fff;"><small><i class="far fa-trash-alt" style="color: red"></i></small></a>
+                            <a href="/users/post/<%= post.id%>" style="text-shadow: 0 0 3px #fff;"><small><i class="far fa-trash-alt" style="color: red"></i></small></a>
                         <% } else { %>
                             <span style="display: none;"></span>
                         <% } %>
@@ -337,6 +351,14 @@
             </div>
         </div>
         <div class="spread-post-comments">
+            <% if (post.comments.length <= 0) { %>
+                <div class="spread-post-comments-header">
+                    <h6>Be the first to comment.</h6>
+                </div>
+            <% } else { %>
+            <div class="spread-post-comments-header">
+                <h6>Comments</h6>
+            </div>
             <% post.comments.forEach(function(comment) { %>
                 <div class="spread-post-comment-container">
                     <div class="spread-post-comment-header" style="background: <%= comment.author.favColor1 %>; opacity: 0.75;">
@@ -387,6 +409,9 @@
                     <div class="spread-post-comment-actions"></div>
                 </div>
             <% }) %>
+
+        <% } %>
+
         </div>
     <% }) %>
 </div>
