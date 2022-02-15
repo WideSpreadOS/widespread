@@ -152,6 +152,8 @@ router.post('/movies/search', (req, res) => {
 
 router.get('/search/movies/:query', (req, res) => {
     const query = req.params.query;
+    console.log(query)
+    const convertedString = query.split('+').join(' ');
     const apiKey = 'd3722e71'
     const options = {
         method: 'GET',
@@ -161,7 +163,7 @@ router.get('/search/movies/:query', (req, res) => {
     axios.request(options).then(function (response) {
         const returnedData = response.data;
         console.log(returnedData)
-        res.render('entertainment/movies/movie-search-results', { returnedData, query });
+        res.render('entertainment/movies/movie-search-results', { returnedData, convertedString });
     }).catch(function (error) {
         console.error(error);
     });

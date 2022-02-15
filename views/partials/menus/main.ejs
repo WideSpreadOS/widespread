@@ -19,7 +19,14 @@
         background: rgba(135, 206, 250, 0.25);
         box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.25), 0 0 5px rgba(0, 0, 0, 0.5);
     }
-
+    .user-menu-buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+    }
     @media screen and (orientation : landscape) {
         #mainMenu {
             padding-top: 55px;
@@ -34,11 +41,29 @@
         }
 
     }
+@media screen and (min-width: 900px) {
+
+        #mainMenu {
+            padding-top: 55px;
+            padding-bottom: 0;
+            width: 100%;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .main-menu-item {
+            border-radius: 6px;
+            width: 90%;
+            margin-left: 0 auto;
+            margin-bottom: 0;
+        }
+
+}
 
 </style>
 
 <div id="mainMenu">
-    <div class="main-menu-item"><a href="/users/dashboard">Dashboard</a></div>
     <div class="main-menu-item"><a href="/socialspread">SocialSpread</a></div>
     <div class="main-menu-item"><a href="/academy">Academy</a></div>
     <div class="main-menu-item"><a href="/business">Business</a></div>
@@ -47,4 +72,15 @@
     <div class="main-menu-item"><a href="/wellness">Wellness</a></div>
     <div class="main-menu-item"><a href="/things">Things</a></div>
     <div class="main-menu-item"><a href="/help">Help</a></div>
+
+            <div class="user-menu-buttons">
+                <% if (!user) { %>
+                    <a href="/users/login">Login</a>
+                    <% } else { %>
+                    <a href="/users/logout">Logout</a>
+                    <a href="/users/dashboard"><i style="font-size: 1.5rem;" class="far fa-user-circle"></i></a>
+                <% } %>
+
+                
+        </div>
 </div>
