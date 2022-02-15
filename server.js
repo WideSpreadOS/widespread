@@ -11,7 +11,7 @@ const methodOverride = require('method-override');
 const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
-
+const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
@@ -28,6 +28,11 @@ const UserAudio = require('./models/UserAudio');
 
 
 require('./config/passport')(passport);
+
+
+
+// Favicon
+app.use(favicon(path.join(__dirname, 'public', 'images/system/widespread_logo_1a1a1a.ico')))
 
 // DB Config
 const db = require('./config/keys').MongoURI;
