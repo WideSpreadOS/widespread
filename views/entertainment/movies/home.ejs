@@ -329,7 +329,9 @@
     }
 </style>
 
-
+    <button onclick="pageScrollUp()" style="position: fixed; width: 5vw; min-width: 80px; height: 50px; bottom: 136px; right: 0; z-index: 20001; background: rgba(135, 206, 250, 0.25); color: #fff; border: solid 1px rgba(255, 255, 255, 0.75); border-top-left-radius: 10px; outline: none;">Scroll Up</button>
+    <button onclick="pageScroll()" style="position: fixed; height: 50px; width: 5vw; min-width: 80px; bottom: 86px; right: 0; z-index: 20001; background: rgba(135, 206, 250, 0.25); color: #fff; border: solid 1px rgba(255, 255, 255, 0.75); border-top-left-radius: 0; outline: none;">Start Scrolling</button>
+    <button onclick="stopScroll()" style="position: fixed; height: 50px; width: 5vw; min-width: 80px; bottom: 36px; right: 0; z-index: 20000; background: rgba(135, 206, 250, 0.25); color: #fff; border: solid 1px rgba(255, 255, 255, 0.75); border-top: none; border-bottom: none; outline: none;">Stop Scrolling</button>
 
 <%- include('../../partials/menus/entertainment'); %>
 
@@ -362,3 +364,19 @@
     </div>
 
      
+
+<script>
+    function pageScroll() {
+        window.scrollBy(0, 1);
+        scrolldelay = setTimeout('pageScroll()', 20)
+    }
+    function pageScrollUp() {
+        window.scrollBy(0, -1);
+        scrolldelay = setTimeout('pageScrollUp()', 20)
+    }
+
+    function stopScroll() {
+        clearTimeout(scrolldelay);
+    }
+
+</script>
