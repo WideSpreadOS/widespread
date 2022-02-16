@@ -1,5 +1,77 @@
 <style>
-
+    p {
+        color: #fff;
+    }
+    .ss-mini-card-slider {
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        max-height: 250px;
+        padding: 8px;
+    }
+    .ss-mini-card {
+        width: 250px;
+        max-width: 250px;
+        max-height: 250px;
+        min-height: 185px;
+        min-width: 200px;
+        background: rgba(85, 85, 85, 0.25);
+        backdrop-filter: blur(4px);
+        margin-right: 15px;
+        padding-bottom: 8px;
+        position: relative;
+        border-radius: 16px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;
+        overflow: hidden;
+    }
+    .ss-mini-card-logo {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 5px;
+        max-height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+        min-height: min-content;
+    }
+    .ss-mini-card-logo img {
+        max-width: 100%;
+        max-height: 150px;
+        border-radius: 8px;
+        opacity: 0.75;
+        filter: drop-shadow(0 0 5px rgba(135, 206, 250, 0.5));
+    }
+    .ss-mini-card-header {
+        text-align: center;
+        padding: 8px;
+    }
+    .ss-mini-card-header p {
+        color: #fff;
+    }
+    .ss-mini-card-body {
+        background: rgba(135, 206, 250, 0.25);
+        backdrop-filter: blur(4px);
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25), 0 0 4px rgba(255, 255, 255, 0.25);
+        border-top: outset 2px rgba(135, 206, 250, 0.75);
+        border-bottom: outset 2px rgba(135, 206, 250, 0.75);
+        text-align: center;
+        margin-top: 5px;
+        width: 100%;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        overflow: hidden;
+    }
+    .ss-mini-card-body a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.2rem;
+    }
 </style>
 
 <div class="zone-title">
@@ -9,3 +81,25 @@
 </div>
 
 <%- include('../partials/menus/socialspread'); %>
+
+
+<div class="ss-mini-card-slider">
+    <% companies.forEach(function(company) { %>
+        <div class="ss-mini-card">
+            <div class="ss-mini-card-header">
+                <p><%= company.company_type %></p>
+            </div>
+            <div class="ss-mini-card-body">
+                <a href="/business/<%= company.id %>"><%= company.company_name %></a>
+            </div>
+            <div class="ss-mini-card-logo">
+                <% if (!company.logo) { %>
+                    <img src="https://cdn.cleverism.com/wp-content/uploads/2017/01/logo-placeholder.png" alt="">
+                <% } else { %>
+                    <img style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" src="/image/<%= company.logo %>" alt="">
+                <% } %>
+            </div>
+
+        </div>
+    <% }) %>
+</div>

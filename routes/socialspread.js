@@ -8,10 +8,11 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 const Spread = require('../models/Spread');
+const Company = require('../models/Company');
 
 
 
-router.get('/', async (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
     const user = req.user;
     const postIds = await Post.find();
     
@@ -41,7 +42,8 @@ router.get('/', async (req, res) => {
 
 
 router.get('/business', async (req, res) => {
-    res.render('socialspread/business', { subZone: "Business", zone: 'SocialSpread', subZonePage: 'Home' })
+    const companies = await Company.find()
+    res.render('socialspread/business', { subZone: "Business", zone: 'SocialSpread', subZonePage: 'Home', companies })
 });
 
 router.get('/news', async (req, res) => {
