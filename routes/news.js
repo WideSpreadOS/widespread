@@ -13,8 +13,8 @@ router.get('/', async (req, res) => {
 
     const options = {
         method: 'GET',
-        url: 'https://newscatcher.p.rapidapi.com/v1/sources',
-        params: { lang: 'en' },
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True' },
         headers: {
             'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
             'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
@@ -22,6 +22,7 @@ router.get('/', async (req, res) => {
     };
 
     axios.request(options).then(function (response) {
+        console.log(response.data);
         const returnedData = response.data;
         res.render('news/home', { subZone: "Home", zone: 'News', subZonePage: 'Home', returnedData })
     }).catch(function (error) {
@@ -56,20 +57,106 @@ router.get('/search/:searchTerm', (req, res) => {
 
 
 
-router.get('/local', async (req, res) => {
-    res.render('news/local', { subZone: "Local", zone: 'News', subZonePage: 'Local' })
+router.get('/sports', async (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True', topic: 'sport' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('news/sports', { subZone: "Sports", zone: 'News', subZonePage: 'Sports', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
 });
 
-router.get('/national', async (req, res) => {
-    res.render('news/national', { subZone: "National", zone: 'News', subZonePage: 'National' })
+router.get('/finance', async (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True', topic: 'finance' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('news/finance', { subZone: "Finance", zone: 'News', subZonePage: 'Finance', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
 });
 
 router.get('/international', async (req, res) => {
-    res.render('news/international', { subZone: "International", zone: 'News', subZonePage: 'International' })
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True', topic: 'world' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('news/international', { subZone: "International", zone: 'News', subZonePage: 'International', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
 });
 
 router.get('/business', async (req, res) => {
-    res.render('news/business', { subZone: "Business", zone: 'News', subZonePage: 'Business' })
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True', topic: 'business' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('news/business', { subZone: "Business", zone: 'News', subZonePage: 'Business', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
+});
+
+
+
+router.get('/entertainment', async (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True', topic: 'entertainment' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('news/entertainment', { subZone: "Entertainment", zone: 'News', subZonePage: 'Entertainment', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
 });
 
 router.get('/health', async (req, res) => {
@@ -77,11 +164,43 @@ router.get('/health', async (req, res) => {
 });
 
 router.get('/technology', async (req, res) => {
-    res.render('news/technology', { subZone: "Technology", zone: 'News', subZonePage: 'Technology' })
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True', topic: 'tech' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('news/technology', { subZone: "Technology", zone: 'News', subZonePage: 'Technology', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
 });
 
 router.get('/politics', async (req, res) => {
-    res.render('news/politics', { subZone: "Politics", zone: 'News', subZonePage: 'Politics' })
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True', topic: 'politics' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('news/politics', { subZone: "Politics", zone: 'News', subZonePage: 'Politics', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
 });
 
 router.get('/events', async (req, res) => {

@@ -355,7 +355,11 @@
             <div class="article-header">
                 <div class="article-title">
                     <h5><%= article.title %></h5>
-                    <p style="color: #fff;">Written By: <%= article.author %></p>
+                    <% if (!article.author) { %>
+                        <span style="margin-bottom: 10px;"></span>
+                    <% } else { %>
+                        <p style="color: #fff;">Written By: <%= article.author %></p>
+                    <% } %>
                 </div>
 
                 <div class="article-info">

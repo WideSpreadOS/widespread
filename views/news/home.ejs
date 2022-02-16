@@ -2,7 +2,7 @@
     .spread-form {
         background: #000;
         margin-top: 40px;
-        width: 50%;
+        width: 90%;
         margin: 0 auto;
     }
     .spread-form form {
@@ -108,15 +108,212 @@
   input:-webkit-autofill:focus {
     transition: background-color 600000s 0s, color 600000s 0s;
   }
-    .news-container {
+
+    .current-search-results-query {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .current-search-results-query p {
+        color: #fff;
+        text-align: center;
+        padding: 8px;
+    }
+  .current-search-results-query h5 {
+      color: lightskyblue;
+      text-transform: capitalize;
+      font-size: 1.5rem;
+      padding: 10px;
+  }
+@media screen and (min-width: 300px) {
+    .articles-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .article-container {
+        background: rgba(85, 85, 85, 0.25);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;
+        width: 90vw;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .article-background {
+        min-width: 100%;
+        position: relative;
+    }
+    .article-background img {
+        width: 100%;
+        top: 0;
+        position: relative;
+        left: 0;
+        z-index: 18;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    .article-background p {
+        color: #fff;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 20;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-weight: bold;
+        font-size: 1.3rem;
+        text-shadow: 0 0 4px #000;
+        background: rgba(135, 206, 250, 0.25);
+        backdrop-filter: blur(4px);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom: outset 2px rgba(135, 206, 250, 0.75);
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.25);
+    }
+    .article-header {
+        position: relative;
+        z-index: 21;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .article-title {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .article-title h5 {
+        font-size: 1.3rem;
+        color: lightskyblue;
+        text-align: center;
+    }
+    .article-header p {
+        text-align: center;
+        padding: 8px;
+    }
+    .published-data {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: solid 1px lightskyblue;
+        width: 90%;
+        margin: 0 auto;
+
+    }
+    .article-info span {
+        width: 45%;
+        color: #ccc;
+        font-size: 0.6rem;
+        padding: 8px;
+    }
+    .article-info span:last-of-type {
+        text-align: right;
+    }
+
+    .article-summary {
+        padding: 10px;
+        padding-top: 0;
+        margin-bottom: 15px;
+    }
+    .article-summary p {
+        font-size: 1.1rem;
+    }
+
+    .article-link {
+        background: rgba(135, 206, 250, 0.25);
+        box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.25), 0 -3px 5px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(4px);
+        width: 50%;
+        margin: 0 auto;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        text-align: center;
+        padding: 12px;    
+    }
+    .article-link a {
+        width: 100%;
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.4rem;
+    }
+    .article-media-slider {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow-x: scroll;
+        align-items: center;
+        justify-content: flex-start;
+        border-top: outset 2px rgba(135, 206, 250, 0.75);
+        box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.4);
+        background: #000;
+
+    }
+
+    .article-image {
+        min-width: 45vw;
+        height: fit-content;
+    }
+    .article-image img {
+        width: 100%;
+    }
+}
+
+    
+@media screen and (min-width: 900px) {
+    .articles-container {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        align-items: center;
+        align-items: stretch;
         justify-content: space-evenly;
+        margin-right: 30px;
     }
-    .news-container span {
-        padding: 10px;
+    .article-container {
+        max-width: 300px;
+
+    }
+    .article-media-slider {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100vw;
+        overflow-x: scroll;
+        align-items: center;
+        justify-content: flex-start;
+    }
+            .article-image {
+            max-width: 200px;
+            min-width: 200px;
+            width: 200px;
+        }
+        .article-image img {
+            width: 100%;
+        }
+}
+    @media screen and (orientation : landscape) {
+        
+        .article-media-slider {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            width: 100vw;
+            overflow-x: scroll;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .article-image {
+            max-width: 200px;
+            min-width: 200px;
+            width: 200px;
+        }
+        .article-image img {
+            width: 100%;
+        }
     }
 </style>
 
@@ -139,10 +336,55 @@
     </form>
 </div>
 
+<div class="current-search-results-query">
+    <h5>Most Recent News</h5>
+</div>
+<div class="articles-container">
+    <% returnedData.articles.forEach(function(article) { %>
+        <div class="article-container">
+            <% if (!article.media) { %>
+                <span></span>
+            <% } else { %>
+                <div class="article-background">
+                    <img width="200px" src="<%= article.media %>" alt="">
+                    <p style="color: #fff; text-transform: capitalize;"><%= article.topic %></p>
+                </div>
+            <% } %>
 
-<h2 style="padding: 15px; text-align: center; font-size: 1.5rem; color: lightskyblue; margin-top: 30px;">Sources</h2>
-<div class="news-container">
-    <% returnedData.forEach(function(data) { %>
-        <span style="color: #fff"><%= data %></span>
+            <div class="article-header">
+                <div class="article-title">
+                    <h5><%= article.title %></h5>
+                    <% if (!article.author) { %>
+                        <span></span>
+                    <% } else { %>
+                        <p style="color: #fff;">Written By: <%= article.author %></p>
+                    <% } %>
+                </div>
+
+                <div class="article-info">
+                    <div class="published-data">
+                        <span style="color: #fff;"><%= article.country %></span>
+                        <span><%= article.published_date %></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-summary">
+                <p style="color: #fff;"><%= article.summary %></p>
+            </div>
+
+            <div class="article-link">
+                <a href="<%= article.link %>" target="_blank">Read Article</a>
+            </div>
+            
+            <div class="article-media-slider">
+                <% article.media_content.forEach(function(data) { %>
+                    <div class="article-image">
+                        <img src="<%= data %>" alt="">
+                    </div>
+                <% }) %>
+            </div>
+
+        </div>
     <% }) %>
 </div>
