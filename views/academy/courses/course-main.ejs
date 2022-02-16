@@ -28,6 +28,24 @@
         text-transform: capitalize;
         padding: 6px;
     }
+    .course-classes-header {
+        margin: 0 auto;
+        margin-top: 40px;
+        text-align: center;
+        width: 100%;
+        min-width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 5px lightskyblue;
+    }
+    .course-classes-header h3 {
+        color: lightskyblue;
+        font-size: 1.8rem;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
     .class-list {
         width: 100%;
         margin-top: 30px;
@@ -79,7 +97,9 @@
     </h3>
 </div>
 
-
+<div class="course-classes-header">
+    <h3>Classes</h3>
+</div>
 <div class="class-list">
     <% course.classes.forEach(function(className) { %>
         <a href="/academy/course/<%= course.id %>/class/<%= className.id %>">
