@@ -14,6 +14,14 @@ router.get('/', async (req, res) => {
 });
 
 
+router.get('/company/:id', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId);
+    const companyName = company.company_name;
+    res.render('business/company/home', { subZone: 'Company', zone: 'Business', subZonePage: companyName, company})
+});
+
+
 /* WORK */
 
 router.get('/work', async (req, res) => {

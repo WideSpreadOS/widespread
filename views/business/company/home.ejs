@@ -1,0 +1,182 @@
+<style>
+    .company-background-image {
+        position: fixed;
+        z-index: -20;
+        min-width: 100vw;
+        min-height: 100vh;
+        overflow: hidden;
+        margin: 0 auto;
+        opacity: 0.5;
+    }
+    .company-background-image img {
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+    .company-container {
+        width: 100vw;
+        margin: 0 auto;
+    }
+    .company-header {
+        margin-top: 10px;
+    }
+    .company-name {
+        text-align: center;
+        color: #fff;
+    }
+    .company-name h2 {
+        font-size: 1.8rem;
+    }
+    .company-name p {
+        font-size: 0.8rem;
+        margin-top: 10px;
+    }
+    .company-logo {
+        margin-top: 20px;
+        width: 100%;
+    }
+    .company-logo img {
+        width: 100%;
+        border-radius: 16px;
+    }
+    .company-body {
+        padding: 10px;
+    }
+    .company-body p {
+        font-size: 1rem;
+    }
+    .company-contact {
+        background: rgba(135, 206, 250, 0.6);
+        backdrop-filter: blur(4px);
+        border-top: outset 2px lightskyblue;
+        border-bottom: outset 2px lightskyblue;
+        font-size: 1.3rem;
+        padding: 10px;
+        margin-bottom: 40px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    }
+    .company-contact i {
+        color: #fff;
+        padding: 8px;
+    }
+    .company-address {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-bottom: 15px;
+    }
+    .company-address p {
+        color: #fff;
+    }
+    .company-contact-item {
+        padding: 8px;
+    }
+    .company-contact-item p {
+        color: #fff;
+        text-shadow: 0 0 2px lightskyblue;
+    }
+    .company-contact-item a {
+        text-decoration: none;
+        color: #fff;
+        text-shadow: 0 0 2px lightskyblue;
+    }
+</style>
+
+<div class="company-background-image" style="background:url(/image/<%= company.background_image %>) 50% 50% no-repeat; background-size:cover;">
+
+</div>
+<div class="company-container">
+    <div class="company-header">
+        <div class="company-name">
+            <h2><%= company.company_name %></h2>
+            <p><%= company.company_type %></p>
+        </div>
+        <div class="company-logo">
+            <% if (!company.logo) { %>
+                <span style="display: none;"></span>
+            <% } else { %>
+                <img style="filter: drop-shadow(0 0 3px <%= company.colors.main %>);" src="/image/<%= company.logo %>" alt="">
+            <% } %>
+        </div>
+    </div>
+    <div class="company-body">
+        <p><%= company.company_bio %></p>
+    </div>
+    <div class="company-contact">
+        <div class="company-address">
+            <div class="company-address-icon">
+                <% if (!company.company_street_1 && !company.company_street_2 && !company.company_suite_number && !company.company_state && !company.company_country) { %>
+                    <span style="display: none;"></span>
+                <% } else { %>
+                    <i style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" class="fas fa-map-marked-alt"></i>
+                <% } %>
+            </div>
+            <div class="company-address-data">
+                <% if (!company.company_street_1) { %>
+                    <span></span>
+                <% } else { %>
+                    <div class="company-contact-item">
+                        <p><%= company.company_street_1 %></p>
+                    </div>
+                <% } %>
+
+                <% if (!company.company_street_2) { %>
+                    <span></span>
+                <% } else { %>
+                    <div class="company-contact-item">
+                        <p><%= company.company_street_2 %></p>
+                    </div>
+                <% } %>
+                
+                <% if (!company.company_suite_number) { %>
+                    <span></span>
+                <% } else { %>
+                    <div class="company-contact-item">
+                        <p><%= company.company_suite_number %></p>
+                    </div>
+                <% } %>
+
+                <% if (!company.company_state) { %>
+                    <span></span>
+                <% } else { %>
+                    <div class="company-contact-item">
+                        <p><%= company.company_state %></p>
+                    </div>
+                <% } %>
+
+                <% if (!company.company_country) { %>
+                    <span></span>
+                <% } else { %>
+                    <div class="company-contact-item">
+                        <p><%= company.company_country %></p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        <% if (!company.company_phone) { %>
+            <span></span>
+        <% } else { %>
+            <div class="company-contact-item">
+                <p><i style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" class="fa-solid fa-phone"></i> <a href="tel:<%= company.company_phone %>"><%= company.company_phone %></a></p>
+            </div>
+        <% } %>
+
+        <% if (!company.company_fax) { %>
+            <span></span>
+        <% } else { %>
+            <div class="company-contact-item">
+                <p><i style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" class="fa-solid fa-fax"></i> <%= company.company_fax %></p>
+            </div>
+        <% } %>
+
+        <% if (!company.company_main_email) { %>
+            <span></span>
+        <% } else { %>
+            <div class="company-contact-item">
+                <p><i style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" class="fa-solid fa-at"></i> <a href="mailto:<%= company.company_main_email %>"><%= company.company_main_email %></a></p>
+            </div>
+        <% } %>
+
+    </div>
+</div>

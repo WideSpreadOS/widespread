@@ -1,4 +1,7 @@
 <style>
+    a {
+        text-decoration: none;
+    }
     #companyList {
         display: flex;
         flex-direction: column;
@@ -68,20 +71,33 @@
 </div>
 <div id="companyList">
     <% allCompanies.forEach(function(company) { %>
-        <div class="company-card">
-            <div class="company-header">
-                <img src="/image/<%= company.logo %>" alt="<%= company.company_name %>'s Logo">
-                <h5><%= company.company_name %></h5>
-            </div>
-            <div class="company-info">
-                <div class="company-intro">
-                    <p><%= company.company_bio %></p>
+        <a href="/business/company/<%= company.id %>">
+            <div class="company-card">
+                <div class="company-header">
+                    <% if (!company.logo) { %>
+                        <img style="filter: drop-shadow(0 0 3px lightskyblue);" src="https://cdn.cleverism.com/wp-content/uploads/2017/01/logo-placeholder.png" alt="Default Buisness Logo">
+                    <% } else { %>
+                        <img style="filter: drop-shadow(0 0 3px <%= company.colors.main %>);" src="/image/<%= company.logo %>" alt="<%= company.company_name %>'s Logo">
+                    <% } %>
+                    <h5><%= company.company_name %></h5>
                 </div>
-                <div class="company-contact">
-                    <div id="phone"><p><a href="tel:<%= company.company_phone %>"><%= company.company_phone %></a></p></div>
-                    <div id="website"><p><a href="<%= company.company_website %>"><%= company.company_website %></a></p></div>
+                <div class="company-info">
+                    <div class="company-intro">
+                        <p><%= company.company_bio %></p>
+                    </div>
+                    <% if (!company.company_phone && !company.company_website) { %>
+                        <div style="border-top: none;" class="company-contact">
+                            <div id="phone"><p><a href="tel:<%= company.company_phone %>"><%= company.company_phone %></a></p></div>
+                            <div id="website"><p><a href="<%= company.company_website %>"><%= company.company_website %></a></p></div>
+                        </div>
+                    <% } else { %>
+                        <div class="company-contact">
+                            <div id="phone"><p><a href="tel:<%= company.company_phone %>"><%= company.company_phone %></a></p></div>
+                            <div id="website"><p><a target="_blank" href="<%= company.company_website %>"><%= company.company_website %></a></p></div>
+                        </div>
+                    <% } %>
                 </div>
             </div>
-        </div>
+        </a>
     <% }) %>
 </div>
