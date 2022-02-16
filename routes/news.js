@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
-
+const axios = require('axios')
 
 /* Models */
 const User = require('../models/User');
@@ -10,8 +10,51 @@ const User = require('../models/User');
 /* NEWS */
 
 router.get('/', async (req, res) => {
-    res.render('news/home', { subZone: "Home", zone: 'News', subZonePage: 'Home' })
+
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/sources',
+        params: { lang: 'en' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        const returnedData = response.data;
+        res.render('news/home', { subZone: "Home", zone: 'News', subZonePage: 'Home', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
 });
+
+router.post('/search', (req, res) => {
+    const term = req.body.searchQuery;
+    res.redirect(`/news/search/${term}`);
+});
+
+router.get('/search/:searchTerm', (req, res) => {
+    const searchTerm = req.params.searchTerm
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/search_free',
+        params: { q: `${searchTerm}`, lang: 'en', media: 'True' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        const returnedData = response.data;
+        res.render('news/search-results', { zone: 'News', subZone: null, returnedData, searchTerm })
+    }).catch(function (error) {
+        console.error(error);
+    });
+});
+
+
 
 router.get('/local', async (req, res) => {
     res.render('news/local', { subZone: "Local", zone: 'News', subZonePage: 'Local' })
