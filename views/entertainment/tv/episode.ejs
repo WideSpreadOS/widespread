@@ -1,18 +1,94 @@
 <style>
+    
+    @media screen and (min-width: 299px) {
     .show-image {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
+        z-index: -20;
+        min-width: 100vw;
         min-height: 100vh;
+        overflow: hidden;
+        margin: 0 auto;
         z-index: -50;
     }
-    .show-image img {
-        width: 100%;
-        min-height: 100%;
+
+
+            .video-stream {
+        min-height: 30vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .video-stream iframe {
+        border-radius: 6px;    
+        height: 100%;
+        min-height: 30vh;
+        width: 90%;
+
     }
     .show-data {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 30px;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(4px);
+        border-radius: 8px;
+        text-shadow: 0 0 2px #000;
+    }
+    .show-data h3 {
+        font-size: 1.6rem;
+        color: lightskyblue;
+        text-align: center;
+        padding: 10px;
+    }
+    .show-data p {
+        margin: 0 auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 80%;
+        padding: 20px;
+        padding-bottom: 30px;
+        font-size: 1.3rem;
+        color: #fff;
+
+    }
+    }
+
+@media screen and (min-width: 499) {
+    .video-stream {
+        min-height: 65vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .video-stream iframe {
+        border-radius: 6px;    
+        height: 100%;
+        min-height: 65vh;
+        width: 90%;
+
+    }
+}
+    @media screen and (min-width: 900px) {
+
+
+    .video-stream {
+        min-height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .video-stream iframe {
+        border-radius: 6px;    
+        height: 100%;
+        min-height: 90vh;
+        width: 90%;
+
+    }
+
+        .show-data {
         width: 80%;
         margin: 0 auto;
         margin-top: 30px;
@@ -38,20 +114,9 @@
         color: #fff;
 
     }
-    .video-stream {
-        min-height: 90vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-    }
-    .video-stream iframe {
-        border-radius: 6px;    
-        height: 100%;
-        min-height: 90vh;
-        width: 90%;
 
-    }
+}
+
 </style>
 
 <div class="zone-title">
@@ -70,10 +135,15 @@
 
         <%- include('../../partials/menus/sub/entertainment/tv-season', { episodeList: season.episodes, episodeNumber: episode.episode_number}); %>
 
-    <div class="show-image">
-        <img src="https://image.tmdb.org/t/p/w500<%= episode.still_path %>" alt="">
+    <div class="show-image" style="background:url('https://image.tmdb.org/t/p/w500<%= episode.still_path %>') 50% 50% no-repeat; background-size:cover;">
+
     </div>
     <div class="show-container">
+        <div class="video-stream">
+            <iframe
+                src="https://www.2embed.ru/embed/tmdb/tv?id=<%= showId %>&s=<%= episode.season_number %>&e=<%= episode.episode_number %>"
+                frameborder="0" width="100%" allowfullscreen="true"></iframe>
+        </div>
         <div class="show-data">
             <h3>
                 <%= episode.name %>
@@ -82,9 +152,5 @@
                 <%= episode.overview %>
             </p>
         </div>
-        <div class="video-stream">
-            <iframe
-                src="https://www.2embed.ru/embed/tmdb/tv?id=<%= showId %>&s=<%= episode.season_number %>&e=<%= episode.episode_number %>"
-                frameborder="0" width="100%" allowfullscreen="true"></iframe>
-        </div>
+
     </div>

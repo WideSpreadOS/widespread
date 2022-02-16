@@ -1,7 +1,7 @@
 <style>
-    .episode {
-        width: 200px;
-        background: red;
+
+    .spread-container {
+        background: transparent;
     }
     a {
         color: lightskyblue;
@@ -11,48 +11,51 @@
         text-align: center;
         margin-top: 20px;
     }
+
     p {
         color: #fff;
         padding: 10px;
         font-size: 1.3rem;
     }
-
 </style>
 
 <%- include('../../partials/menus/entertainment'); %>
 
 
-<%- include('../../partials/menus/sub/entertainment/tv', {showName: show.name, showId: showId}); %>
+    <%- include('../../partials/menus/sub/entertainment/tv', {showName: show.name, showId: showId}); %>
 
-<%- include('../../partials/menus/sub/entertainment/tv-show', {showName: subZonePage, seasonsList: show.seasons, seasonName: currentPage, showId: showId}); %>
+        <%- include('../../partials/menus/sub/entertainment/tv-show', {showName: subZonePage, seasonsList: show.seasons,
+            seasonName: currentPage, showId: showId}); %>
 
-        <div class="sub-zone-page-title">
-            <h2>
-                <%= subZonePage %>
-            </h2>
-        </div>
-        
-
-        <div class="page-title">
-            <h3>
-                <%= currentPage %>
-            </h3>
-        </div>
+            <div class="sub-zone-page-title">
+                <h2 style="font-size: 1.5rem;">
+                    <%= subZonePage %>
+                </h2>
+            </div>
 
 
+            <div class="page-title">
+                <h3>
+                    <%= currentPage %>
+                </h3>
+            </div>
 
-            
-            <div class="spread-container-anchor">
+
+
+
 
                 <div class="spread-container">
                     <% season.episodes.forEach(function(episode) { %>
-                        
-                        <div class="spread-container-box-item">
-                                            <div class="spread-container-header">
-                                                <a href="/entertainment/tv/show/<%= showId %>/<%= episode.season_number %>/<%= episode.episode_number %>">Episode <%= episode.episode_number %></a>
-                                            </div>
-                                 <p><%= episode.overview %></p>
-                            </div>
-                            <% }) %>
-                    </div>
+
+                        <div class="spread-container-box-item"
+                            style="padding: 0; border-radius: 8px; margin-bottom: 20px; align-items: stretch; box-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;">
+                            <div class="spread-container-header"
+                                style="border-top-left-radius: 8px; border-top-right-radius: 8px; border-top: none; text-align: center; padding: 5px;">
+                                <a style="color: #fff; font-size: 1.4rem"
+                                    href="/entertainment/tv/show/<%= showId %>/<%= season.season_number %>/<%= episode.episode_number %>"><%= episode.name %></a></div>
+                            <p>
+                                <%= episode.overview %>
+                            </p>
+                        </div>
+                        <% }) %>
                 </div>

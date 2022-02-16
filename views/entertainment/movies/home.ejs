@@ -1,4 +1,34 @@
 <style>
+    .auto-scroller {
+        z-index: 50000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: right;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-35%);
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.25), 0 0 2px lightskyblue;
+        border-top-left-radius: 8px;    
+        border-bottom-left-radius: 8px;    
+    }
+    .auto-scroller button {
+        background: rgba(135, 206, 250, 0.25);
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25);
+        border: none;
+        outline: none;
+        color: #fff;
+        text-shadow: 0 0 2px lightskyblue;
+        height: 50px;
+        width: 30px;
+    }
+    .auto-scroller button:first-of-type {
+        border-top-left-radius: 8px;
+    }
+    .auto-scroller button:last-of-type {
+        border-bottom-left-radius: 8px;
+    }
 
     .spread-form {
         background: #000;
@@ -13,7 +43,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-around;
-      width: 100%;
+
         margin-bottom: 5px;
     }
     .input-section button {
@@ -114,7 +144,7 @@
     .spread-form {
         background: #000;
         margin-top: 40px;
-        width: 95%;
+        width: 90%;
         margin: 0 auto;
     }
     .spread-form form {
@@ -328,10 +358,11 @@
 
     }
 </style>
-
-    <button onclick="pageScrollUp()" style="position: fixed; width: 5vw; min-width: 80px; height: 50px; bottom: 136px; right: 0; z-index: 20001; background: rgba(135, 206, 250, 0.25); color: #fff; border: solid 1px rgba(255, 255, 255, 0.75); border-top-left-radius: 10px; outline: none;">Scroll Up</button>
-    <button onclick="pageScroll()" style="position: fixed; height: 50px; width: 5vw; min-width: 80px; bottom: 86px; right: 0; z-index: 20001; background: rgba(135, 206, 250, 0.25); color: #fff; border: solid 1px rgba(255, 255, 255, 0.75); border-top-left-radius: 0; outline: none;">Start Scrolling</button>
-    <button onclick="stopScroll()" style="position: fixed; height: 50px; width: 5vw; min-width: 80px; bottom: 36px; right: 0; z-index: 20000; background: rgba(135, 206, 250, 0.25); color: #fff; border: solid 1px rgba(255, 255, 255, 0.75); border-top: none; border-bottom: none; outline: none;">Stop Scrolling</button>
+    <div class="auto-scroller">
+        <button onclick="pageScrollUp()" ><i class="fas fa-angle-double-up"></i></button>
+        <button onclick="stopScroll()" ><i class="fas fa-stop"></i></button>
+        <button onclick="pageScroll()" ><i class="fas fa-angle-double-down"></i></button>
+    </div>
 
 <%- include('../../partials/menus/entertainment'); %>
 
@@ -352,18 +383,17 @@
 </div>
 
     <div class="full-page-slider-container">
-            <% movies.forEach(function(movie) { %>
-                <div class="movie-container">
-                    <a href="/entertainment/movies/<%= movie.link %>">
-                        <div class="movie-background">
-                            <img src="<%= movie.poster %>" alt="">
-                        </div>
-                    </a>
-                </div>
+        <% movies.forEach(function(movie) { %>
+            <div class="movie-container">
+                <a href="/entertainment/movies/<%= movie.link %>">
+                    <div class="movie-background">
+                        <img src="<%= movie.poster %>" alt="">
+                    </div>
+                </a>
+            </div>
             <% }) %>
     </div>
 
-     
 
 <script>
     function pageScroll() {

@@ -37,6 +37,37 @@ router.get('/tv', async (req, res) => {
     });
 });
 
+/* TV SEARCH */
+
+
+router.post('/tv/search', (req, res) => {
+    const showString = req.body.show;
+    const convertedString = showString.replace(/\s/g, '+')
+    res.redirect(`/entertainment/tv/search/${convertedString}`);
+});
+
+router.get('/tv/search/:show', async (req, res) => {
+    const show = req.params.show;
+    const convertedString = show.split('+').join(' ');
+    const apiKey = process.env.TMDB_API_KEY
+    const options = {
+        method: 'GET',
+        url: `https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${show}`
+    };
+
+    axios.request(options).then(function (response) {
+        const returnedData = response.data;
+        console.log(returnedData)
+        res.render('entertainment/tv/search-results', { returnedData, show, convertedString });
+    }).catch(function (error) {
+        console.error(error);
+    });
+
+});
+
+
+
+
 
 /* SHOW MAIN */
 
