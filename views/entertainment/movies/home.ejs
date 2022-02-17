@@ -6,7 +6,7 @@
         align-items: flex-end;
         justify-content: right;
         position: fixed;
-        top: 50%;
+        top: 40%;
         right: 0;
         transform: translateY(-35%);
         box-shadow: 0 0 8px rgba(255, 255, 255, 0.25), 0 0 2px lightskyblue;
@@ -29,7 +29,11 @@
     .auto-scroller button:last-of-type {
         border-bottom-left-radius: 8px;
     }
-
+    .auto-scroller a {
+        text-decoration: none;
+        color: #fff;
+        text-shadow: 0 0 2px lightskyblue;
+    }
     .spread-form {
         background: #000;
         margin-top: 40px;
@@ -359,14 +363,17 @@
     }
 </style>
     <div class="auto-scroller">
-        <button onclick="pageScrollUp()" ><i class="fas fa-angle-double-up"></i></button>
+        <button><a href="#top"><i class="fas fa-angle-double-up"></i></a></button>
+        <button onclick="pageScrollUp()" ><i class="fas fa-chevron-up"></i></i></button>
         <button onclick="stopScroll()" ><i class="fas fa-stop"></i></button>
-        <button onclick="pageScroll()" ><i class="fas fa-angle-double-down"></i></button>
+        <button onclick="pageScroll()" ><i class="fas fa-chevron-down"></i></button>
+        <button><a href="#bottom"><i class="fas fa-angle-double-down"></i></a></button>
     </div>
 
+    <div id="top"></div>
 <%- include('../../partials/menus/entertainment'); %>
 
-<%- include('../../partials/menus/sub/entertainment/tv'); %>
+<%- include('../../partials/menus/sub/entertainment/movies'); %>
 
     <div class="sub-zone-page-title">
         <h2><%= subZonePage %></h2>
@@ -385,7 +392,7 @@
     <div class="full-page-slider-container">
         <% movies.forEach(function(movie) { %>
             <div class="movie-container">
-                <a href="/entertainment/movies/<%= movie.link %>">
+                <a href="/entertainment/movies/title/<%= movie.link %>">
                     <div class="movie-background">
                         <img src="<%= movie.poster %>" alt="">
                     </div>
@@ -394,7 +401,7 @@
             <% }) %>
     </div>
 
-
+<div id="bottom"></div>
 <script>
     function pageScroll() {
         window.scrollBy(0, 1);

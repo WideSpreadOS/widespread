@@ -37,6 +37,37 @@ router.get('/tv', async (req, res) => {
     });
 });
 
+
+
+/* ADD TV SHOW TO USER LIST*/
+
+
+router.post('/tv/save', ensureAuthenticated, async (req, res) => {
+    const user = req.user._id;
+    const showLink = req.body.link;
+    const showName = req.body.name;
+    const showPoster = req.body.poster;
+    await User.findByIdAndUpdate(user,
+        { $addToSet: { show_list: { show_link: showLink, show_name: showName, show_poster: showPoster } } },
+    )
+    res.redirect(`/entertainment/tv/${showLink}`)
+});
+
+/* ADD TV SHOW TO WIDESPREAD LIST*/
+
+
+router.post('/tv/add-to-recommended', ensureAuthenticated, (req, res) => {
+    const showString = req.body.name;
+    const convertedString = showString.replace(/\s/g, '+');
+    const show = new Show({
+        name: showString,
+        link: req.body.link,
+        poster: req.body.poster,
+    })
+    show.save()
+    res.redirect('/entertainment/tv');
+});
+
 /* TV SEARCH */
 
 
@@ -72,6 +103,8 @@ router.get('/tv/search/:show', async (req, res) => {
 /* SHOW MAIN */
 
 router.get('/tv/show/:showId', (req, res) => {
+    const userId = req.user;
+    console.log(userId)
     const showId = req.params.showId;
     const apiKey = process.env.TMDB_API_KEY
     const options = {
@@ -83,7 +116,7 @@ router.get('/tv/show/:showId', (req, res) => {
         const returnedData = response.data;
         const showName = returnedData.name;
         console.log(returnedData)
-        res.render('entertainment/tv/show', { subZone: "TV", zone: 'Entertainment', subZonePage: showName, returnedData, showId });
+        res.render('entertainment/tv/show', { subZone: "TV", zone: 'Entertainment', subZonePage: showName, returnedData, showId, userId });
     }).catch(function (error) {
         console.error(error);
     });
@@ -110,7 +143,7 @@ router.get('/tv/show/:showId/:seasonId', (req, res) => {
         const season = seasonData.data;
         const seasonName = season.name;
         console.log(`Show: ${showName} \n \n \n \n`)
-        console.log(`Season: ${season.name} \n \n \n \n`)
+        console.log(`Season: ${season} \n \n \n \n`)
         res.render('entertainment/tv/season', { subZone: "TV", zone: 'Entertainment', subZonePage: showName, currentPage: seasonName, show, season, showId });
     }))
 
@@ -137,6 +170,7 @@ router.get('/tv/show/:showId/:seasonId/:episodeId', (req, res) => {
 
     ]).then(axios.spread((showData, seasonData, episodeData) => {
         console.log(showData.data.name)
+        console.log(episodeData)
         const show = showData.data;
         const showName = show.name;
         const season = seasonData.data;
@@ -201,7 +235,9 @@ router.get('/search/movies/:query', (req, res) => {
 });
 
 
-router.get('/movies/:movie', (req, res) => {
+router.get('/movies/title/:movie', (req, res) => {
+    const userId = req.user;
+    console.log(userId)
     const movie = req.params.movie;
     const apiKey = 'd3722e71'
     const options = {
@@ -212,7 +248,7 @@ router.get('/movies/:movie', (req, res) => {
     axios.request(options).then(function (response) {
         const returnedData = response.data;
         console.log(returnedData)
-        res.render('entertainment/movies/title', { subZone: "Home", zone: 'Entertainment', returnedData, movie })
+        res.render('entertainment/movies/title', { subZone: "Movies", zone: 'Entertainment', subZonePage: returnedData.Title, returnedData, movie, userId })
     }).catch(function (error) {
         console.error(error);
     });

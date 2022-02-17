@@ -1,14 +1,59 @@
 <style>
-    .spread-break-cross {
-        background: rgba(120, 120, 120, 0.75);
-        height: 3px;
-        max-height: 3px;
-        min-height: 3px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        width: 100%;
-        box-shadow: 0 0 4px rgba(135, 206, 250, 0.75);
+
+    .movie-poster {
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        opacity: 0.7;
+        z-index: -50;
     }
+
+    .show-container {
+        margin-top: 30px;
+    }
+
+    .show-time {
+        background: rgba(0, 0, 0, 0.9);
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+
+    #bright {
+        display: none;
+        box-shadow: inset 0 0 10px rgba(85, 85, 85, 0.75);
+        color: #888;
+        border: outset 2px rgba(135, 206, 250, 0.5);
+        border-top: none;
+        transition: ease-out 0.5s;
+    }
+
+    #bright:hover {
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25), 0 3px 5px rgba(0, 0, 0, 0.6);
+        color: #fff;
+        border: outset 2px rgba(135, 206, 250, 0.5);
+        border-top: none;
+        transition: ease-in 0.5s;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     .previous-page-nav-container {
         background: rgba(135, 206, 250, 0.5);
@@ -33,29 +78,6 @@
 
     }
 
-    .movie-container {
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(2px);
-        padding-top: 10px;
-        margin-top: 20px;
-        border-top: outset 2px #555;
-        border-bottom: outset 2px #555;
-        position: relative;
-    }
-
-    .movie-poster {
-        position: fixed;
-        top: 0;
-        left: 0;
-        min-height: 100vh;
-
-    }
-
-    .movie-poster img {
-        min-height: 100vh;
-        width: auto;
-
-    }
 
     .movie-title {
         text-align: center;
@@ -108,14 +130,6 @@
         font-size: 1.3rem;
     }
 
-    #videoFrame {
-        background: rgba(0, 0, 0, 0.87);
-        backdrop-filter: blur(3px);
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.336);
-        min-width: 100%;
-        border-radius: 6px;
-        padding: 2px;
-    }
 
     .movie-plot {
         background: rgba(0, 0, 0, 0.3);
@@ -296,31 +310,151 @@
 
 
 
-    @media screen and (min-width: 500px) {
-        .movie-search {
-            margin-top: 100px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @media screen and (min-width: 299px) {
+        .show-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100vw;
+            min-height: 100vh;
+            z-index: -50;
         }
+
 
         .video-stream {
-            min-height: 300px;
-        }
-
-        #videoFrame {
-            min-height: 300px;
-        }
-
-        .movie-poster img {
-            min-width: 100vw;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
         }
+
+        .video-stream iframe {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;
+            border-radius: 6px;
+            height: 100%;
+
+            width: 90%;
+
+        }
+
+        .video-stream button {
+            cursor: pointer;
+            outline: none;
+            border: outset 2px lightskyblue;
+            border-top: none;
+            background: rgba(135, 206, 250, 0.25);
+            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25), 0 3px 5px rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 1.3rem;
+            padding: 10px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .add-to-recommended {
+            position: fixed;
+            bottom: 36px;
+            right: 0;
+            z-index: 99998;
+        }
+        
+        .add-to-recommended button {
+            width: 50px;
+            max-width: 50px;
+            height: 50px;
+            position: relative;
+            z-index: 99999;
+            background: rgba(0, 128, 0, 0.3);
+            backdrop-filter: blur(4px);
+            border: none;
+            outline: none;
+            border-top: outset 1px green;
+            border-left: outset 1px green;
+            border-top-left-radius: 30px;
+            color: rgba(255, 255, 255, 0.75);
+            padding: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            box-shadow: -2px -2px 8px rgba(0, 255, 0, 0.5);
+            text-shadow: 0 0 2px rgba(0, 255, 0, 0.5);
+        }
+
 
 
     }
+
+
+
+    @media (orientation: landscape) {
+        .video-stream {
+            min-height: calc(100vh - 100px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .video-stream iframe {
+            min-height: calc(100vh - 100px);
+            border-radius: 6px;    
+            height: 100%;
+            width: 90%;
+
+        }
+    }
+    @media screen and (min-width: 499) {
+
+    }
+
+    @media screen and (min-width: 900px) {
+
+        .video-stream {
+            min-height: calc(100vh - 100px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .video-stream iframe {
+            min-height: calc(100vh - 100px);
+            border-radius: 6px;    
+            height: 100%;
+            width: 90%;
+        }
+
+    }
+
+
+
 </style>
 
+
+<%- include('../../partials/menus/entertainment'); %>
+
+<%- include('../../partials/menus/sub/entertainment/movies'); %>
+
+
+<div class="sub-zone-page-title">
+    <h2><%= subZonePage %></h2>
+</div>
+
 <!-- BACKGROUND IMAGE -->
-<div class="movie-poster">
-    <img src="<%= returnedData.Poster %>" alt="">
+<div class="movie-poster" style="background:url('<%= returnedData.Poster %>') 50% 50% no-repeat; background-size:cover;">
 </div>
 
 
@@ -344,9 +478,12 @@
             </h5>
         </div>
 
-        <div class="video-stream">
-            <iframe id="videoFrame" src="https://www.2embed.ru/embed/imdb/movie?id=<%= returnedData.imdbID %>"
-                frameborder="0" allowfullscreen="true"></iframe>
+        <div class="show-container">
+            <div class="video-stream" id="theater">
+                <iframe id="videoFrame" src="https://www.2embed.ru/embed/imdb/movie?id=<%= returnedData.imdbID %>" frameborder="0" allowfullscreen="true"></iframe>
+                <button id="dim">Dim the Lights</button>
+                <button id="bright">Turn on the Lights</button>
+            </div>
         </div>
 
         <div class="viewing-options-menu-container">
@@ -437,19 +574,25 @@
 
     </div>
 
-
-
-    <div class="add-to-recommended">
-        <form action="/entertainment/movies/add-to-recommended" method="post">
-            <input type="text" name="name" value="<%= returnedData.Title %>" hidden>
-            <input type="text" name="link" value="<%= movie %>" hidden>
-            <input type="text" name="poster" value="<%= returnedData.Poster %>" hidden>
-            <input type="text" name="genre" value="<%= returnedData.Genre %>" hidden>
-            <input type="text" name="rated" value="<%= returnedData.Rated %>" hidden>
-            <input type="checkbox" name="for_kids" value="true" hidden>
-            <button type="submit">Add to WideSpread Collection</button>
-        </form>
-    </div>
+    <% if (!userId) { %>
+        <span style="display: none;"></span>
+    <% } else { %>
+        <% if (userId.id === '5f749fd3bd01753cb4f9677a') { %>
+            <div class="add-to-recommended">
+                <form action="/entertainment/movies/add-to-recommended" method="post">
+                    <input type="text" name="name" value="<%= returnedData.Title %>" hidden>
+                    <input type="text" name="link" value="<%= movie %>" hidden>
+                    <input type="text" name="poster" value="<%= returnedData.Poster %>" hidden>
+                    <input type="text" name="genre" value="<%= returnedData.Genre %>" hidden>
+                    <input type="text" name="rated" value="<%= returnedData.Rated %>" hidden>
+                    <input type="checkbox" name="for_kids" value="true" hidden>
+                    <button type="submit"><i class="fas fa-plus"></i></button>
+                </form>
+            </div>
+        <% } else { %>
+            <span style="display: none;"></span>
+        <% } %>
+    <% } %>
 
 
 
@@ -457,4 +600,38 @@
         var iframe = document.getElementById("videoFrame");
         var elmnt = iframe.contentWindow.document.querySelector(".alert");
         elmnt.style.display = "none";
+    </script>
+
+    <script>
+        const theater = document.getElementById('theater')
+        document.getElementById("dim").onclick = function () { dimTheater() };
+        document.getElementById("bright").onclick = function () { brightenTheater() };
+
+        function dimTheater() {
+            theater.classList.toggle("show-time");
+            document.getElementById("theater").style.minHeight = "100vh";
+            document.getElementById("theater").style.position = "fixed";
+            document.getElementById("theater").style.zIndex = "99999";
+            document.getElementById("theater").style.top = "0";
+            document.getElementById("theater").style.left = "0";
+            document.getElementById("coreData").style.display = "none";
+            document.getElementById("coreMenu").style.width = "50px";
+            document.getElementById("searchForm").style.display = "none";
+            document.getElementById("dim").style.display = "none";
+            document.getElementById("bright").style.display = "block";
+        }
+
+        function brightenTheater() {
+            theater.classList.toggle("show-time");
+            document.getElementById("theater").style.minHeight = "auto";
+            document.getElementById("theater").style.position = "relative";
+            document.getElementById("theater").style.zIndex = "50";
+            document.getElementById("theater").style.removeProperty = "top";
+            document.getElementById("theater").style.removeProperty = "left";
+            document.getElementById("coreData").style.display = "none";
+            document.getElementById("coreMenu").style.width = "100vw";
+            document.getElementById("searchForm").style.display = "block";
+            document.getElementById("dim").style.display = "block";
+            document.getElementById("bright").style.display = "none";
+        }
     </script>

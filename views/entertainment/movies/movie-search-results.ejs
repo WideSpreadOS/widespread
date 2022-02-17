@@ -248,7 +248,7 @@
             <div id="movieSpreadSlider" class="spread-slider">
                 <% returnedData.Search.forEach(function(movie) { %>
                     <div class="spread-slider-item">
-                        <a href="/entertainment/movies/<%= movie.Title %>">
+                        <a href="/entertainment/movies/title/<%= movie.Title %>">
                             <% if (movie.Poster === 'N/A') { %>
                                 <div class="spread-slider-item-title">
                                     <div class="spread-slider-item-header">
