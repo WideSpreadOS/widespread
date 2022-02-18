@@ -33,6 +33,9 @@
         width: 100%;
         padding: 10px;
     }
+    .reality-button {
+        cursor: pointer;
+    }
     .reality-nav > div {
         background: rgba(135, 206, 250, 0.25);
         border-radius: 8px;
@@ -140,12 +143,12 @@
 <div id="mainMenu2d">
     <div class="inner-menu">
     <div class="reality-nav">
-        <div id="vrNavButton"><span onclick="openVrNav()"><p>VR</p></span></div>
+        <div class="reality-button" id="vrNavButton"><span onclick="openVrNav()"><p>VR</p></span></div>
                 <div class="current-menu">
             <small>Current Menu</small>
             <p style="color: #fff">2D</p>
         </div>
-        <div id="arNavButton"><span onclick="openArNav()"><p>AR</p></span></div>
+        <div class="reality-button" id="arNavButton"><span onclick="openArNav()"><p>AR</p></span></div>
     </div>
     <div class="main-menu">
         <div class="main-menu-item"><a href="/socialspread">SocialSpread</a></div>
@@ -174,12 +177,12 @@
     <div class="inner-menu">
 
     <div class="reality-nav">
-        <div id="navButton"><span onclick="open2dNav()"><p>2D</p></span></div>
+        <div class="reality-button" id="navButton"><span onclick="open2dNav()"><p>2D</p></span></div>
                 <div class="current-menu">
             <small>Current Menu</small>
             <p style="color: #fff">VR</p>
         </div>
-        <div id="arNavButton"><span onclick="openArNav()"><p>AR</p></span></div>
+        <div class="reality-button" id="arNavButton"><span onclick="openArNav()"><p>AR</p></span></div>
     </div>
     <div class="main-menu">
         <div class="main-menu-item"><a href="/socialspread">SocialSpread VR</a></div>
@@ -208,12 +211,12 @@
 <div id="mainMenuAr">
     <div class="inner-menu">
     <div class="reality-nav">
-        <div id="arNavButton"><span onclick="openVrNav()"><p>VR</p></span></div>
+        <div class="reality-button" id="arNavButton"><span onclick="openVrNav()"><p>VR</p></span></div>
         <div class="current-menu">
             <small>Current Menu</small>
             <p style="color: #fff">AR</p>
         </div>
-        <div id="navButton"><span onclick="open2dNav()"><p>2D</p></span></div>
+        <div class="reality-button" id="navButton"><span onclick="open2dNav()"><p>2D</p></span></div>
     </div>
     <div class="main-menu">
         <div class="main-menu-item"><a href="/socialspread">SocialSpread AR</a></div>
