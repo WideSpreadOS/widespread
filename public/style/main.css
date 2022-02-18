@@ -477,3 +477,30 @@ button {
         border-radius: 6px;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
     }
+
+
+
+
+/* SPREAD GUIDES */
+
+    .spread-guide-no-items {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 20px; 
+        margin-bottom: 20px; 
+    }
+    .spread-guide-no-items p {
+        color: #fff;
+        font-size: 1.2rem;
+        padding: 8px;
+        text-align: center;
+    }
+    .spread-guide-no-items a {
+        text-decoration: none;
+        color: lightskyblue;
+    }
+
+
+
+
+

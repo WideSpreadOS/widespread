@@ -59,23 +59,44 @@
     </div>
 
 <main>
-    <section class="user-background-image">
-        <img src="<%= user.user_background_image %>" alt="<%= user.fname %> <%= user.lname %>'s Background Image">
-    </section>
+    <% if (!user.user_background_image) { %>
+        <span style="display: none;"></span>
+    <% } else { %>
+        <div class="user-background-image" style="background:url('<%= user.user_background_image %>') 50% 50% no-repeat; background-size:cover;"></div>
+    <% } %>
     
-    <section>
-        <div class="page-header">
-            <h4>User Data</h4>
-        </div>
-        <div class="full-user-data">
-            <p><%= user %></p>
-        </div>
-    </section>
-
-    <section class="video-selection">
+        <section class="video-selection">
+            <div class="page-header">
+                <h4>Your Saved Shows</h4>
+            </div>
+            <% if (user.show_list.length <=0) { %>
+                <div class="spread-guide-no-items">
+                    <p>You don't have any shows saved yet.</p>
+                    <p>Add shows to your list <a href="/entertainment/tv">here</a>.</p>
+                </div>
+            <% } else { %>
+            <div class="slider">
+                <div class="movie-list">
+                    <% user.show_list.forEach(function(show) { %>
+                        <div class="video-thumb">
+                            <img src="<%= show.poster_path %>" alt="">
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+            <% } %>
+        </section>
+    
+        <section class="video-selection">
             <div class="page-header">
                 <h4>Your Saved Movies</h4>
             </div>
+            <% if (user.movie_list.length <=0) { %>
+                <div class="spread-guide-no-items">
+                    <p>You don't have any movies saved yet.</p>
+                    <p>Add movies to your list <a href="/entertainment/movies">here</a>.</p>
+                </div>
+            <% } else { %>
             <div class="slider">
                 <div class="movie-list">
                     <% user.movie_list.forEach(function(video) { %>
@@ -85,5 +106,6 @@
                         <% }) %>
                 </div>
             </div>
+            <% } %>
         </section>
 </main>

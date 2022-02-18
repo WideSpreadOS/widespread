@@ -2,7 +2,6 @@
   @media screen and (min-width: 300px) {
 
     .spread-form {
-        background: #000;
         margin-top: 40px;
         width: 100%;
     }
@@ -19,7 +18,8 @@
     .input-section button {
       width: 50%;  
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(4px);
       margin-top: 20px;
       margin-bottom: 20px;
       outline: none;
@@ -28,12 +28,14 @@
       color: #fff;
       font-size: 1.2rem;
       padding: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;
     }
     .input-header {
         text-align: center;
         padding: 5px;
         font-size: 1.2rem;
         font-weight: bold;
+        margin-bottom: 30px;
     }
     .input-data {
         margin-bottom: 3px;
@@ -72,6 +74,17 @@
   input:-webkit-autofill:focus {
     transition: background-color 600000s 0s, color 600000s 0s;
   }
+    .login-link {
+      padding: 20px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .login-link p {
+      color: #fff;
+    }
+    .login-link a {
+      text-decoration: none;
+    }
   }
 </style>
 
@@ -105,3 +118,8 @@
 
   </form>
 </section>
+
+          <div class="login-link">
+            <p class="lead mt-4">Need An Account? <a href="/users/register"
+                style="color: lightskyblue; background: none; border: none;">Register</a></p>
+          </div>
