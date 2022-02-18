@@ -7,8 +7,58 @@
         z-index: 0;
         position: relative;
     }
+    .site-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -999999;
+    }
+    .site-background-logo-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .site-background-logo-border {
+        width: 300px;
+        max-width: 90vw;
+        max-height: 90vw;
+        height: 300px;
+        box-shadow: inset -3px -3px 8px #222, inset 3px 3px 8px #000;
+        border-radius: 50%;
+
+    }
+    .site-background-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+    }
+    .site-background-logo img {
+        margin-top: 15px;
+        margin-left: 5px;
+        width: 70%;
+        opacity: 0.35;
+        filter: drop-shadow(0 0 10px rgba(135, 206, 250, 0.25));
+    }
 </style>
 
 <div id="coreContainer">
+    <div class="site-background">
+        <div class="site-background-logo-container">
+            <div class="site-background-logo-border">
+                <div class="site-background-logo">
+                    <img src="/images/system/widespread_logo_1a1a1a.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
     <%- body %>
 </div>
