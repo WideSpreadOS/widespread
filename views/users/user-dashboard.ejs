@@ -16,10 +16,13 @@
     }
 
     .video-selection {
+        width: 90%;
+        margin: 0 auto;
         background: rgba(135, 206, 250, 0.25);
-        border-top: outset 2px #fff;
-        border-bottom: outset 2px #fff;
+        border-top: outset 1px #fff;
+        border-bottom: outset 1px #fff;
         margin-top: 30px;
+        border-radius: 16px;
         padding-bottom: 15px;
         box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.25);
         backdrop-filter: blur(4px);
@@ -33,6 +36,8 @@
         padding-top: 10px;
         padding-bottom: 10px;
         gap: 10px;
+        width: 95%;
+        margin: auto;
         overflow: hidden;
     }
     .video-thumb {
@@ -79,7 +84,9 @@
                 <div class="movie-list">
                     <% user.show_list.forEach(function(show) { %>
                         <div class="video-thumb">
-                            <img src="<%= show.poster_path %>" alt="">
+                            <a href="/entertainment/tv/show/<%= show.show_link %>">
+                                <img src="https://image.tmdb.org/t/p/w500<%= show.show_poster %>" alt="">
+                            </a>
                         </div>
                         <% }) %>
                 </div>
@@ -101,7 +108,10 @@
                 <div class="movie-list">
                     <% user.movie_list.forEach(function(video) { %>
                         <div class="video-thumb">
-                            <img src="<%= video.movie_poster %>" alt="">
+                            <a href="/entertainment/movies/title/<%= video.movie_link %>">
+                                <img src="<%= video.movie_poster %>" alt="">
+                            </a>
+                            
                         </div>
                         <% }) %>
                 </div>

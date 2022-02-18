@@ -50,8 +50,10 @@ router.post('/tv/save', ensureAuthenticated, async (req, res) => {
     await User.findByIdAndUpdate(user,
         { $addToSet: { show_list: { show_link: showLink, show_name: showName, show_poster: showPoster } } },
     )
-    res.redirect(`/entertainment/tv/${showLink}`)
+    res.redirect(`/entertainment/tv/show/${showLink}`)
 });
+
+
 
 /* ADD TV SHOW TO WIDESPREAD LIST*/
 
@@ -295,6 +297,8 @@ router.get('/vr/movies/:movie', (req, res) => {
 
 
 router.post('/movies/save', ensureAuthenticated, async (req, res) => {
+    const movieString = req.body.movie_title;
+    const convertedString = movieString.replace(/\s/g, '+');
     const user = req.user._id;
     const movieLink = req.body.movie_title;
     const movieName = req.body.movie_name;
@@ -302,7 +306,7 @@ router.post('/movies/save', ensureAuthenticated, async (req, res) => {
     await User.findByIdAndUpdate(user,
         { $addToSet: { movie_list: { movie_link: movieLink, movie_name: movieName, movie_poster: moviePoster } } },
     )
-    res.redirect(`/entertainment/movies/${movieName}`)
+    res.redirect(`/entertainment/movies/title/${convertedString}`)
 });
 
 

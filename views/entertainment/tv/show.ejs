@@ -161,6 +161,18 @@
     </form>
 </div>
 
+
+<div class="add-to-list">
+    <form action="/entertainment/tv/save" method="post">
+        <input type="text" name="name" value="<%= returnedData.name %>" hidden>
+        <input type="text" name="link" value="<%= returnedData.id %>" hidden>
+        <input type="text" name="poster" value="<%= returnedData.poster_path %>" hidden>
+        <button>Add to List</button>
+    </form>
+    <p><a href="/users/entertainment/tv">See Your List</a></p>
+</div>
+
+
 <div class="seasons-container">
         <% returnedData.seasons.forEach(function(season) { %>
             <div class="season-container">
