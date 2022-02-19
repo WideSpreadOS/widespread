@@ -1,25 +1,34 @@
 <style>
+
     .company-background-image {
         position: fixed;
-        z-index: -20;
+        top: 0;
+        left: 0;
         min-width: 100vw;
         min-height: 100vh;
-        overflow: hidden;
-        margin: 0 auto;
-        opacity: 0.5;
+        z-index: -50;
     }
-    .company-background-image img {
+    .company-background-image-filter {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 0 100px #000;
+        top: 0;
+        left: 0;
         min-width: 100vw;
         min-height: 100vh;
+        z-index: -40;
+
     }
     .company-container {
         width: 100vw;
         margin: 0 auto;
     }
     .company-header {
-        margin-top: 10px;
+        margin-top: 20px;
     }
     .company-name {
+        position: relative;
+        z-index: 10;
         text-align: center;
         color: #fff;
     }
@@ -31,9 +40,10 @@
         margin-top: 10px;
     }
     .company-logo {
-        margin-top: 20px;
         width: 90%;
+        max-width: 300px;
         margin: 0 auto;
+        margin-top: 20px;
     }
     .company-logo img {
         width: 100%;
@@ -43,31 +53,38 @@
 
 
     .company-body {
+        width: 90%;
+        margin: 0 auto;
         margin-top: 30px;
-        background: rgba(135, 206, 250, 0.6);
+        margin-bottom: 30px;
+        padding: 12px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
-        border-top: outset 2px lightskyblue;
-        border-bottom: outset 2px lightskyblue;
-        font-size: 1.3rem;
-        padding: 10px;
-        margin-bottom: 40px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: outset 1px #888;
+        border-bottom: outset 1px #888;
     }
     .company-body p {
-        font-size: 1rem;
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+        color: #fff;
     }
     .company-contact {
-        background: rgba(135, 206, 250, 0.6);
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 12px;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
-        border-top: outset 2px lightskyblue;
-        border-bottom: outset 2px lightskyblue;
-        font-size: 1.3rem;
-        padding: 10px;
-        margin-bottom: 40px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: outset 1px #888;
+        border-bottom: outset 1px #888;
     }
     .company-contact i {
-        color: #fff;
+        color: rgba(255, 255, 255, 0.5);
         padding: 8px;
     }
     .company-address {
@@ -97,7 +114,8 @@
 
 <%- include('../../partials/menus/business'); %>
 
-<div class="company-background-image" style="background:url(/image/<%= company.background_image %>) 50% 50% no-repeat; background-size:cover;">
+<div class="company-background-image" style="background:url('/image/<%= company.background_image %>') 50% 50% no-repeat; background-size:cover;"></div>
+<div class="company-background-image-filter"></div>
 
 </div>
 <div class="company-container">
@@ -110,7 +128,7 @@
             <% if (!company.logo) { %>
                 <span style="display: none;"></span>
             <% } else { %>
-                <img style="filter: drop-shadow(0 0 3px <%= company.colors.main %>);" src="/image/<%= company.logo %>" alt="">
+                <img style="filter: drop-shadow(0 0 1px <%= company.colors.main %>);" src="/image/<%= company.logo %>" alt="">
             <% } %>
         </div>
     </div>
@@ -123,7 +141,7 @@
                 <% if (!company.company_street_1 && !company.company_street_2 && !company.company_suite_number && !company.company_state && !company.company_country) { %>
                     <span style="display: none;"></span>
                 <% } else { %>
-                    <i style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" class="fas fa-map-marked-alt"></i>
+                    <i style="filter: drop-shadow(0 0 0.5px <%= company.colors.main %>);" class="fas fa-map-marked-alt"></i>
                 <% } %>
             </div>
             <div class="company-address-data">
@@ -172,7 +190,7 @@
             <span></span>
         <% } else { %>
             <div class="company-contact-item">
-                <p><i style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" class="fa-solid fa-phone"></i> <a href="tel:<%= company.company_phone %>"><%= company.company_phone %></a></p>
+                <p><i style="filter: drop-shadow(0 0 0.5px <%= company.colors.main %>);" class="fa-solid fa-phone"></i> <a href="tel:<%= company.company_phone %>"><%= company.company_phone %></a></p>
             </div>
         <% } %>
 
@@ -180,7 +198,7 @@
             <span></span>
         <% } else { %>
             <div class="company-contact-item">
-                <p><i style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" class="fa-solid fa-fax"></i> <%= company.company_fax %></p>
+                <p><i style="filter: drop-shadow(0 0 0.5px <%= company.colors.main %>);" class="fa-solid fa-fax"></i> <%= company.company_fax %></p>
             </div>
         <% } %>
 
@@ -188,7 +206,7 @@
             <span></span>
         <% } else { %>
             <div class="company-contact-item">
-                <p><i style="filter: drop-shadow(0 0 2px <%= company.colors.main %>);" class="fa-solid fa-at"></i> <a href="mailto:<%= company.company_main_email %>"><%= company.company_main_email %></a></p>
+                <p><i style="filter: drop-shadow(0 0 0.5px <%= company.colors.main %>);" class="fa-solid fa-at"></i> <a href="mailto:<%= company.company_main_email %>"><%= company.company_main_email %></a></p>
             </div>
         <% } %>
 
