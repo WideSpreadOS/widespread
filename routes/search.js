@@ -26,7 +26,7 @@ router.get('/results/:query', async (req, res) => {
     const companies = await Company.find({ "company_name": { "$regex": queryString, "$options": "i" }})
     const questions = await Question.find({ "question_body": { "$regex": queryString, "$options": "i" }}).populate('answers').exec()
     // const allResults = [companies, userFn, userLn, courses, classes, questions]
-    const allResults = [companies, /* userFn, userLn, */ courses, classes, questions]
+    const allResults = [companies, courses, classes, questions]
     console.log(`All results: \n \n \n ${allResults.length}`)
     res.render('search/results', { subZone: 'Search', zone: 'Search', subZonePage: 'Results', queryString, allResults, courses, classes, companies, questions })
 });

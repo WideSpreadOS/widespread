@@ -6,7 +6,9 @@ A new way to internet.
 
 
 
+                    <a-cursor color="lightskyblue">
 
+                    </a-cursor>
 
 
 
