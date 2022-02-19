@@ -1,5 +1,7 @@
 <style>
-
+    h5 {
+        padding: 10px;
+    }
     .movie-poster {
         position: fixed;
         top: 0;
@@ -27,7 +29,7 @@
         display: none;
         box-shadow: inset 0 0 10px rgba(85, 85, 85, 0.75);
         color: #888;
-        border: outset 2px rgba(135, 206, 250, 0.5);
+        border: outset 1px rgba(135, 206, 250, 0.5);
         border-top: none;
         transition: ease-out 0.5s;
     }
@@ -35,7 +37,7 @@
     #bright:hover {
         box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25), 0 3px 5px rgba(0, 0, 0, 0.6);
         color: #fff;
-        border: outset 2px rgba(135, 206, 250, 0.5);
+        border: outset 1px rgba(135, 206, 250, 0.5);
         border-top: none;
         transition: ease-in 0.5s;
     }
@@ -47,7 +49,39 @@
 
 
 
-
+    .add-to-list {
+        width: 75%;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .add-to-list button {
+        background: rgba(135, 206, 250, 0.25);
+        backdrop-filter: blur(4px);
+        outline: none;
+        border: none;
+        border-radius: 8px;
+        padding: 10px;
+        width: 200px;
+        margin-bottom: 40px;
+        color: #fff;
+        font-size: 1.5rem;
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.005), 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue, 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+    .add-to-list p {
+        margin-bottom: 50px;
+    }
+        .add-to-list a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            background: rgba(135, 206, 250, 0.25);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.005), 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue, 0 4px 8px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+        }
 
 
 
@@ -56,12 +90,13 @@
 
 
     .previous-page-nav-container {
-        background: rgba(135, 206, 250, 0.5);
+        background: rgba(135, 206, 250, 0.25);
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.005), 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue, 0 4px 8px rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(4px);
         text-align: center;
-        border-top: outset 2px lightskyblue;
-        border-bottom: outset 2px lightskyblue;
-        width: 100%;
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 8px;
         padding: 5px;
 
     }
@@ -86,7 +121,7 @@
     }
 
     .movie-title h5 {
-        font-size: 1.4rem;
+        font-size: 2rem;
     }
 
     .video-stream {
@@ -116,11 +151,11 @@
 
     .link-item {
         background: rgba(135, 206, 250, 0.25);
+        backdrop-filter: blur(4px);
+
         padding: 10px;
         border-radius: 8px;
-        border-top: outset 2px rgba(255, 255, 255, 0.5);
-        border-bottom: outset 2px rgba(255, 255, 255, 0.5);
-        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.005);
+        box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.005), 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue, 0 4px 8px rgba(0, 0, 0, 0.4);
     }
 
     .link-item a {
@@ -132,15 +167,22 @@
 
 
     .movie-plot {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        border-radius: 8px;
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
-        border-top: outset 2px #888;
-        border-bottom: outset 2px #888;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: outset 1px #888;
+        border-bottom: outset 1px #888;
         padding: 5px;
+        font-size: 1.3rem;
+        line-height: 1.6rem;
     }
 
     .movie-plot h5 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         color: rgba(135, 206, 250, 0.5);
         border-bottom: outset 1px rgba(135, 206, 250, 0.3);
     }
@@ -148,20 +190,27 @@
     .movie-plot p {
         padding: 3px;
         color: #fff;
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
 
     .movie-ratings {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        border-radius: 8px;
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
-        border-top: outset 2px #888;
-        border-bottom: outset 2px #888;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: outset 1px #888;
+        border-bottom: outset 1px #888;
         padding: 5px;
+        font-size: 1.3rem;
+        line-height: 1.6rem;
     }
 
     .movie-ratings h5 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         color: rgba(135, 206, 250, 0.5);
         border-bottom: outset 1px rgba(135, 206, 250, 0.3);
     }
@@ -169,19 +218,26 @@
     .movie-ratings p {
         padding: 3px;
         color: #fff;
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     .movie-crew {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        border-radius: 8px;
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
-        border-top: outset 2px #888;
-        border-bottom: outset 2px #888;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: outset 1px #888;
+        border-bottom: outset 1px #888;
         padding: 5px;
+        font-size: 1.3rem;
+        line-height: 1.6rem;
     }
 
     .movie-crew h5 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         color: rgba(135, 206, 250, 0.5);
         border-bottom: outset 1px rgba(135, 206, 250, 0.3);
     }
@@ -189,15 +245,22 @@
     .movie-crew p {
         padding: 3px;
         color: #fff;
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     .movie-stats {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        border-radius: 8px;
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
-        border-top: outset 2px #888;
-        border-bottom: outset 2px #888;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-top: outset 1px #888;
+        border-bottom: outset 1px #888;
         padding: 5px;
+        font-size: 1.3rem;
+        line-height: 1.6rem;
     }
 
     .movie-stats h5 {
@@ -209,7 +272,7 @@
     .movie-stats p {
         padding: 3px;
         color: #fff;
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
 
@@ -233,25 +296,29 @@
     .movie-search {
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
-        border-top: outset 2px lightskyblue;
-        border-bottom: outset 2px lightskyblue;
+        border-top: outset 1px lightskyblue;
+        border-bottom: outset 1px lightskyblue;
         padding: 10px;
         padding-left: 0;
         padding-bottom: 0;
-        width: 100%;
+        width: 90%;
+        margin: 0 auto;
         margin-bottom: 15px;
+        border-radius: 8px;
     }
 
     .movie-search input {
-        width: 100%;
+        width: calc(100% - 2px);
         outline: none;
         border: none;
         margin-left: 0;
         padding: 5px;
-        background: rgba(135, 206, 250, 0.5);
+        background: rgba(135, 206, 250, 0.25);
+        border-left: inset 1px rgba(255, 255, 255, 0.5);
+        border-right: inset 1px rgba(255, 255, 255, 0.5);
         backdrop-filter: blur(4px);
         color: #fff;
-        box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.75);
+        box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.25);
     }
 
     .movie-search input::placeholder {
@@ -259,10 +326,10 @@
     }
 
     .movie-search button {
-        width: 80%;
-        margin-left: 10%;
-        background: green;
-        border: outset 2px green;
+        width: 50%;
+        margin-left: 25%;
+        background: rgba(0, 128, 0, 0.25);
+        border: outset 1px green;
         border-bottom: none;
         margin-bottom: 0;
         color: #fff;
@@ -272,41 +339,6 @@
         border-top-right-radius: 8px;
     }
 
-    .add-to-list {
-        width: 100%;
-    }
-
-    .add-to-list button {
-        width: 100%;
-        border: none;
-        border-top: outset 2px green;
-        border-bottom: outset 2px green;
-        background: rgba(0, 128, 0, 0.3);
-        color: #fff;
-        outline: none;
-        font-size: 1.2rem;
-        backdrop-filter: blur(4px);
-        padding: 8px;
-    }
-
-    .add-to-list p {
-        margin-top: 10px;
-        color: #fff;
-        text-align: center;
-        padding: 8px;
-        border-top: outset 2px lightskyblue;
-        border-bottom: outset 2px lightskyblue;
-        background: rgba(135, 206, 250, 0.25);
-        backdrop-filter: blur(4px);
-    }
-
-    .add-to-list a {
-        width: 100%;
-        color: #fff;
-        text-align: center;
-        text-decoration: none;
-        font-size: 1.2rem;
-    }
 
 
 
@@ -346,7 +378,7 @@
         }
 
         .video-stream iframe {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue, 0 6px 12px rgba(0, 0, 0, 0.6);
             border-radius: 6px;
             height: 100%;
 
@@ -357,7 +389,7 @@
         .video-stream button {
             cursor: pointer;
             outline: none;
-            border: outset 2px lightskyblue;
+            border: outset 1px lightskyblue;
             border-top: none;
             background: rgba(135, 206, 250, 0.25);
             box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25), 0 3px 5px rgba(0, 0, 0, 0.6);
@@ -510,9 +542,7 @@
                 <p><a href="/entertainment/photos/movies/<%= returnedData.imdbID %>">See Movie Photos</a></p>
             </div>
 
-            <div class="spread-break-cross">
-                <hr>
-            </div>
+
 
             <div class="movie-plot">
                 <h5>Plot</h5>
@@ -521,9 +551,7 @@
                 </p>
             </div>
 
-            <div class="spread-break-cross">
-                <hr>
-            </div>
+
 
             <div class="movie-ratings">
                 <h5>Ratings</h5>
@@ -533,9 +561,7 @@
                     </p>
                     <% }) %>
             </div>
-            <div class="spread-break-cross-cross">
-                <hr>
-            </div>
+
             <div class="movie-crew">
                 <h5>Cast & Crew</h5>
                 <p>Director: <%= returnedData.Director %>
@@ -546,9 +572,7 @@
                 </p>
             </div>
         </div>
-        <div class="spread-break-cross">
-            <hr>
-        </div>
+
         <div class="movie-stats">
             <h5>More Info</h5>
             <p>Rated: <%= returnedData.Rated %>
@@ -568,9 +592,7 @@
             <p>Language: <%= returnedData.Language %>
             </p>
         </div>
-        <div class="spread-break-cross">
-            <hr>
-        </div>
+
 
     </div>
 

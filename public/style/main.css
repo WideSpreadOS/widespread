@@ -428,7 +428,7 @@ button {
         box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25);
         border-top: outset 2px rgba(135, 206, 250, 0.75);
         border-bottom: outset 2px rgba(135, 206, 250, 0.75);
-        margin-bottom: 15px;
+        margin-bottom: 30px;
 
     }
     .spread-container-header h5 {
