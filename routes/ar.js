@@ -25,4 +25,19 @@ router.get('/sports/golf', ensureAuthenticated, async (req, res) => {
 })
 
 
+
+// SpreadShield Nearby Places Page
+router.get('/spreadshield/nearby', ensureAuthenticated, async (req, res) => {
+    const currentUser = req.user;
+    const userId = req.user.id;
+
+    const user = await User.findById(userId)
+
+
+    res.render('ar', {
+        layout: 'spreadshield', currentPageTitle: 'SpreadShield', currentUser, user
+    });
+})
+
+
 module.exports = router;

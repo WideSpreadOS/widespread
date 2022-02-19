@@ -1,66 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WideSpread VR</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>WideSpread AR</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="icon" href="/images/system/widespread_logo_1a1a1a.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Gruppo&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,100&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/080e00a6ec.js" crossorigin="anonymous"></script>
-    <script
-    src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
     <link rel="stylesheet" href="/style/main.css">
-    <style>
-        body {
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-        }
-        a-scene {
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-        }
-        .arjs-loader {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .arjs-loader div {
-            font-family: 'Gruppo', cursive;
-            text-align: center;
-            font-size: 1.5em;
-            color: lightblue;
-        }
-        </style>
 </head>
 
-<body style="margin : 0px; overflow: hidden;">
+<body style="margin: 0; overflow: hidden;">
     <%- include('./partials/layout/core-menu'); %>
-
-    <!-- minimal loader shown until image descriptors are loaded -->
-    <div class="arjs-loader">
-        <div>Loading, please wait...</div>
-    </div>
-    <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" 
-        arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
-        <!-- we use cors proxy to avoid cross-origin problems -->
-  
-        <a-entity camera></a-entity>
+    <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+        <a-text value="This content will always face you." look-at="[gps-camera]" scale="120 120 120"
+            gps-entity-place="latitude: 28.847076; longitude: -82.004108;"></a-text>
+        <a-text value="This content will always face you." look-at="[gps-camera]" scale="120 120 120"
+            gps-entity-place="latitude: 28.857076; longitude: -82.004108;" color="lightskyblue"></a-text>
+        <a-camera gps-camera rotation-reader> </a-camera>
     </a-scene>
 </body>
 
-</html> 
+</html>

@@ -1,6 +1,20 @@
     <style>
+      body {
+        padding-bottom: 0;
+      }
+      #coreContainer {
+        padding-top: 0;
+      }
       @media screen and (min-width: 300px) {
+        .welcome-page {
+          min-height: 100vh;
+          width: 100vw;
+          max-width: 100vw;
 
+        }
+        .create-account {
+          margin-top: 80px;
+        }
         .welcome-message {
           text-align: center;
         }
@@ -27,12 +41,32 @@
           color: lightskyblue;
           text-decoration: none;
         }
+        .site-security {
+          position: absolute;
+          bottom: 40px;
+          width: 50%;
+          transform: translateX(50%);
+          text-align: center;
+
+        }
+        .site-security img {
+          border-radius: 6px;
+          filter: drop-shadow(0 0 3px lightskyblue);
+          opacity: 0.3;
+          transition: ease-out 2s;
+        }
+        .site-security img:hover {
+          border-radius: 6px;
+          filter: drop-shadow(0 0 3px lightskyblue);
+          opacity: 1;
+          transition: ease-in 0.5s;
+        }
     }
     </style>
     
     
     
-    
+    <div class="welcome-page">
     <!-- Create Account -->
     <div class="create-account">
       <div class="welcome-message">
@@ -44,3 +78,16 @@
           <h6><a href="/users/register">Register</a></h6>
         </div>
       </div>
+
+
+
+
+<div class="site-security">
+
+  <span id="siteseal">
+    <script async type="text/javascript"
+    src="https://seal.godaddy.com/getSeal?sealID=jgxvKyT7N7AEcUNZqHedzVwz8a710Xgax9bVWVqtVNZveGlpWdoC9du61Exf"></script>
+  </span>
+</div>
+
+    </div>
