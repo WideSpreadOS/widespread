@@ -17,7 +17,7 @@ const UserPhoto = require('../models/UserPhoto');
 router.get('/users/dashboard', ensureAuthenticated, async (req, res) => {
     const currentUser = req.user;
     const userId = req.user.id;
-    const posts = await Post.find({'author': {$eq: userId}})
+    const posts = await Post.find({ 'author': { $eq: userId } }).sort({ createdAt: 'desc' }).limit(5)
     console.log(`Posts: ${posts}`)
     const user = await User.findById(userId).populate('friends').exec()
     const userPhotos = await UserPhoto.find({'image_owner': {$eq: currentUser.id}})
