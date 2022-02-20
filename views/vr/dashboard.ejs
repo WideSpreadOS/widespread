@@ -1,28 +1,35 @@
 <style>
 
 </style>
+<a-assets>
+    <img id="ground" src="/images/system/vr/floor_1a2a1a.jpg" alt="">
+</a-assets>
 <a-camera>
     <a-cursor></a-cursor>
 
 </a-camera>
-<a-text value="Dashboard" color="lightskyblue" position="0 4 -4" align="center" scale="2 2 2"></a-text>
+<a-text value="Dashboard" color="lightskyblue" position="0 3.5 -4" align="center" scale="2.5 2.5 2.5"></a-text>
 <a-entity log id="userPhotos"></a-entity>
 
+<!-- FLOOR -->
 
 
+<!-- POSTS -->
 <% let postStartingPoint = 0 %>
-<a-entity position="-4 4 0" rotation="0 90 0" scale="2 3 2">
-    <a-text value="Your Posts" color="lightskyblue" position="0 1 0" align="center"></a-text>
+<a-entity id="postContainer" position="-2.5 2.5 -5" rotation="0 90 0" scale="1 1 1">
+    <a-text value="Your Posts" color="lightskyblue" position="-5 1 0" align="center"></a-text>
     <% posts.forEach(function(post) { %>
-        <a-entity position="<%- postStartingPoint-- %> 0 0" scale="1 1 1" geometry="primitive: plane" height="3" material="metalness: 0.5; opacity: 0.8; color: lightskyblue">
-            <a-text width="1" value="<%= post.postBody %>" wrap-count="20" height="1" color="#fff" scale="1 0.5 1" align="center" line-height="35"></a-text>    
+        <a-entity class="post-container" position="<%- postStartingPoint-- %> 0 0" scale="1 1 1" geometry="primitive: plane" height="3" material="metalness: 0.5; opacity: 0.8; color: lightskyblue">
+            <a-text width="1" value="<%= post.postBody %>" wrap-count="20" height="1" color="#fff" position="0 0 0.100" scale="1 0.5 1" align="center" line-height="35"></a-text>    
         </a-entity>
     <% }) %>
 </a-entity>
 
+
+<!-- FRIENDS -->
 <% let friendStartingPoint = 0 %>
-<a-entity position="-4 1.5 0" rotation="0 90 0" scale="1 .5 1">
-    <a-text value="Your Friends" color="lightskyblue" position="0 1 0" align="center"></a-text>
+<a-entity position="-2.5 1.5 -5" rotation="0 90 0" scale="1 .5 1">
+    <a-text value="Your Friends" color="lightskyblue" position="-5 1 0" align="center"></a-text>
     <% user.friends.forEach(function(friend) { %>
         <a-entity position="<%- friendStartingPoint-- %> 0 0" geometry="primitive: plane" height="3" material="metalness: 0.5; opacity: 0.8; color: <%= friend.favColor1 %>">
             <a-text width="2" value="<%= friend.fname %> <%= friend.lname %>" color="#fff" align="center" scale="1 1 1" line-height="1"></a-text>    
@@ -30,9 +37,12 @@
     <% }) %>
 </a-entity>
 
+
+
+<!-- PHOTOS -->
 <% let photoStartingPoint = 0 %>
-<a-entity position="-4 1.5 -4" rotation="0 0 0">
-    <a-text value="Your Photos" color="lightskyblue" position="0 1 0" align="center"></a-text>
+<a-entity position="-2 1.5 -4" rotation="0 0 0">
+    <a-text value="Your Photos" color="lightskyblue" position="2 1 0" align="center"></a-text>
     <% userPhotos.forEach(function(photo) { %>
         <a-entity position="<%- photoStartingPoint++ %> 0 0">
             <a-image src="/image/<%= photo.img.data %>"></a-image>
@@ -40,20 +50,29 @@
     <% }) %>
 </a-entity>
 
+
+
+
+<!-- MOVIES -->
 <% let movieStartingPoint = 0 %>
-<a-entity position="4 1.5 -4" rotation="0 -90 0">
+<a-entity position="4 2.5 -4" rotation="0 -90 0">
     <a-text value="Your Movies" color="lightskyblue" position="0 1 0" align="center"></a-text>
     <% currentUser.movie_list.forEach(function(movie) { %>
         <a-entity position="<%- movieStartingPoint++ %> 0 0">
-            <a-link href="/entertainment/vr/movies/<%= movie.movie_link %>" title="<%= movie.movie_name %>" position="0 0 0.1" scale="0.3 0.3 0.3" image="<%= movie.movie_poster %>" color="lightskyblue"></a-link>
-            <a-image src="<%= movie.movie_poster %>" position="0 -1 0"></a-image>
+                <a-link href="/entertainment/vr/movies/<%= movie.movie_link %>" title="<%= movie.movie_name %>" peekmode="true" position="0 -1 0.1" scale="0.3 0.3 0.3" image="<%= movie.movie_poster %>" color="lightskyblue" geometry="primitive: circle; radius: 0.7; segments: 64" material="shader: portal; pano: <%= movie.movie_poster %>; side: double; opacity: 0.65; backgroundColor: #000; strokeColor: lightskyblue" link="backgroundColor: #000; borderColor: lightskyblue; highlightedColor: #fff; titleColor: lightskyblue"><a-entity text="color: white; align: center; font: kelsonsans; value: <%= movie.movie_name %>; width: 5" position="0 1.5 0" rotation="0 180 0"></a-entity><a-entity geometry="primitive: sphere; segmentsWidth: 64; segmentsHeight: 64; phiLength: 180; thetaLength: 360" material="shader: portal; borderEnabled: 0; pano: <%= movie.movie_poster %>; side: back" rotation="0 180 0" position="" visible="false"></a-entity><a-entity geometry="primitive: sphere; radius: 10; segmentsWidth: 64; segmentsHeight: 64" material="shader: portal; borderEnabled: 0; pano: <%= movie.movie_poster %>; side: back" visible="false"></a-entity></a-link>
+                <a-image src="<%= movie.movie_poster %>" position="0 -0.4 0"></a-image>
         </a-entity>
     <% }) %>
 </a-entity>
 
 
+<!-- BACKGROUND -->
+<% if (!currentUser.user_vr_background_image) { %>
+    <a-sky src="/images/system/vr/dashboard_1a1a1a.jpg"></a-sky>
+    <% } else { %>
 
-<a-sky src="/image/<%= currentUser.user_vr_background_image %>"></a-sky>
+        <a-sky src="/image/<%= user.user_vr_background_image %>"></a-sky>
+<% } %>
 <script>
     
     AFRAME.registerComponent('log', {
@@ -65,5 +84,22 @@
 
 
 
+        const postContainer = document.getElementById('postContainer')
+        const allPosts = postContainer.querySelectorAll('.post-container')
+        allPosts.forEach(postEl => {
 
+            console.log(postEl)
+            postEl.addEventListener('click', function (e) {
+                const postData = postEl.querySelector('a-text')
+                const postColor = postEl.getAttribute('material')
+                const backgroundColor = postColor["color"]
+                console.log(backgroundColor)
+                if (backgroundColor == "lightskyblue") {
+                    postEl.setAttribute('material', 'color', 'black');
+                } else {
+                    postEl.setAttribute('material', 'color', 'lightskyblue');
+                }
+                console.log(postColor)
+            })
+        })
 </script>
