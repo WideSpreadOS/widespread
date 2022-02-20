@@ -1,5 +1,45 @@
 <style>
+    @media screen and (min-width: 300px) {
+        .friend-container {
+            background: #000; backdrop-filter: blur(4px); border-radius: 16px; box-shadow: 0 0 30px #fff; color: #333; font-size: 48px
+        }
+        .friend-container h5 {
+            color: #fff; text-shadow: 0 0 20px lightskyblue; font-size: 5rem; text-align: center; padding: 40px;
+        }
+        .friends-list {
+            padding: 30px; border: outset 5px lightskyblue; border-radius: 50px; box-shadow: 0 0 40px #fff;
+        }
+        .friend {
+            margin-bottom: 20px; text-align: center; color: rgb(255, 255, 255);
+        }
+        .friend p {
+            font-family: 'Gruppo', cursive; font-size: 2.5rem; text-shadow: 0 0 15px lightskyblue;
+        }
+        .friend a {
+            text-decoration: none; color: lightblue; font-family: 'Gruppo', cursive; font-size: 2.5rem;
+        }
 
+    }
+    @media screen and (min-width: 900px) {
+        .friend-container {
+            background: #000; backdrop-filter: blur(4px); border-radius: 16px; box-shadow: 0 0 30px #fff; color: #333; font-size: 48px
+        }
+        .friend-container h5 {
+            color: #fff; text-shadow: 0 0 20px lightskyblue; font-size: 15rem; text-align: center; padding: 40px;
+        }
+        .friends-list {
+            padding: 30px; border: outset 5px lightskyblue; border-radius: 50px; box-shadow: 0 0 40px #fff;
+        }
+        .friend {
+            margin-bottom: 20px; text-align: center; color: rgb(255, 255, 255);
+        }
+        .friend p {
+            font-family: 'Gruppo', cursive; font-size: 5rem; text-shadow: 0 0 15px lightskyblue;
+        }
+        .friend a {
+            text-decoration: none; color: lightblue; font-family: 'Gruppo', cursive; font-size: 4rem;
+        }
+    }
 </style>
 <a-assets>
     <img id="ground" src="/images/system/vr/floor_1a2a1a.jpg" alt="">
@@ -8,10 +48,7 @@
     <img id="foor2" src="/images/system/vr/floors/metal-treadplate_2.png" alt="">
     <img id="brushedMetal" src="/images/system/vr/metal/brushed-metal_1.png" alt="">
 </a-assets>
-<a-camera>
-    <a-cursor></a-cursor>
 
-</a-camera>
 <a-text value="Dashboard" color="lightskyblue" position="0 3.75 -3" align="center" scale="2.5 2.5 2.5" text="opacity: 0.5"></a-text>
 <a-entity log id="userPhotos"></a-entity>
 
@@ -23,19 +60,8 @@
 <!-- FLOOR -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<a-circle geometry="segments: 100; " material="src: #floorImg; repeat: 25 25; normal-map: #floorMap; normal-texture-repeat: 25 25" rotation="-90 0 0" scale="10 10 1"></a-circle>
+<a-circle geometry="segments: 100; " material="src: #floorImg; repeat: 25 25; normal-map: #floorMap; normal-texture-repeat: 25 25 metalness: 0.5" rotation="-90 0 0" scale="10 10 1"></a-circle>
+<a-box scale="10 0.5 10" material="src: #floorImg; repeat: 20 20; normal-map: #floorMap; normal-texture-repeat: 20 20 metalness: 0.5"></a-box>
 <a-cylinder scale="10 1 10" color="cyan" material="color: #6bffff; side: double; opacity: 0.5; metalness: 0.5" open-ended="true" rotation="" geometry="segmentsHeight: 100; segmentsRadial: 100" position="0 0.4 0"></a-cylinder>
 <a-torus rotation="90 0 0" arc="360" radius="5" radius-tubular="0.1"
     material="src: #brushedMetal; metalness: 0.25; roughness: 0.5"
@@ -58,27 +84,84 @@
 
 
 
-
-
-
-
 <!-- DYNAMIC SCENE -->
 
 
 <!-- FRIENDS -->
 <% let friendStartingPoint=0 %>
 
-<a-entity id="friendsContainer" transparent="false" position="0 2 -1.5" rotation="" geometry="primitive: plane"
+<a-entity id="friendsContainer" transparent="false" position="0 1.5 -1.5" rotation="" geometry="primitive: plane"
     material="shader: html; target: #friendContainer; blending: additive; opacity: 0.75" opacity="0.5"></a-entity>
+
+<!-- PHOTOS -->
+<% let photo1StartingPoint=0 %>
+    <a-entity id="photoAlbum1" position="-11 3 -5" rotation="0 45 0">
+        <a-text value="Your Photos" color="lightskyblue" position="4 1 0" align="center" scale="2.5 2.5 2.5"
+            text="opacity: 0.5"></a-text>
+
+        <a-entity position="0 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+
+        <a-entity position="2 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+
+        <a-entity position="4 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+
+        <a-entity position="6 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+
+        <a-entity position="8 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+    </a-entity>
+
+
+<% let photo2StartingPoint=0 %>
+    <a-entity id="photoAlbum2" position="5 3 -11" rotation="0 -45 0">
+        <a-text value="Your Photos" color="lightskyblue" position="4 1 0" align="center" scale="2.5 2.5 2.5"
+            text="opacity: 0.5"></a-text>
+
+        <a-entity position="0 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+
+        <a-entity position="2 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+
+        <a-entity position="4 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+
+        <a-entity position="6 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+
+        <a-entity position="8 0 0">
+            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        </a-entity>
+    </a-entity>
+
+
+
+
+
+
+
 
 <!-- POSTS -->
 <% let postStartingPoint=0 %>
-    <a-entity id="postContainer" position="-2.5 2.75 -2.5" rotation="0 90 0" scale="1 1 1">
-        <a-text value="Your Posts" color="lightskyblue" position="-2.5 1 0" align="center"></a-text>
+    <a-entity id="postContainer" position="-2.5 2 -2" rotation="0 90 0" scale="1 1 1">
+        <a-text value="Your Posts" color="lightskyblue" position="-2 0.75 0" align="center"></a-text>
         <% posts.forEach(function(post) { %>
             <a-entity position="<%- postStartingPoint-- %> 0 0" scale="1 1 1">
                 <a-entity class="post-container" scale="0.9 0.9 0.9" geometry="primitive: plane" height="3"
-                    material="metalness: 0.5; opacity: 0.8; color: lightskyblue">
+                    material="metalness: 0.5; opacity: 0.8; color: #000">
                     <a-text width="0.9" value="<%= post.postBody %>" wrap-count="20" height="0.9" color="#fff"
                         position="0 0 0.010" scale="1 0.5 1" align="center" line-height="60"></a-text>
                 </a-entity>
@@ -90,7 +173,7 @@
 
 
 
-
+<a-entity color="red" position="0 2 -11" height="2" width="5" geometry="primitive: plane;" scale="1 1 0" material="shader: html; target: #friendContainer; blending: additive; opacity: 0.75"></a-entity>
 
 
 
@@ -125,26 +208,16 @@
 
 
 
-        <!-- PHOTOS -->
-        <% let photoStartingPoint=0 %>
-            <a-entity position="-2 1.5 -4" rotation="0 0 0">
-                <a-text value="Your Photos" color="lightskyblue" position="2 1 0" align="center"></a-text>
-                <% userPhotos.forEach(function(photo) { %>
-                    <a-entity position="<%- photoStartingPoint++ %> 0 0">
-                        <a-image height="0.9" width="0.9" src="/image/<%= photo.img.data %>"></a-image>
-                    </a-entity>
-                    <% }) %>
-            </a-entity>
-
 
 
 
             <!-- MOVIES -->
             <% let movieStartingPoint=0 %>
-                <a-entity position="4 2.5 -4" rotation="0 -90 0">
-                    <a-text value="Your Movies" color="lightskyblue" position="0 1 0" align="center"></a-text>
+                <a-entity position="4 4 11" rotation="0 180 0">
+                    <a-text value="Your Movies" color="lightskyblue" position="4 0.5 0" align="center"></a-text>
                     <% currentUser.movie_list.forEach(function(movie) { %>
                         <a-entity position="<%- movieStartingPoint++ %> 0 0">
+                            
                             <a-link href="/entertainment/vr/movies/<%= movie.movie_link %>"
                                 title="<%= movie.movie_name %>" peekmode="true" position="0 -1 0.1" scale="0.3 0.3 0.3"
                                 image="<%= movie.movie_poster %>" color="lightskyblue"
@@ -163,7 +236,7 @@
                                     material="shader: portal; borderEnabled: 0; pano: <%= movie.movie_poster %>; side: back"
                                     visible="false"></a-entity>
                             </a-link>
-                            <a-image src="<%= movie.movie_poster %>" position="0 -0.4 0"></a-image>
+                            <a-image src="<%= movie.movie_poster %>" position="0 -0.4 0" scale="0.9 0.9 0.9"></a-image>
                         </a-entity>
                         <% }) %>
                 </a-entity>
@@ -183,7 +256,15 @@
 
 
 
-
+<!-- Adult Height -->
+        <a-entity position="0 0 0">
+        
+            <a-camera user-height="1.6" active="false">
+                <a-cursor color="lightskyblue">
+        
+                </a-cursor>
+            </a-camera>
+        </a-entity>
 
 
 
@@ -194,19 +275,17 @@
 
 
                             <div
-                                style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -100; overflow: hidden">
-                                <div id="friendContainer"
-                                    style="background: #000; backdrop-filter: blur(4px); border-radius: 16px; box-shadow: 0 0 30px #fff; color: #333; font-size: 48px">
-                                    <h5 style="color: #fff; text-shadow: 0 0 20px lightskyblue; font-size: 15rem; text-align: center; padding: 40px;" >Friends</h5>
-                                    <div class="friends-list" style="padding: 30px; border: outset 5px lightskyblue; border-radius: 50px; box-shadow: 0 0 40px #fff;">
+                                style="width: fit-content; height: 200%; min-height: fit-content; position: fixed; left: 0; top: 0; z-index: -100; overflow: hidden">
+                                <div id="friendContainer">
+                                    <h5>Friends</h5>
+                                    <div class="friends-list">
                                         <% user.friends.forEach(function(friend) { %>
-                                            <div class="friend"
-                                                style="margin-bottom: 20px; text-align: center; color: rgb(255, 255, 255);">
-                                                <p style="font-family: 'Gruppo', cursive; font-size: 5rem; text-shadow: 0 0 15px lightskyblue;">
+                                            <div class="friend">
+                                                <p>
                                                     <%= friend.fname %>
                                                         <%= friend.lname %>
                                                 </p>
-                                                <p><a style="text-decoration: none; color: lightblue; font-family: 'Gruppo', cursive; font-size: 4rem;" href="#<%= friend.fname %>">Profile</a></p>
+                                                <p><a href="#<%= friend.fname %>">Profile</a></p>
                                             </div>
                                         <% }) %>
                                         </div>
