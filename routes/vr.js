@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const { ensureAuthenticated } = require('../config/auth');
-
+const axios = require('axios')
 const { readUserData, allUserPosts, getUserPosts } = require("../modules/user/user-data");
 
 /* Models */
@@ -49,8 +49,23 @@ router.get('/business', async (req, res) => {
 
 // News
 router.get('/news', async (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: { lang: 'en', media: 'True' },
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '7e45ec5e4fmsh4f3dac417f9eaa7p179a33jsnbfe4cb2e4c79'
+        }
+    };
 
-    res.render('vr/news/home', { layout: 'vr', currentPageTitle: 'VR Business' })
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+        const returnedData = response.data;
+        res.render('vr/news/home', { layout: 'vr', currentPageTitle: 'VR News', returnedData })
+    }).catch(function (error) {
+        console.error(error);
+    });
 });
 
 // Leisure

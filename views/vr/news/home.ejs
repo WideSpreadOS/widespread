@@ -140,8 +140,20 @@
 
 <!-- DYNAMIC SCENE -->
 
+<a-entity position="-3 1.5 -2">
+    <a-text value="Recent News" align="center" position="3 1 0"></a-text>
+    <% let newsStartingPoint=0 %>
+        <% returnedData.articles.forEach(function(article) { %>
+            <a-entity scale="1.2 1.2 1" position="<%- newsStartingPoint++ %> 0 0">
+                <a-image scale="0.6 0.9 1" src="<%= article.media %>" opacity="0.75" color="#000"></a-image>
+                <a-text value="<%= article.title %>" color="#fff" position="0 0.3 0.01" scale="0.2 0.5 1"
+                    align="center" width="3"></a-text>
+                <a-text value="<%= article.summary %>" color="lightskyblue" position="0 -0.05 0.01" scale="0.25 0.5 1"
+                    align="center" width="1.99"></a-text>
 
-<!-- FRIENDS -->
+            </a-entity>
+            <% }) %>
+</a-entity>
 
 
 
