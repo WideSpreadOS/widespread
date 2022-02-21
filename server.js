@@ -120,7 +120,6 @@ app.use('/', require('./routes/index'));
 app.use('/search', require('./routes/search'));
 app.use('/users', require('./routes/users'));
 app.use('/ar', require('./routes/ar'));
-app.use('/vr', require('./routes/vr'));
 app.use('/socialspread', require('./routes/socialspread'));
 app.use('/academy', require('./routes/academy'));
 app.use('/business', require('./routes/business'));
@@ -129,6 +128,8 @@ app.use('/news', require('./routes/news'));
 app.use('/wellness', require('./routes/wellness'));
 app.use('/things', require('./routes/things'));
 app.use('/help', require('./routes/help'));
+app.use('/vr', require('./routes/vr'));
+// app.use('/vr/academy', require('./routes/vr/academy'));
 
 
 app.get('/files', (req, res) => {

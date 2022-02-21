@@ -98,7 +98,7 @@
     <img id="brushedMetal" src="/images/system/vr/metal/brushed-metal_1.png" alt="">
 </a-assets>
 
-<a-text value="Academy" color="lightskyblue" position="0 3.75 -3" align="center" scale="2.5 2.5 2.5"
+<a-text value="Movies" color="lightskyblue" position="0 3.75 -3" align="center" scale="2.5 2.5 2.5"
     text="opacity: 0.5"></a-text>
 
 
@@ -140,60 +140,46 @@
 
 <!-- DYNAMIC SCENE -->
 
-<a-entity position="-3 1.5 -2">
-    <a-text value="Courses" align="center" position="3 1 0"></a-text>
-    <% let courseStartingPoint=0 %>
-    <% courses.forEach(function(course) { %>
-        <a-entity scale="1.2 1.2 1" position="<%- courseStartingPoint++ %> 0 0">
-            <a-image scale="0.6 0.9 1" src="/image/<%= course.background_image %>" opacity="0.75"></a-image>
-            <a-text value="<%= course.subject %>" color="lightskyblue" position="0 0.3 0.01" scale="0.3 0.3 1" align="center" width="3"></a-text>
-            <a-text value="<%= course.course %>" color="#fff" position="0 0 0.01" scale="0.5 0.5 1" align="center" width="3"></a-text>
 
-        </a-entity>
-    <% }) %>
-</a-entity>
-        
-
-
-<!-- HTML -->
+<!-- FRIENDS -->
 
 
 
-                                <div
-                                    style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden; background: #000;">
-                                </div>
-                                <script>
+<div
+    style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden; background: #000;">
+</div>
+<script>
 
-                                    AFRAME.registerComponent('log', {
-                                        init: function () {
-                                            console.log('Hello, World!');
-                                        }
-                                    });
+    AFRAME.registerComponent('log', {
+        init: function () {
+            console.log('Hello, World!');
+        }
+    });
 
 
 
 
-                                    const postContainer = document.getElementById('postContainer')
-                                    const allPosts = postContainer.querySelectorAll('.post-container')
-                                    allPosts.forEach(postEl => {
+    const postContainer = document.getElementById('postContainer')
+    const allPosts = postContainer.querySelectorAll('.post-container')
+    allPosts.forEach(postEl => {
 
-                                        console.log(postEl)
-                                        postEl.addEventListener('click', function (e) {
-                                            const postData = postEl.querySelector('a-text')
-                                            const postColor = postEl.getAttribute('material')
-                                            const backgroundColor = postColor["color"]
-                                            console.log(backgroundColor)
-                                            if (backgroundColor == "lightskyblue") {
-                                                postEl.setAttribute('material', 'color', 'black');
-                                            } else {
-                                                postEl.setAttribute('material', 'color', 'lightskyblue');
-                                            }
-                                            console.log(postColor)
-                                        })
-                                    })
-                                </script>
+        console.log(postEl)
+        postEl.addEventListener('click', function (e) {
+            const postData = postEl.querySelector('a-text')
+            const postColor = postEl.getAttribute('material')
+            const backgroundColor = postColor["color"]
+            console.log(backgroundColor)
+            if (backgroundColor == "lightskyblue") {
+                postEl.setAttribute('material', 'color', 'black');
+            } else {
+                postEl.setAttribute('material', 'color', 'lightskyblue');
+            }
+            console.log(postColor)
+        })
+    })
+</script>
 
-                                <script>
-                                    const htmlEl = document.getElementById('htmlElement')
-                                    console.log(htmlEl)
-                                </script>
+<script>
+    const htmlEl = document.getElementById('htmlElement')
+    console.log(htmlEl)
+</script>

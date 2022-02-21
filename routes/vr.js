@@ -34,7 +34,8 @@ router.get('/users/dashboard', ensureAuthenticated, async (req, res) => {
 
 // Academy
 router.get('/academy', async (req, res) => {
-    const courses = await Course.find()
+    const courses = await Course.find().populate('classes').exec()
+    console.log(courses)
     res.render('vr/academy/home', { layout: 'vr', currentPageTitle: 'VR Academy', courses})
 });
 
