@@ -96,54 +96,53 @@
 <!-- PHOTOS -->
 <% let photo1StartingPoint=0 %>
     <a-entity id="photoAlbum1" position="-11 3 -5" rotation="0 45 0">
-        <a-text value="Your Photos" color="lightskyblue" position="4 1 0" align="center" scale="2.5 2.5 2.5"
+        <a-text value="Your Photos" color="lightskyblue" position="4 1.2 0" align="center" scale="2.5 2.5 2.5"
             text="opacity: 0.5"></a-text>
 
         <a-entity position="0 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/1.png"></a-image>
         </a-entity>
 
         <a-entity position="2 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/2.png"></a-image>
         </a-entity>
 
         <a-entity position="4 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/3.jpeg"></a-image>
         </a-entity>
 
         <a-entity position="6 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/4.jpeg"></a-image>
         </a-entity>
 
         <a-entity position="8 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/5.jpg"></a-image>
         </a-entity>
     </a-entity>
 
 
 <% let photo2StartingPoint=0 %>
     <a-entity id="photoAlbum2" position="5 3 -11" rotation="0 -45 0">
-        <a-text value="Your Photos" color="lightskyblue" position="4 1 0" align="center" scale="2.5 2.5 2.5"
+        <a-text value="Your Photos" color="lightskyblue" position="4 1.2 0" align="center" scale="2.5 2.5 2.5"
             text="opacity: 0.5"></a-text>
-
         <a-entity position="0 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+        <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/6.png"></a-image>
         </a-entity>
 
         <a-entity position="2 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/7.jpg"></a-image>
         </a-entity>
 
         <a-entity position="4 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/8.jpg"></a-image>
         </a-entity>
 
         <a-entity position="6 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/9.png"></a-image>
         </a-entity>
 
         <a-entity position="8 0 0">
-            <a-image height="0.9" width="0.9" src="/images/system/question-mark_1a1a1a.png"></a-image>
+            <a-image scale="1.3 1.5 1" height="0.9" width="0.9" src="/images/test/10.jpg"></a-image>
         </a-entity>
     </a-entity>
 
@@ -173,8 +172,6 @@
 
 
 
-<a-entity color="red" position="0 2 -11" height="2" width="5" geometry="primitive: plane;" scale="1 1 0" material="shader: html; target: #friendContainer; blending: additive; opacity: 0.75"></a-entity>
-
 
 
 
@@ -185,7 +182,7 @@
     <% user.friends.forEach(function(friend) { %>
         <a-entity position="<%- friendStartingPoint-- %> 0 0" geometry="primitive: plane" height="3" material="metalness: 0.5; opacity: 0.5; color: <%= friend.favColor1 %>">
             
-            <a-image src="/image/<%= friend.user_avatar %>" position="0 0 0.01" width="0.9" height="0.9"></a-image>
+            <a-image scale="1.3 1.5 1" src="/image/<%= friend.user_avatar %>" position="0 0 0.01" width="0.9" height="0.9"></a-image>
             <a-text value="<%= friend.fname %> <%= friend.lname %>" position="0 1 0" scale="0.9 0.9 0.1" color="<%= friend.favColor1 %>" align="center" ></a-text>
             <a-text value="<%= friend.fname %> <%= friend.lname %>" position="0 1 0" scale="1 1 0.1" color="#fff" opacity="0.5" align="center" zOffset="0" height="0" width="4.5"></a-text>
 
@@ -236,7 +233,7 @@
                                     material="shader: portal; borderEnabled: 0; pano: <%= movie.movie_poster %>; side: back"
                                     visible="false"></a-entity>
                             </a-link>
-                            <a-image src="<%= movie.movie_poster %>" position="0 -0.4 0" scale="0.9 0.9 0.9"></a-image>
+                            <a-image scale="1.3 1.5 1" src="<%= movie.movie_poster %>" position="0 -0.4 0" scale="0.9 0.9 0.9"></a-image>
                         </a-entity>
                         <% }) %>
                 </a-entity>
