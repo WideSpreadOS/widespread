@@ -42,7 +42,8 @@ router.get('/academy', async (req, res) => {
 
 // Business
 router.get('/business', async (req, res) => {
-    const companies = Company.find()
+    const companies = await Company.find()
+    console.log(companies)
     res.render('vr/business/home', { layout: 'vr', currentPageTitle: 'VR Business', companies })
 });
 

@@ -140,8 +140,25 @@
 
 <!-- DYNAMIC SCENE -->
 
+<a-entity position="-3 1.5 -2">
+    <a-text value="Businesses" align="center" position="3 1 0"></a-text>
+    <% let companyStartingPoint=0 %>
+        <% companies.forEach(function(company) { %>
+            <a-entity scale="1.2 1.2 1" position="<%- companyStartingPoint++ %> 0 0">
+                <a-image scale="0.6 0.9 1" src="/image/<%= company.background_image %>" opacity="0.75"></a-image>
+                <a-image scale="0.2 0.2 1" src="/image/<%= company.logo %>" position="0 0.5 0.02"></a-image>
+                <a-text value="<%= company.company_name %>" color="#fff" position="0 0.3 0.01" scale="0.5 0.5 1" align="center"
+                    width="3"></a-text>
+                    <a-text value="<%= company.company_bio %>" color="lightskyblue" position="0 0 0.01" scale="0.25 0.75 1"
+                        align="center" width="1.99"></a-text>
 
-<!-- FRIENDS -->
+            </a-entity>
+            <% }) %>
+</a-entity>
+
+
+
+<!-- HTML -->
 
 
 
