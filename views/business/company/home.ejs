@@ -19,6 +19,31 @@
         z-index: -40;
 
     }
+
+
+    .company-pages-nav {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(4px);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .company-nav-item {
+        width: fit-content;
+        min-width: 100px;
+        padding: 8px;
+        text-align: center;
+    }
+    .company-nav-item a {
+        color: #fff;
+        text-decoration: none;
+    }
+    .subpage-active a {
+        color: lightskyblue;
+    }
     .company-container {
         width: 100vw;
         margin: 0 auto;
@@ -110,13 +135,45 @@
         color: #fff;
         text-shadow: 0 0 2px lightskyblue;
     }
+
+    .company-employee-portal {
+        margin: 0 auto;
+        margin-bottom: 100px;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(4px);
+        width: 90%;
+        border-radius: 8px;
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 10px;
+    }
+    .company-employee-portal a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.3rem;
+    }
 </style>
 
 <%- include('../../partials/menus/business'); %>
 
 <div class="company-background-image" style="background:url('/image/<%= company.background_image %>') 50% 50% no-repeat; background-size:cover;"></div>
 <div class="company-background-image-filter"></div>
-
+<div class="company-pages-nav">
+    <div class="company-nav-item <%= subZonePage=='Home' ? 'company-nav-item subpage-active' : 'company-nav-item' %>">
+        <a href="/business/company/<%= company.id %>">Home</a>
+    </div>
+    <% pages.forEach(function(page) { %>
+        <div class="company-nav-item <%= subZonePage==page.page_name ? 'company-nav-item subpage-active' : 'company-nav-item' %>">
+            <a href="/business/company/<%= company.id %>/page/<%= page.id %>"><%= page.page_name %></a>
+        </div>
+    <% }) %>
 </div>
 <div class="company-container">
     <div class="company-header">
@@ -210,5 +267,11 @@
             </div>
         <% } %>
 
+    </div>
+
+
+    <div class="company-employee-portal">
+        <a href="/business/employee/<%= company.id %>">Employee Portal</a>
+        <a href="/business/admin/<%= company.id %>">Admin Portal</a>
     </div>
 </div>

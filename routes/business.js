@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 
-
+ 
 /* Models */
 const User = require('../models/User');
 const Company = require('../models/Company');
-
+const Subpage = require('../models/Subpage');
 
 router.get('/', async (req, res) => {
     const allCompanies = await Company.find()
@@ -17,9 +17,50 @@ router.get('/', async (req, res) => {
 router.get('/company/:id', async (req, res) => {
     const companyId = req.params.id;
     const company = await Company.findById(companyId);
+    const pages = await Subpage.find({ 'company_site': { $eq: companyId } });
     const companyName = company.company_name;
-    res.render('business/company/home', { subZone: 'Company', zone: 'Business', subZonePage: companyName, company})
+    res.render('business/company/home', { subZone: 'Company', zone: 'Business', subZonePage: 'Home', company, pages})
 });
+
+
+router.get('/company/:id/page/:pageId', async (req, res) => {
+    const companyId = req.params.id;
+    const pageId = req.params.pageId;
+    const company = await Company.findById(companyId);
+    const pages = await Subpage.find({ 'company_site': { $eq: companyId } });
+    const page = await Subpage.findById(pageId);
+    const pageName = page.page_name;
+    res.render('business/company/sub-page', { subZone: 'Company', zone: 'Business', subZonePage: pageName, company, page, pages})
+});
+
+
+
+/* Employee Portal */
+router.get('/employee/:id', async (req, res) => {
+   const companyId = req.params.id; 
+   const company = await Company.findById(companyId)
+   res.render('business/company/employee/portal', { subZone: 'Company', zone: 'Business', subZonePage: 'Employee Portal', company})
+});
+
+
+/* Admin Portal */
+router.get('/admin/:id', async (req, res) => {
+    const companyId = req.params.id; 
+    const company = await Company.findById(companyId)
+    res.render('business/company/admin/portal', { subZone: 'Company', zone: 'Business', subZonePage: 'Admin Portal', company})
+
+});
+
+/* Admin Manage Public Pages */
+router.get('/admin/:id/manage/public-pages', async (req, res) => {
+    const companyId = req.params.id; 
+    const company = await Company.findById(companyId)
+    const subPages = await Subpage.find({ company_site: { $eq: companyId } });
+    console.log(subPages)
+    res.render('business/company/admin/manage-pages', { subZone: 'Company', zone: 'Business', subZonePage: 'Manage Public Pages', company, subPages})
+
+});
+
 
 
 /* WORK */
