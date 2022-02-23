@@ -6,7 +6,7 @@ const { ensureAuthenticated } = require('../config/auth');
 /* Models */
 const User = require('../models/User');
 const Company = require('../models/Company');
-const Subpage = require('../models/Subpage');
+const Subpage = require('../models/SubPage');
 
 router.get('/', async (req, res) => {
     const allCompanies = await Company.find()
