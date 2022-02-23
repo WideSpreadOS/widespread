@@ -8,6 +8,7 @@ const User = require('../models/User');
 const UserAudio = require('../models/UserAudio');
 const Movie = require('../models/Movie');
 const Show = require('../models/Show');
+const MusicPlaylist = require('../models/MusicPlaylist');
 
 
 router.get('/', async (req, res) => {
@@ -344,6 +345,56 @@ router.get('/audio', (req, res) => {
 router.get('/audio/music', async (req, res) => {
     const audioFiles = await UserAudio.find()
     res.render('entertainment/audio/music', { subZone: "Audio", zone: 'Entertainment', subZonePage: 'Music', audioFiles})
+});
+
+router.get('/audio/music/add-to-playlist/song/:songId', ensureAuthenticated, async (req, res) => {
+    const songId = req.params.songId;
+    const song = await UserAudio.findById(songId)
+    const playlists = await MusicPlaylist.find({'playlist_owner': {$eq: req.user.id}})
+    res.render('entertainment/audio/music/add-to-playlist', { subZone: "Audio", zone: 'Entertainment', subZonePage: 'Music', song, playlists})
+});
+
+
+router.get('/audio/music/playlists', ensureAuthenticated, async (req, res) => {
+    const userId = req.user.id;
+    const playlists = await MusicPlaylist.find({'playlist_owner': {$eq: userId}})
+    res.render('entertainment/audio/music/playlists', { subZone: "Audio", zone: 'Entertainment', subZonePage: 'Music', playlists})
+});
+
+router.get('/audio/music/playlist/:playlistId', ensureAuthenticated, async (req, res) => {
+    const userId = req.user.id;
+    const playlistId = req.params.playlistId;
+    const playlist = await MusicPlaylist.findById(playlistId).populate('songs').exec()
+    console.log(playlist)
+    res.render('entertainment/audio/music/playlist', { subZone: "Audio", zone: 'Entertainment', subZonePage: 'Music', playlist})
+});
+
+router.post('/audio/music/playlist/create', ensureAuthenticated, async (req, res) => {
+    const songId = req.params.song
+    const newPlaylist = new MusicPlaylist({
+        playlist_owner: req.user.id,
+        name: req.body.name
+    })
+    newPlaylist.save()
+    res.redirect(`/entertainment/audio/music/add-to-playlist/song/${songId}`)
+});
+router.post('/audio/music/playlist/create-alone', ensureAuthenticated, async (req, res) => {
+    const songId = req.params.song
+    const newPlaylist = new MusicPlaylist({
+        playlist_owner: req.user.id,
+        name: req.body.name
+    })
+    newPlaylist.save()
+    res.redirect(`/entertainment/audio/music/playlists`)
+});
+
+router.get('/audio/music/add-to-playlist/song/:songId/to/:playlistId', ensureAuthenticated, async (req, res) => {
+    const songId = req.params.songId;
+    const playlistId = req.params.playlistId;
+    await MusicPlaylist.findByIdAndUpdate(playlistId,
+        { $addToSet: { songs: songId }},
+    )
+    res.redirect(`/entertainment/audio/music/playlist/${playlistId}`)
 });
 
 

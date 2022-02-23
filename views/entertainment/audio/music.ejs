@@ -1,5 +1,19 @@
 <style>
-
+    .music-playlists {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .music-playlists a {
+        padding: 10px;
+        border-radius: 8px;    
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;
+        background: rgba(135, 206, 250, 0.25);
+        backdrop-filter: blur(4px);
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
     .music-list {
         display: flex;
         flex-direction: row;
@@ -112,21 +126,17 @@
 <%- include('../../partials/menus/entertainment'); %>
 
 
-    <div class="sub-zone-title">
-        <h2>
-            <%= subZone %>
-        </h2>
-    </div>
-
     <%- include('../../partials/menus/sub/entertainment/audio'); %>
 
-        <div class="sub-zone-page-title">
+        <div class="page-title">
             <h2>
                 <%= subZonePage %>
             </h2>
         </div>
 
-
+<div class="music-playlists">
+    <a href="/entertainment/audio/music/playlists">Your Playlists</a>
+</div>
 
 <div class="music-list">
     <% audioFiles.forEach(function(song) { %>
@@ -160,7 +170,7 @@
                 Your browser does not support the audio element.
             </audio>
             <div class="song-actions">
-                <a href="/entertainment/audio/music/add-to-playlist">Add to Playlist</a>
+                <a href="/entertainment/audio/music/add-to-playlist/song/<%= song.id %>">Add to Playlist</a>
             </div>
         </div>
         <% }) %>
