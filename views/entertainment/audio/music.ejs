@@ -18,7 +18,26 @@
     }
 
 
-
+    .music-playlists {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(4px);
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .music-playlists a {
+        color: #fff;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;
+        border-radius: 8px;
+        background: rgba(135, 206, 250, 0.25);
+        backdrop-filter: blur(4px);
+        padding: 10px;
+        text-decoration: none;
+    }
 
 
     .player {
@@ -354,7 +373,7 @@
 
         <div class="music-list">
             <% audioFiles.forEach(function(song) { %>
-                <div class="song">
+                <div class="song" onclick="thisSong(this)">
                     <div class="song-body">
                         <h6 class="song-name">
                             <%= song.song %>
@@ -367,6 +386,7 @@
                         <p class="song-image">
                             <%= song.background_photo %>
                         </p>
+                        <p class="song-id" style="display: none;"><%= song.id %></p>
                     </div>
                     <div class="song-actions">
                         <span id="play"><i class="fas fa-play" onclick="loadTrack()"></i></span>
@@ -406,6 +426,7 @@
     const allSongs = document.querySelectorAll('.song')
     allSongs.forEach(song => {
         let songData = {
+            id: song.querySelector('.song-id').innerHTML,
             name: song.querySelector('.song-name').innerHTML,
             artist: song.querySelector('.song-artist').innerHTML,
             image: song.querySelector('.song-image').innerHTML,
@@ -415,6 +436,33 @@
         console.log(songData)
     })
     console.log(allSongs)
+
+        function thisSong(songDiv) {
+            let songIds = []
+            let songId = songDiv.querySelector('.song-id').innerHTML
+            console.log(songId)
+            allSongs.forEach((song, index) => {
+                let songData = {
+                    id: song.querySelector('.song-id').innerHTML,
+                    name: song.querySelector('.song-name').innerHTML,
+                    artist: song.querySelector('.song-artist').innerHTML,
+                    image: song.querySelector('.song-image').innerHTML,
+                    path: song.querySelector('.song-path').innerHTML
+                }
+                if (songId === songData.id) {
+                    console.log(songData.name)
+                    loadTrack([index])
+                    playTrack()
+                }
+                console.log(songData.id)
+                songIds.push(songData)
+                console.log(songData)
+            })
+            
+
+        }
+
+
 
     function loadTrack(track_index) {
         // Clear the previous seek timer

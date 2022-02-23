@@ -325,12 +325,13 @@ i.fa-step-backward {
         </div>
     <% } else { %>
         <% playlist.songs.forEach(function(song) { %>
-            <div class="song">
+            <div class="song" onclick="thisSong(this)">
                 <div class="song-body">
                     <h6 class="song-name"><%= song.song %></h6>
                     <p class="song-artist"><%= song.artist %></p>
                     <p class="song-path">/audio/<%= song.img.data %></p>
                     <p class="song-image"><%= song.background_photo %></p>
+                    <p class="song-id" style="display: none;"><%= song.id %></p>
                 </div>
                 <div class="song-actions">
                     <span id="play"><i class="fas fa-play"></i></span>
@@ -380,6 +381,31 @@ i.fa-step-backward {
             console.log(songData)
         })
         console.log(allSongs)
+            function thisSong(songDiv) {
+                let songIds = []
+                let songId = songDiv.querySelector('.song-id').innerHTML
+                console.log(songId)
+                allSongs.forEach((song, index) => {
+                    let songData = {
+                        id: song.querySelector('.song-id').innerHTML,
+                        name: song.querySelector('.song-name').innerHTML,
+                        artist: song.querySelector('.song-artist').innerHTML,
+                        image: song.querySelector('.song-image').innerHTML,
+                        path: song.querySelector('.song-path').innerHTML
+                    }
+                    if (songId === songData.id) {
+                        console.log(songData.name)
+                        loadTrack([index])
+                        playTrack()
+                    }
+                    console.log(songData.id)
+                    songIds.push(songData)
+                    console.log(songData)
+                })
+
+
+            }
+        
 
     function loadTrack(track_index) {
         // Clear the previous seek timer
