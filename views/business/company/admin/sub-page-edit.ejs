@@ -249,7 +249,7 @@
 
     <% pages.forEach(function(page) { %>
         <div class="company-nav-item <%= subZonePage==page.page_name ? 'company-nav-item subpage-active' : 'company-nav-item' %>">
-            <a href="/business/admin/<%= company.id %>/manage/public-pages/<%= page.id %>"><%= page.page_name %></a>
+            <a href="/business/admin/<%= company.id %>/manage/public-pages/edit/<%= page.id %>"><%= page.page_name %></a>
         </div>
     <% }) %>
 </div>
@@ -298,7 +298,7 @@
         </div>
         <div class="edit-input">
             <label for="">Third Body</label>
-            <textarea name="page_body3" placeholder="Third Headers Content"><%= page.page_body.page_body2 %></textarea>
+            <textarea name="page_body3" placeholder="Third Headers Content"><%= page.page_body.page_body3 %></textarea>
         </div>
 
     </div>

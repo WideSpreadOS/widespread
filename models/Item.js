@@ -62,7 +62,9 @@ const itemSchema = new mongoose.Schema({
     need: Number,
     for_sale: Boolean,
     item_main_image: String,
-    item_images: [String]
+    item_images: [String],
+    total_quantity: Number,
+    reorder_alert: Number
 });
 
 const Item = mongoose.model('Item', itemSchema);

@@ -7,10 +7,16 @@ const { ensureAuthenticated } = require('../config/auth');
 const User = require('../models/User');
 const Company = require('../models/Company');
 const Subpage = require('../models/SubPage');
+const Item = require('../models/Item');
+const Store = require('../models/Store');
+const Cart = require('../models/Cart');
+const UnregisteredCart = require('../models/UnregisteredCart');
+const Address = require('../models/Address');
 
 router.get('/', async (req, res) => {
+    let company = null
     const allCompanies = await Company.find()
-    res.render('business/home', { subZone: 'Home', zone: 'Business', subZonePage: 'Home', allCompanies})
+    res.render('business/home', { company, subZone: 'Home', zone: 'Business', subZonePage: 'Home', allCompanies})
 });
 
 
@@ -38,7 +44,7 @@ router.get('/company/:id/page/:pageId', async (req, res) => {
 router.get('/employee/:id', async (req, res) => {
    const companyId = req.params.id; 
    const company = await Company.findById(companyId)
-   res.render('business/company/employee/portal', { subZone: 'Company', zone: 'Business', subZonePage: 'Employee Portal', company})
+   res.render('business/company/employee/portal', { subZone: 'Portal', zone: 'Business', subZonePage: 'Employee Portal', company})
 });
 
 
@@ -161,85 +167,154 @@ router.get('/admin/:companyId/manage/public-pages/delete/:pageId', async (req, r
 });
 
 
+/* Admin Inventory */
+router.get('/admin/:companyId/manage/inventory', async (req, res) => {
+    const companyId = req.params.companyId;
+    const company = await Company.findById(companyId)
+    const companyInventory = await Item.find({'for_company': {$eq: companyId}})
+    res.render('business/company/admin/inventory', { company, companyInventory, subZone: 'Admin', zone: 'Business', subZonePage: 'Inventory'})
+});
+
+
+/* Admin Inventory Add Item */
+router.get('/admin/:companyId/manage/inventory/add', async (req, res) => {
+    const companyId = req.params.companyId;
+    const company = await Company.findById(companyId)
+    const companyInventory = await Item.find({'for_company': {$eq: companyId}})
+    res.render('business/company/admin/inventory-add', { company, companyInventory, subZone: 'Admin', zone: 'Business', subZonePage: 'Inventory'})
+});
+
+
+
+/* Admin Store */
+router.get('/admin/:companyId/manage/store', async (req, res) => {
+    const companyId = req.params.companyId;
+    const company = await Company.findById(companyId)
+    const companyInventory = await Item.find({'for_company': {$eq: companyId}})
+    const store = await Store.find({'for_company': {$eq: companyId}})
+    console.log(store)
+    res.render('business/company/admin/store', { store, company, companyInventory, subZone: 'Admin', zone: 'Business', subZonePage: 'Inventory'})
+});
+
+router.post('/admin/:companyId/manage/store/add', async (req, res) => {
+    const companyId = req.params.companyId;
+    const newStore = new Store({
+        for_company: companyId
+    })
+    newStore.save()
+    res.redirect(`/business/admin/${companyId}/manage/store`)
+})
+
+
 /* WORK */
 
-router.get('/work', async (req, res) => {
+router.get('/work/:id', async (req, res) => {
     res.render('business/work/home', { subZone: 'Work', zone: 'Business', subZonePage: 'Home', })
 });
 
-router.get('/work/schedule', async (req, res) => {
-    res.render('business/work/schedule', { subZone: 'Work', zone: 'Business', subZonePage: 'Schedule', })
+router.get('/work/:id/schedule', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/work/schedule', { company, subZone: 'Work', zone: 'Business', subZonePage: 'Schedule', })
 });
 
-router.get('/work/notes', async (req, res) => {
-    res.render('business/work/notes', { subZone: 'Work', zone: 'Business', subZonePage: 'Notes', })
+router.get('/work/:id/notes', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/work/notes', { company, subZone: 'Work', zone: 'Business', subZonePage: 'Notes', })
 });
 
-router.get('/work/projects', async (req, res) => {
-    res.render('business/work/projects', { subZone: 'Work', zone: 'Business', subZonePage: 'Projects', })
+router.get('/work/:id/projects', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/work/projects', { company, subZone: 'Work', zone: 'Business', subZonePage: 'Projects', })
 });
 
-router.get('/work/presentations', async (req, res) => {
-    res.render('business/work/presentations', { subZone: 'Work', zone: 'Business', subZonePage: 'Presentations', })
+router.get('/work/:id/presentations', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/work/presentations', { company, subZone: 'Work', zone: 'Business', subZonePage: 'Presentations', })
 });
 
-router.get('/work/help', async (req, res) => {
-    res.render('business/work/help', { subZone: 'Work', zone: 'Business', subZonePage: 'Help', })
+router.get('/work/:id/help', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/work/help', { company, subZone: 'Work', zone: 'Business', subZonePage: 'Help', })
 });
 
 
 /* RESOURCES */
 
-router.get('/resources', (req, res) => {
-    res.render('business/resources/home', { subZone: 'Resources', zone: 'Business', subZonePage: 'Home', })
+router.get('/resources/:id', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/resources/home', { company, subZone: 'Resources', zone: 'Business', subZonePage: 'Home', })
 });
 
-router.get('/resources/text-editor', (req, res) => {
-    res.render('business/resources/text-editor', { subZone: 'Resources', zone: 'Business', subZonePage: 'Text Editor', })
+router.get('/resources/:id/text-editor', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/resources/text-editor', { company, subZone: 'Resources', zone: 'Business', subZonePage: 'Text Editor', })
 });
 
-router.get('/resources/code-editor', (req, res) => {
-    res.render('business/resources/code-editor', { subZone: 'Resources', zone: 'Business', subZonePage: 'Code Editor', })
+router.get('/resources/:id/code-editor', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/resources/code-editor', { company, subZone: 'Resources', zone: 'Business', subZonePage: 'Code Editor', })
 });
 
-router.get('/resources/calculators', (req, res) => {
-    res.render('business/resources/calculators', { subZone: 'Resources', zone: 'Business', subZonePage: 'Calculators', })
+router.get('/resources/:id/calculators', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/resources/calculators', { company, subZone: 'Resources', zone: 'Business', subZonePage: 'Calculators', })
 });
 
-router.get('/resources/information', (req, res) => {
-    res.render('business/resources/information', { subZone: 'Resources', zone: 'Business', subZonePage: 'Information', })
+router.get('/resources/:id/information', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/resources/information', { company, subZone: 'Resources', zone: 'Business', subZonePage: 'Information', })
 });
 
-router.get('/resources/help', (req, res) => {
-    res.render('business/resources/help', { subZone: 'Resources', zone: 'Business', subZonePage: 'Help', })
+router.get('/resources/:id/help', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/resources/help', { company, subZone: 'Resources', zone: 'Business', subZonePage: 'Help', })
 });
 
 
 /* NEWS */
 
-router.get('/news', (req, res) => {
-    res.render('business/news/home', { subZone: 'News', zone: 'Business', subZonePage: 'Home', })
+router.get('/news', async (req, res) => {
+        const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/news/home', { company, subZone: 'News', zone: 'Business', subZonePage: 'Home', })
 });
 
 
 /* JOB SEARCH */
 
-router.get('/job-search', (req, res) => {
-    res.render('business/jobs/home', { subZone: 'Jobs', zone: 'Business', subZonePage: 'Home', })
+router.get('/job-search', async (req, res) => {
+        const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/jobs/home', { company, subZone: 'Jobs', zone: 'Business', subZonePage: 'Home', })
 });
 
 
 /* INSIGHTS */
 
-router.get('/insights', (req, res) => {
-    res.render('business/insights/home', { subZone: 'Insights', zone: 'Business', subZonePage: 'Home', })
+router.get('/insights', async (req, res) => {
+        const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/insights/home', { company, subZone: 'Insights', zone: 'Business', subZonePage: 'Home', })
 });
 
 
 /* HELP */
 
-router.get('/help', (req, res) => {
-    res.render('business/help/home', { subZone: 'Help', zone: 'Business', subZonePage: 'Home', })
+router.get('/help', async (req, res) => {
+        const companyId = req.params.id;
+    const company = await Company.findById(companyId)
+    res.render('business/help/home', { company, subZone: 'Help', zone: 'Business', subZonePage: 'Home', })
 });
 
 

@@ -10,10 +10,10 @@
 
 
 <div id="resourcesMenu">
-    <div class="menu-item <%= subZonePage=='Home' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources">Home</a></div>
-    <div class="menu-item <%= subZonePage=='Text Editor' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/text-editor">Text Editor</a></div>
-    <div class="menu-item <%= subZonePage=='Code Editor' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/code-editor">Code Editor</a></div>
-    <div class="menu-item <%= subZonePage=='Calculators' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/calculators">Calculators</a></div>
-    <div class="menu-item <%= subZonePage=='Information' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/information">Information</a></div>
-    <div class="menu-item <%= subZonePage=='Help' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/help">Help</a></div>
+    <div class="menu-item <%= subZonePage=='Home' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/<%= company.id %>">Home</a></div>
+    <div class="menu-item <%= subZonePage=='Text Editor' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/<%= company.id %>/text-editor">Text Editor</a></div>
+    <div class="menu-item <%= subZonePage=='Code Editor' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/<%= company.id %>/code-editor">Code Editor</a></div>
+    <div class="menu-item <%= subZonePage=='Calculators' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/<%= company.id %>/calculators">Calculators</a></div>
+    <div class="menu-item <%= subZonePage=='Information' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/<%= company.id %>/information">Information</a></div>
+    <div class="menu-item <%= subZonePage=='Help' ? 'menu-link active' : 'menu-link' %>"><a href="/business/resources/<%= company.id %>/help">Help</a></div>
 </div>

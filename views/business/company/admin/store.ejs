@@ -1,0 +1,150 @@
+<style>
+    .store {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 30px;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 10px;
+        border-radius: 8px;
+        backdrop-filter: blur(4px);
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+    }
+    .store-header {
+        font-size: 1.3rem;
+        text-align: center;
+        padding: 15px;
+        color: #fff;
+    }
+
+    .add-item {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+
+
+    .edit-input label {
+        color: #fff;
+        padding: 8px;
+    }
+
+    .edit-input {
+        width: 100%;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+
+    .edit-input input {
+        width: 100%;
+        min-width: 100%;
+        padding: 5px;
+        border-radius: 4px;
+        outline: none;
+        border: none;
+        background: rgba(135, 206, 250, 0.25);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.25), 0 0 2px lightskyblue;
+    }
+
+    .edit-input input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 2px lightskyblue;
+    }
+
+    .edit-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+
+    .edit-button button {
+        background: rgba(135, 206, 250, 0.5);
+        color: #fff;
+        font-size: 1.4rem;
+        border-radius: 8px;
+        padding: 8px;
+        border: none;
+        outline: none;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.25), 0 0 2px lightskyblue;
+    }
+    .store-list {
+        padding: 10px;
+    }
+    .no-items p {
+        color: #fff;
+        text-align: center;
+    }
+</style>
+
+<% if (store.length <= 0) { %>
+<div class="add-store">
+    <form action="/business/admin/<%= company.id %>/manage/store/add" method="post">
+        <button type="submit">Add a Store</button>
+    </form>
+</div>
+<% } else { %>
+
+<div class="manage-store-container">
+    <div class="page-title">
+        <h2>Store</h2>
+    </div>
+
+    <div class="add-item">
+        <form action="/admin/<%= company.id %>/manage/store/item/add" method="post">
+            <div class="edit-input">
+                <label for="make"></label>
+                <input type="text" id="make" name="make" placeholder="Make">
+            </div>
+            
+            <div class="edit-input">
+                <label for="model"></label>
+                <input type="text" id="model" name="model" placeholder="Model">
+            </div>
+            <div class="edit-input">
+                <label for="name"></label>
+                <input type="text" id="name" name="name" placeholder="Name">
+            </div>
+            <div class="edit-input">
+                <label for="price"></label>
+                <input type="number" id="price" name="price" placeholder="Price">
+            </div>
+
+            <div class="edit-input">
+                <label for="total_quantity"></label>
+                <input type="number" id="total_quantity" name="total_quantity" placeholder="Total In-stock">
+            </div>
+            <div class="edit-button">
+                <button type="submit" disabled>Add Item</button>
+            </div>
+
+        </form>
+    </div>
+    <div class="store">
+        <div class="store-header">
+            <h5>Items for Sale</h5>
+        </div>
+        <div class="store-list">
+            <% if (store.items == undefined) { %>
+                <div class="no-items">
+                    <p>You don't have any items in your store yet.</p>
+                </div>
+            <% } else { %>
+                <% store.items.forEach(function(item) { %>
+                    <div class="store-item">
+                        <p><%= item %></p>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </div>
+
+</div>
+
+<% } %>
