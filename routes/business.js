@@ -22,7 +22,7 @@ router.get('/company/:id', async (req, res) => {
     res.render('business/company/home', { subZone: 'Company', zone: 'Business', subZonePage: 'Home', company, pages})
 });
 
-
+/* Subpages */
 router.get('/company/:id/page/:pageId', async (req, res) => {
     const companyId = req.params.id;
     const pageId = req.params.pageId;
@@ -32,7 +32,6 @@ router.get('/company/:id/page/:pageId', async (req, res) => {
     const pageName = page.page_name;
     res.render('business/company/sub-page', { subZone: 'Company', zone: 'Business', subZonePage: pageName, company, page, pages})
 });
-
 
 
 /* Employee Portal */
@@ -61,6 +60,105 @@ router.get('/admin/:id/manage/public-pages', async (req, res) => {
 
 });
 
+
+/* Admin Edit Subpage */
+router.get('/admin/:id/manage/public-pages/edit/:pageId', async (req, res) => {
+    const companyId = req.params.id;
+    const pageId = req.params.pageId;
+    const company = await Company.findById(companyId);
+    const pages = await Subpage.find({ 'company_site': { $eq: companyId } });
+    const page = await Subpage.findById(pageId);
+    const pageName = page.page_name;
+    res.render('business/company/admin/sub-page-edit', { subZone: 'Company', zone: 'Business', subZonePage: pageName, company, page, pages })
+});
+
+/* Admin Add Subpage */
+router.get('/admin/:id/manage/public-pages/add', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId);
+    res.render('business/company/admin/sub-page-add', { subZone: 'Company', zone: 'Business', subZonePage: 'Add New Page', company })
+});
+
+router.post('/admin/:id/manage/public-pages/add', async (req, res) => {
+    const companyId = req.params.id;
+    const company = await Company.findById(companyId);
+    const newPage = new Subpage({
+        company_site: company.id,
+        page_name: req.body.page_name,
+        "page_body.page_header1": req.body.page_header1,
+        "page_body.page_body1": req.body.page_body1,
+        "page_body.page_header2": req.body.page_header2,
+        "page_body.page_body2": req.body.page_body2,
+        "page_body.page_header3": req.body.page_header3,
+        "page_body.page_body3": req.body.page_body3,
+        "page_side.phone1": req.body.phone1,
+        "page_side.phone2": req.body.phone2,
+        "page_side.phone3": req.body.phone3,
+        "page_side.email1": req.body.email1,
+        "page_side.email2": req.body.email2,
+        "page_side.email3": req.body.email3,
+        "page_side.email4": req.body.email4,
+        "page_side.fax1": req.body.fax1,
+        "page_side.fax2": req.body.fax2,
+        "page_side.main_office.street": req.body.street,
+        "page_side.main_office.city": req.body.city,
+        "page_side.main_office.state": req.body.state,
+        "page_side.main_office.country": req.body.country,
+        "page_side.main_office.zip": req.body.zip,
+        "page_side.sub_office.street_sub": req.body.street_sub,
+        "page_side.sub_office.city_sub": req.body.city_sub,
+        "page_side.sub_office.state_sub": req.body.state_sub,
+        "page_side.sub_office.country_sub": req.body.country_sub,
+        "page_side.sub_office.zip_sub": req.body.zip_sub,
+    });
+    newPage.save()
+    res.redirect(`/business/admin/${company.id}/manage/public-pages`);    
+});
+
+/* Admin Edit Subpage */
+router.patch('/admin/:id/manage/public-pages/:pageId', async (req, res) => {
+    const companyId = req.params.id;
+    const pageId = req.params.pageId;
+    const company = await Company.findById(companyId);
+    const page = await Subpage.findByIdAndUpdate(pageId, {
+        page_name: req.body.page_name,
+        "page_body.page_header1": req.body.page_header1,
+        "page_body.page_body1": req.body.page_body1,
+        "page_body.page_header2": req.body.page_header2,
+        "page_body.page_body2": req.body.page_body2,
+        "page_body.page_header3": req.body.page_header3,
+        "page_body.page_body3": req.body.page_body3,
+        "page_side.phone1": req.body.phone1,
+        "page_side.phone2": req.body.phone2,
+        "page_side.phone3": req.body.phone3,
+        "page_side.email1": req.body.email1,
+        "page_side.email2": req.body.email2,
+        "page_side.email3": req.body.email3,
+        "page_side.email4": req.body.email4,
+        "page_side.fax1": req.body.fax1,
+        "page_side.fax2": req.body.fax2,
+        "page_side.main_office.street": req.body.street,
+        "page_side.main_office.city": req.body.city,
+        "page_side.main_office.state": req.body.state,
+        "page_side.main_office.country": req.body.country,
+        "page_side.main_office.zip": req.body.zip,
+        "page_side.sub_office.street_sub": req.body.street_sub,
+        "page_side.sub_office.city_sub": req.body.city_sub,
+        "page_side.sub_office.state_sub": req.body.state_sub,
+        "page_side.sub_office.country_sub": req.body.country_sub,
+        "page_side.sub_office.zip_sub": req.body.zip_sub,
+    });
+    const pageName = page.page_name;
+    res.redirect(req.get('referer'));    
+});
+
+/* Admin Delete Subpage */
+router.get('/admin/:companyId/manage/public-pages/delete/:pageId', async (req, res) => {
+    const pageId = req.params.pageId;
+    const companyId = req.params.companyId;
+    await Subpage.findByIdAndDelete(pageId)
+    res.redirect(`/business/admin/${companyId}/manage/public-pages`)
+});
 
 
 /* WORK */
