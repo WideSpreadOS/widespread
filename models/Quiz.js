@@ -2,13 +2,31 @@ const mongoose = require('mongoose');
 
 
 const QuizSchema = new mongoose.Schema({
-    forClass: { type: mongoose.Schema.Types.ObjectId, ref: 'Class' },
+    for_class: { type: mongoose.Schema.Types.ObjectId, ref: 'Class' },
     questions: [
         {
             question: String,
-            options: [String],
+            options: {
+                option1: {
+                    possible_answer: String,
+                    option_number: Number
+                },
+                option2: {
+                    possible_answer: String,
+                    option_number: Number
+                },
+                option3: {
+                    possible_answer: String,
+                    option_number: Number
+                },
+                option4: {
+                    possible_answer: String,
+                    option_number: Number
+                },
+            },
             answer: Number,
-            difficulty: Number
+            difficulty: Number,
+            correct: Boolean
         }
     ],
     score: Number

@@ -142,8 +142,7 @@
         <a-cursor position="0 0 -.05" scale=".04 .04 1"></a-cursor>
     </a-entity>
 
-<a-sky color="#aff"></a-sky>
-<a-plane rotation="-90 0 0" width="20" height="20" color="#3fa841"></a-plane>
+
 <!-- DYNAMIC SCENE -->
 
 <a-entity id="tvContainer" geometry material="transparent: true" websurface="url:/entertainment/tv; width:4; height:2;" position="2.25 1.5 -4"></a-entity>
@@ -152,36 +151,7 @@
 <div
     style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden; background: transparent;">
 </div>
-<script>
 
-    AFRAME.registerComponent('log', {
-        init: function () {
-            console.log('Hello, World!');
-        }
-    });
-
-
-
-
-    const postContainer = document.getElementById('postContainer')
-    const allPosts = postContainer.querySelectorAll('.post-container')
-    allPosts.forEach(postEl => {
-
-        console.log(postEl)
-        postEl.addEventListener('click', function (e) {
-            const postData = postEl.querySelector('a-text')
-            const postColor = postEl.getAttribute('material')
-            const backgroundColor = postColor["color"]
-            console.log(backgroundColor)
-            if (backgroundColor == "lightskyblue") {
-                postEl.setAttribute('material', 'color', 'black');
-            } else {
-                postEl.setAttribute('material', 'color', 'lightskyblue');
-            }
-            console.log(postColor)
-        })
-    })
-</script>
 
 <script>
     const htmlEl = document.getElementById('htmlElement')

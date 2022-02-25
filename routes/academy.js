@@ -9,6 +9,7 @@ const Course = require('../models/Course');
 const Class = require('../models/Class');
 const LearningPoint = require('../models/LearningPoint');
 const Flashcard = require('../models/Flashcard');
+const Quiz = require('../models/Quiz');
 
 router.get('/', (req, res) => {
     res.render('academy/home', {subZone: 'Home', zone: 'Academy'})
@@ -43,6 +44,19 @@ router.get('/course/:courseId/class/:classId', async (req, res) => {
     console.log(className)
     const learningPoints = await LearningPoint.find({"class": { $eq: classId } })
     res.render('academy/courses/class-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: className.name, course, className, learningPoints})
+
+});
+
+
+
+router.get('/course/:courseId/class/:classId/quiz/take', async (req, res) => {
+    const courseId = req.params.courseId;
+    const classId = req.params.classId;
+    const course = await Course.findById(courseId).populate('classes').exec();
+    const className = await Class.findById(classId);
+    const quiz = await Quiz.find({'for_class': {$eq: classId}});
+    console.log(className)
+    res.render('academy/courses/class-quiz', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: className.name, course, className, quiz})
 
 });
 
