@@ -79,6 +79,7 @@
         border-radius: 5px;
         outline: none;
         border: inset 1px lightskyblue;
+        color: #000;
     }
 
     .input-group p {
@@ -248,3 +249,10 @@
         <button type="submit" class="custom-file-profile-audio-button">Add</button>
     </form>
 </div>
+
+<script>
+    function getFileName() {
+        var x = document.getElementById("upload-btn").name;
+        document.getElementById("file-chosen").innerHTML = x;
+    }
+</script>

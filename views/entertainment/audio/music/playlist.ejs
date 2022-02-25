@@ -303,7 +303,7 @@ i.fa-step-backward {
         <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
         <div class="total-duration">00:00</div>
     </div>
-
+    <p style="color: orangered">Need to fix Time Slider</p>
     <!-- Define the section for displaying the volume slider-->
     <div class="slider_container">
         <i class="fa fa-volume-down"></i>
@@ -432,23 +432,8 @@ i.fa-step-backward {
         // using the 'ended' event
         curr_track.addEventListener("ended", nextTrack);
 
-        // Apply a random background color
-        random_bg_color();
     }
 
-    function random_bg_color() {
-        // Get a random number between 64 to 256
-        // (for getting lighter colors)
-        let red = Math.floor(Math.random() * 256) + 64;
-        let green = Math.floor(Math.random() * 256) + 64;
-        let blue = Math.floor(Math.random() * 256) + 64;
-
-        // Construct a color withe the given values
-        let bgColor = "rgb(" + red + ", " + green + ", " + blue + ")";
-
-        // Set the background to the new color
-        document.body.style.background = bgColor;
-    }
 
     // Function to reset all values to their default
     function resetValues() {

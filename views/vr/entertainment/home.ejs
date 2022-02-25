@@ -1,4 +1,6 @@
 <style>
+
+
     @media screen and (min-width: 300px) {
         .friend-container {
             background: #000;
@@ -133,20 +135,22 @@
 
 <!-- Spot Lights -->
 
-<!-- Friend List -->
 
 
+    <a-entity wasd-controls="acceleration: 20;" camera="active: true" look-controls="pointerLockEnabled: true"
+        position="0 1.6 0">
+        <a-cursor position="0 0 -.05" scale=".04 .04 1"></a-cursor>
+    </a-entity>
 
-
+<a-sky color="#aff"></a-sky>
+<a-plane rotation="-90 0 0" width="20" height="20" color="#3fa841"></a-plane>
 <!-- DYNAMIC SCENE -->
 
-
-<!-- FRIENDS -->
-
-
+<a-entity id="tvContainer" geometry material="transparent: true" websurface="url:/entertainment/tv; width:4; height:2;" position="2.25 1.5 -4"></a-entity>
+<a-entity websurface="url:/entertainment/movies; width:4; height:2;" position="-2.25 1.5 -4" geometry></a-entity>
 
 <div
-    style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden; background: #000;">
+    style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden; background: transparent;">
 </div>
 <script>
 
@@ -183,3 +187,15 @@
     const htmlEl = document.getElementById('htmlElement')
     console.log(htmlEl)
 </script>
+
+
+<script>
+    const tvContainer = document.getElementById('tvContainer')
+    const tvDiv = tvContainer.querySelector('div')
+    const css = el.css3d_context
+    console.log(css)
+    const divs = document.querySelectorAll('div')
+    console.log(divs)
+</script>
+
+

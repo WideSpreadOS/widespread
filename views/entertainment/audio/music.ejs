@@ -170,7 +170,9 @@
     .volume_slider {
         width: 30%;
     }
-
+    .current-time {
+        text-align: right;
+    }
     .current-time,
     .total-duration {
         padding: 10px;
@@ -220,7 +222,7 @@
         margin-top: 30px;
     }
 
-    .playlist {
+    .music-list {
         text-align: center;
         width: 90%;
         margin: 0 auto;
@@ -234,16 +236,16 @@
         padding-bottom: 20px;
     }
 
-    .playlist h2 {
+    .music-list h2 {
         font-size: 1.5rem;
         padding: 20px;
     }
 
-    .playlist p {
+    .music-list p {
         color: #fff;
     }
 
-    .playlist a {
+    .music-list a {
         padding: 10px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.25), 0 0 3px lightskyblue;
@@ -332,7 +334,7 @@
 
     <!-- Define the section for displaying details -->
     <div class="details">
-        <div class="now-playing">PLAYING x OF y</div>
+        <div class="now-playing">Now Playing x of y</div>
         <div class="track-name">Track Name</div>
         <div class="track-artist">Track Artist</div>
     </div>
@@ -365,13 +367,11 @@
     </div>
 </div>
 
-<div class="page-title">
-    <h2>
-        All Music
-    </h2>
-</div>
+<div class="music-list">
+        <div class="page-title">
+            <h2>All Music</h2>
+        </div>
 
-        <div class="music-list">
             <% audioFiles.forEach(function(song) { %>
                 <div class="song" onclick="thisSong(this)">
                     <div class="song-body">
@@ -489,23 +489,9 @@
         // using the 'ended' event
         curr_track.addEventListener("ended", nextTrack);
 
-        // Apply a random background color
-        random_bg_color();
     }
 
-    function random_bg_color() {
-        // Get a random number between 64 to 256
-        // (for getting lighter colors)
-        let red = Math.floor(Math.random() * 256) + 64;
-        let green = Math.floor(Math.random() * 256) + 64;
-        let blue = Math.floor(Math.random() * 256) + 64;
 
-        // Construct a color withe the given values
-        let bgColor = "rgb(" + red + ", " + green + ", " + blue + ")";
-
-        // Set the background to the new color
-        document.body.style.background = bgColor;
-    }
 
     // Function to reset all values to their default
     function resetValues() {

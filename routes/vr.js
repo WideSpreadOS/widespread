@@ -14,6 +14,8 @@ const Company = require('../models/Company');
 const Course = require('../models/Course');
 const Class = require('../models/Class');
 const LearningPoint = require('../models/LearningPoint');
+const Show = require('../models/Show');
+const Movie = require('../models/Movie');
 
 
 
@@ -25,7 +27,7 @@ router.get('/users/dashboard', ensureAuthenticated, async (req, res) => {
     console.log(`Posts: ${posts}`)
     const user = await User.findById(userId).populate('friends').exec()
     const userPhotos = await UserPhoto.find({'image_owner': {$eq: currentUser.id}})
-        
+    console.log(user.movie_list)
 
     res.render('vr/dashboard', { layout: 'vr', currentPageTitle: 'VR', currentUser, userPhotos, user, posts
  });
@@ -66,6 +68,18 @@ router.get('/news', async (req, res) => {
     }).catch(function (error) {
         console.error(error);
     });
+});
+
+// Entertainment
+router.get('/entertainment', async (req, res) => {
+
+    res.render('vr/entertainment/home', { layout: 'vr', currentPageTitle: 'VR Entertainment' })
+});
+
+// Entertainment
+router.get('/entertainment/tv', async (req, res) => {
+    const shows = await Show.find()
+    res.render('vr/entertainment/tv', { shows, layout: 'vr', currentPageTitle: 'VR Entertainment' })
 });
 
 // Leisure
