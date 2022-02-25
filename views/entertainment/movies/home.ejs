@@ -360,6 +360,27 @@
 
     }
 </style>
+
+
+
+
+<div class="screen-record">
+    <pre id="log"></pre>
+    <div class="buttons"
+        style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;">
+        <button style="font-size: 2rem;" id="start">Start</button>
+        <button style="font-size: 2rem; position: fixed; bottom: 100px; right: 0; z-index: 99999;"
+            id="stop">Stop</button>
+    </div>
+    <video id="video" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;"
+        autoplay></video>
+
+    <canvas style="display: none;" id="videoCanvas"></canvas>
+</div>
+
+
+
+
     <div class="auto-scroller">
         <button><a href="#top"><i class="fas fa-angle-double-up"></i></a></button>
         <button onclick="pageScrollUp()" ><i class="fas fa-chevron-up"></i></i></button>
@@ -414,4 +435,94 @@
         clearTimeout(scrolldelay);
     }
 
+</script>
+
+
+
+
+<script>
+    /* 
+        function getIframeContent(videoFrame) {
+            let frameObj = document.getElementById(videoFrame)
+            let frameContent = frameObj.contentWindow.document.body.innerHTML
+            console.log(frameContent)
+        }  */
+
+
+
+    /*     async function startCapture(displayMediaOptions) {
+            let captureStream = null
+    
+            try {
+                captureStream = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
+            }
+            catch (err) {
+                console.error('Error: ' + err)
+            }
+            return captureStream
+        }
+     */
+
+    const videoElem = document.getElementById('video')
+    const logElem = document.getElementById('log')
+    const startElem = document.getElementById('start')
+    const stopElem = document.getElementById('stop')
+
+
+    const displayMediaOptions = {
+        video: {
+            cursor: "false"
+        },
+        audio: true
+    }
+
+    startElem.addEventListener('click', function (evt) {
+        startCapture()
+    }, false)
+
+    stopElem.addEventListener('click', function (evt) {
+        stopCapture()
+    }, false)
+
+    async function startCapture() {
+        logElem.innerHTML = ''
+
+        try {
+            videoElem.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
+            dumpOptionsInfo()
+        } catch (err) {
+            console.error('Error: ' + err)
+        }
+
+    }
+    function stopCapture(evt) {
+        let tracks = videoElem.srcObject.getTracks()
+
+        tracks.forEach(track => track.stop())
+        videoElem.srcObject = null
+    }
+
+    function dumpOptionsInfo() {
+        const videoTrack = videoElem.srcObject.getVideoTracks()[0]
+
+        console.info('Track settings: ')
+        console.info(JSON.stringify(videoTrack.getSettings(), null, 2))
+        console.info('Track constraints: ')
+        console.info(JSON.stringify(videoTrack.getConstraints(), null, 2))
+    }
+
+    function gotMediaStream(stream) {
+        let recordedChunks = []
+        let recorder = null
+        try {
+            recorder = new MediaRecorder(stream, { mimeType: 'video/mp4' })
+        } catch (e) {
+            console.error('Error: ' + e)
+        }
+        recorder.ondataavailable = (event) => {
+            console.log(' Recorded chunk of size ' + event.data.size + 'B')
+            recordedChunks.push(event.data)
+        }
+        recorder.start(100)
+    }
 </script>

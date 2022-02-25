@@ -14,20 +14,36 @@
     <script src="https://unpkg.com/aframe-websurfaces@1.4.0/dist/aframe-websurfaces.umd.js"></script>
     <script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-simple-link-component/dist/aframe-simple-link-component.min.js"></script>
+    <!-- Greenscreen -->
+    <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
+
+    <script src="https://rawgit.com/flysonic10/aframe-passthrough/master/dist/aframe-passthrough-component.min.js"></script>
+
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
     <link rel="stylesheet" href="/style/main.css">
     <link rel="stylesheet" href="/style/vr.css">
 </head>
 <body>
+
     <%- include('./partials/layout/core-menu-vr'); %>
     <a-scene loading-screen="dotsColor: lightskyblue; backgroundColor: black">
         <%- body %>
 
 
+<a-passthrough width="16" height="9"></a-passthrough>
+
+
+
+
+
+<!-- Camera + cursor. -->
+<a-entity id="cameraRig" position="0 1.6 0">
+    <a-camera look-controls wasd-controls position="0 0 0">
+        <a-gui-cursor id="cursor" raycaster="objects: [gui-interactable]" fuse="true" fuse-timeout="2000" design="ring" gui-cursor="activeColor: lightskyblue">
+        </a-gui-cursor> <!-- /cursor -->
+    </a-camera> <!-- /camera -->
+</a-entity>
+
 
     </a-scene>
 
-
-
-</body>
-</html>
