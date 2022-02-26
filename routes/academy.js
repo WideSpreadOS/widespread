@@ -25,6 +25,20 @@ router.get('/all-courses', async (req, res) => {
     res.render('academy/courses/all-courses', { subZone: 'Courses', zone: 'Academy', subZonePage: 'Home', courses})
 });
 
+router.get('/saved-courses', async (req, res) => {
+    const userId = req.user
+    const courses = await CurrentCourse.find({"user_id": {$eq: userId}}).populate({
+        path: 'course_id',
+        model: 'Course',
+        populate: {
+            path: 'classes',
+            model: 'Class'
+        }
+    }).exec();
+    console.log(courses)
+    res.render('academy/courses/saved-courses', { subZone: 'Courses', zone: 'Academy', subZonePage: 'Home', courses})
+});
+
 router.get('/course/:courseId', ensureAuthenticated, async (req, res) => {
     const userId = req.user
     const user = await User.findById(userId)

@@ -1,5 +1,5 @@
 <style>
-@media screen and (min-width: 299px) {
+    @media screen and (min-width: 299px) {
         .card-list {
             backdrop-filter: blur(4px);
             border-radius: 6px;
@@ -165,78 +165,82 @@
 
     }
 
-@media screen and (min-width: 762px) {
+    @media screen and (min-width: 762px) {
 
-    .card-list {
-        flex-direction: row;
+        .card-list {
+            flex-direction: row;
+        }
+
+        .card {
+            max-width: 300px;
+            border-radius: 16px;
+        }
     }
-    .card {
-        max-width: 300px;
-        border-radius: 16px;
-    }
-}
 
-@media screen and (min-width: 992px) {
-
-
-
-}
-
+    @media screen and (min-width: 992px) {}
 </style>
 
 <%- include('../../partials/menus/academy'); %>
 
-<div class="page-title">
-    <h2>Courses</h2>
-</div>
+    <div class="page-title">
+        <h2>Courses</h2>
+    </div>
 
-<div class="card-list">
-    <% courses.forEach(function(course) { %>
-        <div class="card">
-            <div class="card-background">
-                <% if (course.background_image) { %>
-                <img src="/image/<%= course.background_image %>" alt="">
-                <% } else { %>
-                    <span style="display: none;"></span>
-                <% } %>
-            </div>
-
-
-
-
-
-
-            <div class="card-data">
-
-                <div class="card-data-header">
-                    <h4><a href="/academy/course/<%= course.id %>"><%= course.course %></a></h4>
-                    <p><small><%= course.subject %></small></p>
+    <div class="card-list">
+        <% courses.forEach(function(course) { %>
+            <div class="card">
+                <div class="card-background">
+                    <% if (course.course_id.background_image) { %>
+                        <img src="/image/<%= course.course_id.background_image %>" alt="">
+                        <% } else { %>
+                            <span style="display: none;"></span>
+                            <% } %>
                 </div>
 
 
-                <div class="card-data-body">
-                    <div class="class-list">
-                        <% course.classes.forEach(function(classId) { %>
-                            <div class="class-list-item">
-                                <p><a href="/academy/course/<%= course.id %>/class/<%= classId.id %>"><%= classId.name %></a></p>
-                            </div>
-                        <% }) %>
+
+
+
+
+                <div class="card-data">
+
+                    <div class="card-data-header">
+                        <h4><a href="/academy/course/<%= course.course_id.id %>">
+                                <%= course.course_id.course %>
+                            </a></h4>
+                        <p><small>
+                                <%= course.course_id.subject %>
+                            </small></p>
+
+                        <h5>Current Grade: <%= course.current_grade %>%</h5>
                     </div>
 
-                    <div class="course-info">
-                        <div class="course-info-item"><span>Difficulty: <%= course.difficulty %></span></div>
-                        <div class="course-info-item"><span>Credits: <%= course.credit_value %></span></div>
+
+                    <div class="card-data-body">
+                        <div class="class-list">
+                            <% course.course_id.classes.forEach(function(classId) { %>
+                                <div class="class-list-item">
+                                    <p><a href="/academy/course/<%= course.course_id.id %>/class/<%= classId.id %>">
+                                            <%= classId.name %>
+                                        </a></p>
+                                </div>
+                                <% }) %>
+                        </div>
+
+                        <div class="course-info">
+                            <div class="course-info-item"><span>Difficulty: <%= course.course_id.difficulty %></span></div>
+                            <div class="course-info-item"><span>Credits: <%= course.course_id.credit_value %></span></div>
+                        </div>
                     </div>
+
+                    
                 </div>
-
                 
-            </div>
-            
-                            <div class="card-data-actions">
-                                <a style="padding: 10px;" href="/academy/course/<%= course.id %>">Open Course</a>
-                            </div>
-            
+                                    <div class="card-data-actions">
+                                        <a style="padding: 10px;" href="/academy/course/<%= course.course_id.id %>">Open Course</a>
+                                    </div>
+                
 
-        </div>
-    <% }) %>
-</div>
+            </div>
+            <% }) %>
+    </div>
