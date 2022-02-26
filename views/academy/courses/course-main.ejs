@@ -187,6 +187,36 @@
         margin-bottom: 15px;
         text-indent: 15px;
     }
+    .hide {
+        display: none;
+    }
+    .current-course-data {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        background: rgba(0, 0, 0, 0.5);
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 5px lightskyblue;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .current-course-data p {
+        font-size: 1.3rem;
+        color: lightskyblue;
+        margin-left: 15px;
+    }
+    .current-course-data h5 {
+        margin-right: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        font-size: 3rem;
+        color: lightskyblue;
+    }
 </style>
 
 <%- include('../../partials/menus/academy'); %>
@@ -205,31 +235,27 @@
     </h3>
 </div>
 
-<% if (user=='undefined' ) { %>
-    <a href="/users/login">Login to Add Class</a>
-<% } else { %>
 
+<% if (thisCourse.length <= 0) { %>
+            <div id="addBtn" class="add-course hide">
+                <a href="/academy/course/<%= courseId %>/add">Add Course</a>
+            </div>
+        <% } else { %>
+            
+            <% thisCourse.forEach(function(courseItem) { %>
+                <div class="current-course-data">
+                    <p>Current Grade:</p>
+                    <h5 id="currentCourse"><%= courseItem.current_grade %>%</h5>
+                </div>
+            <% }) %>
+            
 
-    <% for (var i=0; i < courses.length; i++) { %>
-        <% if (courses[i].id == courseId) { %>
-            <% for (var j=0; j < user.academy_info.current_courses.length; j++) { %>
-                <% if (user.academy_info.current_courses[j].course == courses[i]) { %>
-                    <span style="color: red; ">This course is already saved. <%= courseId %></span>
-                <% } else { %>
-                    <% var thisCourse = courses[i] %>
-                    
-                    <% } %>
-            <% } %>
-        <% } else {  %>
-            <p style="color: red; display: none;"><%= courses[i] %></p>
         <% } %>
-    <% } %>
-<% } %>
 
 
-<div class="add-course">
-    <a href="/academy/course/<%= thisCourse.id %>/add">Add Course</a>
-</div>
+
+
+
 
 
 
@@ -351,3 +377,21 @@
         <% }) %>
     </ol>
 </div>
+
+
+<script>
+
+    let addCourseBtn = document.getElementById('addBtn')
+    let isCurrentCourse = document.getElementById('currentCourse')
+    let currentCourseId = isCurrentCourse
+    console.log(isCurrentCourse)
+    function checkCurrentCourse() {
+                if (!isCurrentCourse) {
+            console.log('isCurrentCourse = null')
+            addCourseBtn.classList.remove('hide')
+
+        }
+        }
+
+        window.onload = checkCurrentCourse();
+</script>

@@ -6,6 +6,7 @@ const { ensureAuthenticated } = require('../config/auth');
 /* Models */
 const User = require('../models/User');
 const Course = require('../models/Course');
+const CurrentCourse = require('../models/CurrentCourse');
 const Class = require('../models/Class');
 const LearningPoint = require('../models/LearningPoint');
 const Flashcard = require('../models/Flashcard');
@@ -24,15 +25,17 @@ router.get('/all-courses', async (req, res) => {
     res.render('academy/courses/all-courses', { subZone: 'Courses', zone: 'Academy', subZonePage: 'Home', courses})
 });
 
-router.get('/course/:courseId', async (req, res) => {
-    const userId = req.user.id
+router.get('/course/:courseId', ensureAuthenticated, async (req, res) => {
+    const userId = req.user
     const user = await User.findById(userId)
     const courseId = req.params.courseId;
     const course = await Course.findById(courseId).populate('classes').exec();
     const classes = await Class.find({"in_course": {$eq: courseId}})
     const courses = await Course.find()
-
-    res.render('academy/courses/course-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: 'Home', course, courses, courseId, classes, user})
+    const currentCourses = await CurrentCourse.find({user_id: {$eq: userId}})
+    const thisCourse = await CurrentCourse.find({user_id: {$eq: userId}} && {course_id: {$eq: courseId}})
+    console.log(thisCourse)
+    res.render('academy/courses/course-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: 'Home', course, currentCourses, thisCourse, courseId, classes, user})
 });
 
 
@@ -40,24 +43,11 @@ router.get('/course/:courseId', async (req, res) => {
 router.get('/course/:courseId/add', ensureAuthenticated, async (req, res) => {
     const courseId = req.params.courseId;
     const userId = req.user.id
-/*     await User.findByIdAndUpdate(userId, { "academy_info.current_courses": { $eq: courseId } }, {
-        $addToSet: {
-            "course": courseId
-        }
-    })
- */
 
-    const addCourse = await User.findByIdAndUpdate(userId, 
-        { $addToSet: { "academy_info.current_courses": { course: courseId } } },
-        { safe: true, upsert: true },
-        function (err, doc) {
-            if (err) {
-                console.log(err)
-            } else {
-                return
-            }
-        }
-    )
+    const addCourse = await new CurrentCourse({
+        course_id: courseId,
+        user_id: userId,
+    })
     console.log(addCourse.academy_info)
     addCourse.save();    
     res.redirect(`/academy/course/${courseId}`)
@@ -65,7 +55,7 @@ router.get('/course/:courseId/add', ensureAuthenticated, async (req, res) => {
 
 /* CLASSES */
 
-router.get('/course/:courseId/class/:classId', async (req, res) => {
+router.get('/course/:courseId/class/:classId', ensureAuthenticated, async (req, res) => {
     const courseId = req.params.courseId;
     const classId = req.params.classId;
     const course = await Course.findById(courseId).populate('classes').exec();
@@ -79,7 +69,7 @@ router.get('/course/:courseId/class/:classId', async (req, res) => {
 
 
 
-router.get('/course/:courseId/class/:classId/quiz/:quizId/take', async (req, res) => {
+router.get('/course/:courseId/class/:classId/quiz/:quizId/take', ensureAuthenticated, async (req, res) => {
     const courseId = req.params.courseId;
     const classId = req.params.classId;
     const quizId = req.params.quizId;
@@ -96,13 +86,26 @@ router.post('/course/:courseId/class/:classId/quiz/:quizId/submit', ensureAuthen
     const classId = req.params.classId;
     const quizId = req.params.quizId;
     const userId = req.user.id
-    await User.findByIdAndUpdate(userId, {"academy_info.current_courses.quiz_scores": {$eq: courseId}}, {
+    await User.findByIdAndUpdate(userId, {"academy_info.current_courses": {$eq: courseId}}, {
         $addToSet: {
             "quiz_scores.quiz": quizId,
             "quiz_scores.score": req.body.grade
  
         } 
     })
+    const addQuiz = await User.findByIdAndUpdate(userId,
+        { $addToSet: { "academy_info.current_courses": { $eq: courseId } } },
+        { safe: true, upsert: true },
+        function (err, doc) {
+            if (err) {
+                console.log(err)
+            } else {
+                return
+            }
+        }
+    )
+    console.log(addQuiz)
+    addQuiz.save();  
     res.redirect(`/academy/course/${courseId}/class/${classId}`)
 })
 /* RESOURCES */

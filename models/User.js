@@ -31,38 +31,6 @@ const UserSchema = new mongoose.Schema({
     favColor1: String,
     favColor2: String,
     favColor3: String,
-    academy_info: {
-        current_courses: [{
-            course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
-            quiz_scores: [{
-                quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz'},
-                score: Number
-            }],
-            current_grade: Number
-        }],
-        class_notes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Notebook'}],
-        completed_courses: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Course',
-            final_grade: Number
-        }],
-        gpa: Number,
-        previous_education: [
-            {
-                school: {
-                    name: String,
-                    city: String,
-                    state: String,
-                    graduation_year: String,
-                    gpa: String,
-                    awards: [
-                        String
-                    ]
-                }
-            }
-        ],
-        bookmarked_learning_points: [{type: mongoose.Schema.Types.ObjectId, ref: 'LearningPoint'}]
-    },
     friends: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
