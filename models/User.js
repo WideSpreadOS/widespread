@@ -35,6 +35,11 @@ const UserSchema = new mongoose.Schema({
         current_courses: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Course',
+            quiz_scores: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Quiz',
+                score: Number
+            }],
             current_grade: Number
         }],
         class_notes: [{type: mongoose.Schema.Types.ObjectId, ref: 'Notebook'}],

@@ -285,5 +285,7 @@
 
 
 <div class="take-quiz-container">
-    <a href="/academy/course/<%= course.id %>/class/<%= className.id %>/quiz/take">Take Quiz for <%= className.name %></a>
+    <% quizzes.forEach(function(quiz) { %>
+        <a href="/academy/course/<%= course.id %>/class/<%= className.id %>/quiz/<%= quiz.id %>/take">Take Quiz for <%= className.name %></a>
+    <% }) %>
 </div>

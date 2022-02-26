@@ -1,0 +1,258 @@
+<style>
+    p {
+        color: #fff;
+    }
+    .show {
+        display: block;
+    }
+    .quiz-question {
+        display: none;
+    }
+
+    .option1 label {
+        color: #fff;
+    }
+    .option2 label {
+        color: #fff;
+    }
+    .option3 label {
+        color: #fff;
+    }
+    .option4 label {
+        color: #fff;
+    }
+    .hide > button {
+        margin-top: 150px;
+        background: lime;
+        padding: 30px;
+        width: 100%;
+    }
+    .button {
+        display: none;
+    }
+    .hide {
+        display: none;
+    }
+    #output {
+        color: red;
+        font-size: 2rem;
+        text-align: center;
+    }
+</style>
+
+
+<div class="page-title">
+    <h2>Quiz</h2>
+    <h2><%= className.name %></h2>
+</div>
+<div id="quizContainer">
+        <% var quizLength = quiz.questions.length %>
+        <p>Total Questions: <%= quizLength %></p>
+        <% for (var i=0; i < quiz.questions.length; i++) { %>
+            <% var questionIndex = parseInt([i]) %>
+            <% var questionNumber = (questionIndex + 1) %>
+            <div class="quiz-question" id="question_<%= questionNumber %>">
+                <div class="question">
+                    <p>Question <span class="question-number"><%= questionNumber %></span></p>
+                    <p class="question-text"><%= quiz.questions[i].question %></p>
+                </div>
+                <div class="possible-answers">
+
+                    <div class="option1">
+                        <input type="radio" name="options" value="1" id="">
+                        <label class=".answer-text" for=""><%= quiz.questions[i].options.option1.possible_answer %></label>
+                    </div>
+
+                    <div class="option2">
+                        <input type="radio" name="options" value="2" id="">
+                        <label class=".answer-text" for=""><%= quiz.questions[i].options.option2.possible_answer %></label>
+                    </div>
+
+                    <div class="option3">
+                        <input type="radio" name="options" value="3" id="">
+                        <label class=".answer-text" for=""><%= quiz.questions[i].options.option3.possible_answer %></label>
+                    </div>
+
+                    <div class="option4">
+                        <input type="radio" name="options" value="4" id="">
+                        <label class=".answer-text" for=""><%= quiz.questions[i].options.option4.possible_answer %></label>
+                    </div>
+
+                </div>
+                <div class="quiz-nav-buttons">
+                    <% var previousQuestion = questionNumber - 1%>
+                    <% var nextQuestion = questionNumber + 1 %>
+                    <% var correctAnwer = quiz.questions[i].answer %>
+                    <p style="display: none;" class="answer"><%= correctAnwer %></p>
+                    <p><%= previousQuestion %></p>
+                    <p><%= nextQuestion %></p>
+                    <% if ([i] < 1) { %>
+                        <div class="next-button">
+                            <button  class="next-btn" onclick="nextQuestion(<%= nextQuestion %>)">Next</button>
+                        </div>
+                    <% } else { %>
+                        <% if ([i] == quiz.questions.length) { %>
+                            <div class="previous-button">
+                                <button class="prev-btn" onclick="previousQuestion(<%= previousQuestion %>)">Previous</button>
+                            </div>
+                            <% } else { %>
+                                <div class="next-button">
+                                    <button class="next-btn" onclick="nextQuestion(<%= nextQuestion %>)">Next</button>
+                                </div>
+                                <div class="previous-button">
+                                    <button class="prev-btn" onclick="previousQuestion(<%= previousQuestion %>)">Previous</button>
+                                </div>
+                        <% } %>
+                    <% } %>
+                </div>
+
+                <!-- End of Current Question -->
+            </div>
+
+            <% } %>
+    <form action="/academy/course/<%= course.id %>/class/<%= className.id %>/quiz/<%= quiz.id %>/submit" method="post">
+        <button class="button" type="submit">Hand In Quiz</button>
+    </form>
+</div>
+<div id="output"></div>
+
+<script>
+    let allQuestions = []
+    const quizContainer = document.getElementById('quizContainer')
+    const questionsList = quizContainer.querySelectorAll('.quiz-question')
+
+    questionsList.forEach(question => {
+        const correctAnswer = question.querySelector('.answer').innerText
+        const thisQuestionNumber = question.querySelector('.question-number').innerText
+        const addQuestion = {
+            "question_number": thisQuestionNumber,
+            "correct_answer": correctAnswer
+        }
+        allQuestions.push(addQuestion)
+        console.log('All Questions (In Loop): ' + addQuestion.question_number + ' - ' + addQuestion.correct_answer)
+    })
+    console.table(allQuestions)
+    console.log('allQuestions.length: ' + allQuestions.length)
+
+
+
+
+    let answeredQuestions = [];
+    let currentQuestion = allQuestions[0]
+    currentQuestion = document.getElementById(`question_${currentQuestion.question_number}`)
+    console.log(currentQuestion)
+    currentQuestion.setAttribute('class', '.quiz-question .current-question')
+    let currentQuestionId = currentQuestion.querySelector('.question-number')
+    let currentQuestionNumber = currentQuestionId.innerText
+
+
+
+    function nextQuestion(question) {
+        const submitQuizBtn = document.querySelector('.button')
+        console.log(submitQuizBtn)
+        const correctAnswer = currentQuestion.querySelector('.answer').innerText
+        const thisQuestion = currentQuestion.querySelector('.question-number').innerText
+        
+        const possibleAnswers = currentQuestion.querySelectorAll('input[type="radio"]')
+        const output = document.getElementById('output')
+        console.log(question)
+            let selectedAnswer;
+            for (const possibleAnswer of possibleAnswers) {
+                if (possibleAnswer.checked) {
+                    selectedAnswer = possibleAnswer.value;
+                    console.log('Selected Answer: ' + selectedAnswer)
+                }
+            }
+            // show the output:
+            output.innerText = selectedAnswer ? `You selected ${selectedAnswer}` : `You haven't selected an answer.`;
+            if (selectedAnswer === correctAnswer) {
+                const answer = {
+                    "question_number": thisQuestion,
+                    "selected": selectedAnswer,
+                    "correct_answer": correctAnswer,
+                    "correct": 1
+                }
+                answeredQuestions.push(answer)
+                console.table(answeredQuestions)
+                if (answeredQuestions.length === allQuestions.length) {
+                    submitQuizBtn.classList.remove('hide')
+                    currentQuestion.setAttribute('style', 'display: none')
+                    submitQuizBtn.classList.remove('button')
+                    console.log(submitQuizBtn)
+                } else {
+                    let nextQuestionNumber = (parseInt(thisQuestion) + 1)
+                    console.log('Next Question: ' + nextQuestionNumber)
+                    console.log(nextQuestionNumber)
+                    currentQuestion.setAttribute('class', '.quiz-question')
+                    currentQuestion.setAttribute('style', 'display: none')
+                    currentQuestion = document.getElementById(`question_${nextQuestionNumber}`)
+                    currentQuestion.setAttribute('class', '.quiz-question .current-question')
+                }
+            } else {
+                const answer = {
+                    "question_number": thisQuestion,
+                    "selected": selectedAnswer,
+                    "correct_answer": correctAnswer,
+                    "correct": 0
+                }
+                answeredQuestions.push(answer)
+                console.table(answeredQuestions)
+                if ( answeredQuestions.length === allQuestions.length) {
+                    submitQuizBtn.classList.remove('hide')
+                    submitQuizBtn.classList.remove('button')
+                    currentQuestion.setAttribute('style', 'display: none')
+                    console.log(submitQuizBtn)
+                } else {
+                    let nextQuestionNumber = (parseInt(thisQuestion) + 1)
+                    console.log('Next Question: ' + nextQuestionNumber)
+                    currentQuestion.setAttribute('style', 'display: none')
+                    newCurrentQuestion = document.getElementById(`question_${nextQuestionNumber}`)
+                    console.log('New Current Question: ' + newCurrentQuestion)
+                    currentQuestion.setAttribute('class', '.quiz-question .current-question')
+                }
+            }
+
+    }
+</script>
+
+<!-- 
+<script>
+
+    const startButton = document.getElementById('start-btn');
+    const questionContainerElement = document.getElementById('quizContainer')
+    startButton.addEventListener('click', startGame)
+    const questionElement = document.getElementsByClassName('question-text')
+
+
+    let shuffledQuestions, currentQuestionIndex
+
+
+
+    function startGame() {
+        console.log("Started")
+        startButton.classList.add('hide')
+        shuffledQuestions = allQuestions.sort(() => Math.random() - .5)
+        currentQuestionIndex = 0;
+        questionContainerElement.classList.remove('hide')
+
+        setNextQuestion()
+    }
+
+    function setNextQuestion() {
+        showQuestion(shuffledQuestions[currentQuestionIndex])
+    }
+
+    function showQuestion(question) {
+        let questionContainer = document.querySelector('.quiz-question')
+
+        questionContainer.classList.remove('quiz-question')
+        questionElement.innerText = question.question_text
+
+    }
+
+    function selectAnswer() {
+
+    }
+
+ 
+</script> -->
