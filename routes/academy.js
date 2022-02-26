@@ -62,7 +62,20 @@ router.get('/course/:courseId/class/:classId/quiz/:quizId/take', async (req, res
 
 });
 
-
+router.post('/course/:courseId/class/:classId/quiz/:quizId/submit', ensureAuthenticated, async (req, res) => {
+    const courseId = req.params.courseId;
+    const classId = req.params.classId;
+    const quizId = req.params.quizId;
+    const userId = req.user.id
+    await User.findOneAndUpdate({"academy_info.current_courses": {$eq: courseId}}, {
+        $addToSet: {
+            quiz_scores: {
+                score: req.body.grade
+            }
+        } 
+    })
+    res.redirect(`/academy/course/${courseId}/class/${classId}`)
+})
 /* RESOURCES */
 
 router.get('/resources', (req, res) => {
