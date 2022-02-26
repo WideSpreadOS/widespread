@@ -33,11 +33,9 @@ const UserSchema = new mongoose.Schema({
     favColor3: String,
     academy_info: {
         current_courses: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Course',
+            course: { type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
             quiz_scores: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Quiz',
+                quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz'},
                 score: Number
             }],
             current_grade: Number

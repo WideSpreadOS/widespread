@@ -32,6 +32,27 @@
         padding: 6px;
     }
 
+    .add-course {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+    }
+    .add-course a {
+        padding: 20px;
+        font-size: 1.5rem;
+        color: #fff;
+        text-decoration: none;
+        margin: 0 auto;
+        background: rgba(0, 0, 0, 0.5);
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 5px lightskyblue;
+        border-radius: 16px;
+    
+    }
     .toolbox-container {
         background: rgba(255, 255, 255, 0.25);
         backdrop-filter: blur(4px);
@@ -183,6 +204,36 @@
         <%= course.subject %>
     </h3>
 </div>
+
+<% if (user=='undefined' ) { %>
+    <a href="/users/login">Login to Add Class</a>
+<% } else { %>
+
+
+    <% for (var i=0; i < courses.length; i++) { %>
+        <% if (courses[i].id == courseId) { %>
+            <% for (var j=0; j < user.academy_info.current_courses.length; j++) { %>
+                <% if (user.academy_info.current_courses[j].course == courses[i]) { %>
+                    <span style="color: red; ">This course is already saved. <%= courseId %></span>
+                <% } else { %>
+                    <% var thisCourse = courses[i] %>
+                    
+                    <% } %>
+            <% } %>
+        <% } else {  %>
+            <p style="color: red; display: none;"><%= courses[i] %></p>
+        <% } %>
+    <% } %>
+<% } %>
+
+
+<div class="add-course">
+    <a href="/academy/course/<%= thisCourse.id %>/add">Add Course</a>
+</div>
+
+
+
+
 
 <div class="toolbox-container">
     <div class="toolbox-header">
