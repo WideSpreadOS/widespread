@@ -134,7 +134,32 @@
         font-size: 1.2rem;
         padding: 5px;
     }
-
+    .edit-class-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(4px);
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        border-radius: 16px;
+        border-top: outset 1px rgba(255, 255, 255, 0.5);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+    }
+    .edit-class-button a {
+        color: #fff;
+        font-size: 1.3rem;
+        text-decoration: none;
+    }
+    .edit-quiz-button {
+        margin-bottom: 15px;
+    }
     .take-quiz-container {
         text-align: center;
         padding-top: 30px;
@@ -186,6 +211,13 @@
     </h2>
 
 </div>
+<% if (userId.id=className.class_creator) { %>
+    <div class="edit-class-button">
+        <a href="/admin/academy/course/<%= course.id %>/class/<%= className.id %>">Edit Class</a>
+    </div>
+    <% } else { %>
+        <span style="display: none;"></span>
+        <% } %>
 
 <div class="toolbox-container">
     <div class="toolbox-header">
@@ -298,6 +330,14 @@
 
 
 <div class="take-quiz-container">
+
+    <% if (userId.id = className.class_creator) { %>
+        <div class="edit-quiz-button">
+            <a href="/admin/academy/course/<%= course.id %>/class/<%= className.id %>/quiz">Add/Edit Quiz Questions</a>
+        </div>
+    <% } else { %>
+        <span style="display: none;"></span>
+    <% } %>
 
     <% if (!allQuizzes) { %>
         <span style="display: none;"></span>

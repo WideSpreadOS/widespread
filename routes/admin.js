@@ -29,7 +29,38 @@ router.get('/', (req, res) => {
 
 
 /* CLASS */
+/* Edit Class */
 
+router.get('/academy/course/:courseId/class/:classId', async (req, res) => {
+    const courseId = req.params.courseId;
+    const classId = req.params.classId;
+    const quizId = req.params.quizId;
+    const course = await Course.findById(courseId)
+    const className = await Class.findById(classId)
+    const quiz = await Quiz.findById(quizId);
+    const learningPoints = await LearningPoint.find({ 'class': { $eq: classId } });
+    res.render('admin/academy/course-class', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: className.name, course, className, learningPoints, quiz })
+});
+router.post('/academy/course/:courseId/class/:classId/add-learning-point', ensureAuthenticated, async (req, res) => {
+    const courseId = req.params.courseId;
+    const course = await Course.findById(courseId)
+    const userId = req.user;
+    const classId = req.params.classId;
+    const className = await Class.findById(classId)
+    const newLearningPoint = new LearningPoint({
+        class: classId,
+        section_header: req.body.section_header,
+        section_body: req.body.section_body,
+        section_notes: req.body.section_notes,
+        difficulty: req.body.difficulty
+    })
+    newLearningPoint.save()
+
+    res.redirect(`/admin/academy/course/${courseId}/class/${classId}`, )
+
+});
+
+/* Add/Edit Quiz */
 router.get('/academy/course/:courseId/class/:classId/quiz/', async (req, res) => {
     const courseId = req.params.courseId;
     const classId = req.params.classId;

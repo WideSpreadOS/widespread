@@ -86,7 +86,22 @@ router.get('/course/:courseId/class/:classId', ensureAuthenticated, async (req, 
     const quizzes = await Quiz.findOne({'for_class': {$eq: classId}})
     const allQuizzes = await QuizAnswers.findOne({ user_id: userId, course_id: courseId, class_id: classId })
     console.log(allQuizzes)
-    res.render('academy/courses/class-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: className.name, course, className, learningPoints, quizzes, allQuizzes})
+    res.render('academy/courses/class-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: className.name, course, className, learningPoints, quizzes, allQuizzes, userId})
+
+});
+
+router.post('/course/:courseId/class/:classId', ensureAuthenticated, async (req, res) => {
+    const courseId = req.params.courseId;
+    const userId = req.user;
+    const classId = req.params.classId;
+    const course = await Course.findById(courseId).populate('classes').exec();
+    const className = await Class.findById(classId);
+    console.log(className)
+    const learningPoints = await LearningPoint.find({"class": { $eq: classId } })
+    const quizzes = await Quiz.findOne({'for_class': {$eq: classId}})
+    const allQuizzes = await QuizAnswers.findOne({ user_id: userId, course_id: courseId, class_id: classId })
+    console.log(allQuizzes)
+    res.render('academy/courses/class-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: className.name, course, className, learningPoints, quizzes, allQuizzes, userId})
 
 });
 

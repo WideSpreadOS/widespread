@@ -6,8 +6,7 @@ const LearningPointSchema = new mongoose.Schema({
     section_header: String,
     section_body: String,
     section_notes: String,
-    difficulty: Number,
-    section_quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }
+    difficulty: Number
 });
 
 const LearningPoint = mongoose.model('LearningPoint', LearningPointSchema);
