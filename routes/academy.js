@@ -11,6 +11,7 @@ const Class = require('../models/Class');
 const LearningPoint = require('../models/LearningPoint');
 const Flashcard = require('../models/Flashcard');
 const Quiz = require('../models/Quiz');
+const QuizAnswers = require('../models/QuizAnswers');
 
 router.get('/', (req, res) => {
     res.render('academy/home', {subZone: 'Home', zone: 'Academy'})
@@ -100,16 +101,36 @@ router.post('/course/:courseId/class/:classId/quiz/:quizId/submit', ensureAuthen
     const classId = req.params.classId;
     const quizId = req.params.quizId;
     const userId = req.user.id
-    await User.findByIdAndUpdate(userId, {"academy_info.current_courses": {$eq: courseId}}, {
-        $addToSet: {
-            "quiz_scores.quiz": quizId,
-            "quiz_scores.score": req.body.grade
- 
-        } 
-    })
-    const addQuiz = await User.findByIdAndUpdate(userId,
-        { $addToSet: { "academy_info.current_courses": { $eq: courseId } } },
-        { safe: true, upsert: true },
+    const takenQuiz = new QuizAnswers({
+        quiz_id: quizId,
+        user_id: userId,
+        course_id: courseId,
+        class_id: classId,
+        grade: req.body.grade
+    });
+    takenQuiz.save()
+
+    res.redirect(`/academy/course/${courseId}/class/${classId}/quiz/${quizId}/submit/update-grade`)
+})
+
+router.get('/course/:courseId/class/:classId/quiz/:quizId/submit/update-grade', ensureAuthenticated, async (req, res) => {
+    const courseId = req.params.courseId;
+    const classId = req.params.classId;
+    const quizId = req.params.quizId;
+    const userId = req.user.id
+
+    const quiz = await QuizAnswers.findOne({
+        quiz_id: quizId,
+        user_id: userId,
+    });
+
+
+    
+    console.log(quiz)
+
+    const addQuiz = await CurrentCourse.findOneAndUpdate({ course_id: courseId, user_id: userId }, 
+        { $addToSet: { quiz_scores:quizId } },
+        { safe: true, upsert: true, new: true },
         function (err, doc) {
             if (err) {
                 console.log(err)
@@ -118,8 +139,9 @@ router.post('/course/:courseId/class/:classId/quiz/:quizId/submit', ensureAuthen
             }
         }
     )
-    console.log(addQuiz)
-    addQuiz.save();  
+    console.log('Quiz Added: ' + addQuiz)
+    addQuiz.save()
+    console.log('Quiz Added After Save: ' + addQuiz)
     res.redirect(`/academy/course/${courseId}/class/${classId}`)
 })
 /* RESOURCES */

@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 const CurrentCourseSchema = new mongoose.Schema({
     course_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    quiz_scores: [{
-            quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' },
-            score: Number
-    }],
+    quiz_scores: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizAnswers' }],
     current_grade: {
         type: Number,
         default: 100
