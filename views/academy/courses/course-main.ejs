@@ -240,7 +240,7 @@
                 <a href="/academy/course/<%= courseId %>/add">Add Course</a>
             </div>
         <% } else { %>
-            
+
                 <div class="current-course-data">
                     <p>Current Grade:</p>
                     <h5 id="currentCourse"><%= thisCourse.current_grade %>%</h5>
@@ -397,6 +397,7 @@
 
 <script>
     let accumulatedGrades = []
+    let currentGrade
     const singleQuizGrade = document.querySelectorAll('.single-quiz-grade')
     let currentGradeContainer = document.getElementById('currentCourse')
     singleQuizGrade.forEach(grade => {
@@ -411,7 +412,32 @@
     const totalQuizzes = accumulatedGrades.length
         console.log(totalQuizzes)
     const currentGradePercent = (totalGrades/totalQuizzes)
-    const currentGrade = parseFloat(currentGradePercent).toFixed(0)
-    console.log(currentGrade)
-    currentGradeContainer.innerText = currentGrade + "%"
+    currentGrade = parseFloat(currentGradePercent).toFixed(0)
+    if (!currentGrade) {
+        
+        console.log('No Current Grade')
+        
+  /*       if (isNaN(currentGrade) || (currentGrade === "")) {
+            console.log('IS NAN')
+            currentGradeContainer.innerText = "100%"
+        } 
+        */
+        
+        
+    } else if (currentGrade && currentGradeContainer) {
+                if (isNaN(currentGrade) || (currentGrade === " ")) {
+            console.log('IS NAN')
+            currentGradeContainer.innerText = "100%"
+
+        } else {
+
+            
+            
+            currentGradeContainer.innerText = currentGrade + "%"
+        }
+            
+         
+    } else {
+        console.log('TOO MANY STATEMENTS')
+    }
 </script>

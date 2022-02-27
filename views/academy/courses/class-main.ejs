@@ -307,7 +307,7 @@
     
     
     <% if (!quizzes) { %>
-        <span style="display: none;"></span>
+        <span style="color: #fff">No quiz added yet for this class.</span>
     <% } else { %>
         <p id="quizId" style="display: none; background: #fff; font-size: 1.5rem;"><%= quizzes.id %></p>
         <div class="quiz-score">
@@ -347,6 +347,9 @@
 
     if (quizIdContainer) {
         const quizId = quizIdContainer.innerText
+    }
+    if (!quizIdContainer) {
+        console.log('NO QUIZ ADDED YET')
     }
     
 
