@@ -235,19 +235,16 @@
     </h3>
 </div>
 
-
-<% if (thisCourse.length <= 0) { %>
+<% if (!thisCourse) { %>
             <div id="addBtn" class="add-course hide">
                 <a href="/academy/course/<%= courseId %>/add">Add Course</a>
             </div>
         <% } else { %>
             
-            <% thisCourse.forEach(function(courseItem) { %>
                 <div class="current-course-data">
                     <p>Current Grade:</p>
-                    <h5 id="currentCourse"><%= courseItem.current_grade %>%</h5>
+                    <h5 id="currentCourse"><%= thisCourse.current_grade %>%</h5>
                 </div>
-            <% }) %>
             
 
         <% } %>
@@ -255,7 +252,11 @@
 
 
 
-
+<div class="this-course">
+    <% allQuizzes.forEach(function(quiz) { %>
+            <p class="single-quiz-grade" style="display: none;"><%= quiz.grade %></p>
+    <% }) %>
+</div>
 
 
 
@@ -384,14 +385,33 @@
     let addCourseBtn = document.getElementById('addBtn')
     let isCurrentCourse = document.getElementById('currentCourse')
     let currentCourseId = isCurrentCourse
-    console.log(isCurrentCourse)
     function checkCurrentCourse() {
                 if (!isCurrentCourse) {
-            console.log('isCurrentCourse = null')
             addCourseBtn.classList.remove('hide')
 
         }
         }
 
         window.onload = checkCurrentCourse();
+</script>
+
+<script>
+    let accumulatedGrades = []
+    const singleQuizGrade = document.querySelectorAll('.single-quiz-grade')
+    let currentGradeContainer = document.getElementById('currentCourse')
+    singleQuizGrade.forEach(grade => {
+        const gradeValue = grade.innerHTML
+        const gradeInt = parseInt(gradeValue)
+        console.log(gradeInt)
+        accumulatedGrades.push(gradeInt)
+    })
+    console.table(accumulatedGrades)
+    const totalGrades = accumulatedGrades.reduce((a, b) => a + b, 0)
+        console.log(totalGrades)
+    const totalQuizzes = accumulatedGrades.length
+        console.log(totalQuizzes)
+    const currentGradePercent = (totalGrades/totalQuizzes)
+    const currentGrade = parseFloat(currentGradePercent).toFixed(0)
+    console.log(currentGrade)
+    currentGradeContainer.innerText = currentGrade + "%"
 </script>

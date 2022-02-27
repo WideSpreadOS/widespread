@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose')
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 
@@ -48,9 +49,13 @@ router.get('/course/:courseId', ensureAuthenticated, async (req, res) => {
     const classes = await Class.find({"in_course": {$eq: courseId}})
     const courses = await Course.find()
     const currentCourses = await CurrentCourse.find({user_id: {$eq: userId}})
-    const thisCourse = await CurrentCourse.find({user_id: {$eq: userId}} && {course_id: {$eq: courseId}})
+    const thisCourse = await CurrentCourse.findOne({user_id: userId, course_id: courseId})
+    const allQuizzes = await QuizAnswers.find({user_id: userId, course_id: courseId})
+    console.log('All Quizzes: ' + allQuizzes)
+    
+
     console.log(thisCourse)
-    res.render('academy/courses/course-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: 'Home', course, currentCourses, thisCourse, courseId, classes, user})
+    res.render('academy/courses/course-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: 'Home', course, currentCourses, thisCourse, courseId, classes, user, allQuizzes})
 });
 
 
@@ -59,7 +64,7 @@ router.get('/course/:courseId/add', ensureAuthenticated, async (req, res) => {
     const courseId = req.params.courseId;
     const userId = req.user.id
 
-    const addCourse = await new CurrentCourse({
+    const addCourse = new CurrentCourse({
         course_id: courseId,
         user_id: userId,
     })
@@ -72,13 +77,16 @@ router.get('/course/:courseId/add', ensureAuthenticated, async (req, res) => {
 
 router.get('/course/:courseId/class/:classId', ensureAuthenticated, async (req, res) => {
     const courseId = req.params.courseId;
+    const userId = req.user;
     const classId = req.params.classId;
     const course = await Course.findById(courseId).populate('classes').exec();
     const className = await Class.findById(classId);
     console.log(className)
     const learningPoints = await LearningPoint.find({"class": { $eq: classId } })
-    const quizzes = await Quiz.find({'for_class': {$eq: classId}})
-    res.render('academy/courses/class-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: className.name, course, className, learningPoints, quizzes})
+    const quizzes = await Quiz.findOne({'for_class': {$eq: classId}})
+    const allQuizzes = await QuizAnswers.findOne({ user_id: userId, course_id: courseId, class_id: classId })
+    console.log(allQuizzes)
+    res.render('academy/courses/class-main', { subZone: 'Courses', zone: 'Academy', subZonePage: course.course, currentPage: className.name, course, className, learningPoints, quizzes, allQuizzes})
 
 });
 
@@ -101,6 +109,10 @@ router.post('/course/:courseId/class/:classId/quiz/:quizId/submit', ensureAuthen
     const classId = req.params.classId;
     const quizId = req.params.quizId;
     const userId = req.user.id
+
+    const allQuizzes = await QuizAnswers.find({ user_id: userId, course_id: courseId, quiz_id: quizId  })
+    if (allQuizzes.length <= 0) {
+
     const takenQuiz = new QuizAnswers({
         quiz_id: quizId,
         user_id: userId,
@@ -108,9 +120,23 @@ router.post('/course/:courseId/class/:classId/quiz/:quizId/submit', ensureAuthen
         class_id: classId,
         grade: req.body.grade
     });
-    takenQuiz.save()
-
+    await takenQuiz.save()
     res.redirect(`/academy/course/${courseId}/class/${classId}/quiz/${quizId}/submit/update-grade`)
+    } else {
+        const updateQuiz = await QuizAnswers.findOneAndUpdate({ user_id: userId, course_id: courseId, quiz_id: quizId },
+            { $push: { quiz_scores: quizId } },
+            { safe: true, upsert: true },
+            function (err, doc) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    return
+                }
+            }
+        )
+        updateQuiz.save()
+        res.redirect(`/academy/course/${courseId}/class/${classId}/quiz/${quizId}/submit/update-grade`)
+    }
 })
 
 router.get('/course/:courseId/class/:classId/quiz/:quizId/submit/update-grade', ensureAuthenticated, async (req, res) => {

@@ -15,7 +15,10 @@ A new way to internet.
 
 
 
+# Quick Links
 
+- http://localhost:5000/academy/course/5fe346230f4c190db8736c12
+- 
 
 
 

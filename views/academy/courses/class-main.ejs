@@ -154,7 +154,20 @@
         text-decoration: none;
         font-size: 1.3rem;
     }
-
+    .quiz-score {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .quiz-score p {
+        color: #fff;
+        font-size: 2rem;
+        text-shadow: 0 0 2px rgba(135, 206, 250, 0.5);
+    }
+    .hide {
+        display: none;
+    }
 </style>
 
 <%- include('../../partials/menus/academy'); %>
@@ -285,7 +298,57 @@
 
 
 <div class="take-quiz-container">
-    <% quizzes.forEach(function(quiz) { %>
-        <a href="/academy/course/<%= course.id %>/class/<%= className.id %>/quiz/<%= quiz.id %>/take">Take Quiz for <%= className.name %></a>
-    <% }) %>
+
+    <% if (!allQuizzes) { %>
+        <span style="display: none;"></span>
+    <% } else { %>
+        <p id="takenQuizId" style="display: none; background: lime; font-size: 1.5rem;"><%= allQuizzes.quiz_id %></p>
+    <% } %>
+    
+    
+    <% if (!quizzes) { %>
+        <span style="display: none;"></span>
+    <% } else { %>
+        <p id="quizId" style="display: none; background: #fff; font-size: 1.5rem;"><%= quizzes.id %></p>
+        <div class="quiz-score">
+            <% if (!allQuizzes) { %>
+                <span style="display: none;"></span>
+            <% } else { %>
+                <p>Quiz Grade: <%= allQuizzes.grade %>%</p>
+            <% } %>
+        </div>
+        <a id="takeQuizBtn" href="/academy/course/<%= course.id %>/class/<%= className.id %>/quiz/<%= quizzes.id %>/take">Take Quiz for <%= className.name %></a>
+    <% } %>
+    
+
+    
 </div>
+
+
+
+
+<script>
+
+
+    const takenQuizIdContainer = document.getElementById('takenQuizId')
+    const quizIdContainer = document.getElementById('quizId')
+    let takeQuizBtn = document.getElementById('takeQuizBtn')
+    if (takenQuizIdContainer) {
+        const takenQuizId = takenQuizIdContainer.innerText
+        const quizId = quizIdContainer.innerText
+        console.log('takenQuizId: ' + takenQuizId)
+        console.log('quizId: ' + quizId)
+
+        if (takenQuizId === quizId) {
+            console.log('Quiz already taken.')
+            takeQuizBtn.classList.add('hide')
+        }
+    }
+
+    if (quizIdContainer) {
+        const quizId = quizIdContainer.innerText
+    }
+    
+
+
+</script>
