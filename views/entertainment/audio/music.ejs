@@ -49,6 +49,7 @@
         border-radius: 16px;
         border-top: outset 1px rgba(255, 255, 255, 0.25);
         border-bottom: outset 1px rgba(255, 255, 255, 0.25);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -126,12 +127,22 @@
     .slider_container {
         width: 95%;
         margin: 0 auto;
+        margin-bottom: 20px;
         max-width: 400px;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
+    }
+    .track-length {
+    }
+    .track-length > div {
+        max-width: 15%;
+        overflow: hidden;
+    }
+    .track-length input {
+        max-width: 70%;
     }
     .volume-container {
         width: 75%;
@@ -152,6 +163,7 @@
         box-shadow: inset 0 0 2px lightskyblue, 0 0 8px rgba(255, 255, 255, 0.25);
         border-radius: 2px;
         opacity: 0.7;
+
         -webkit-transition: .2s;
         transition: opacity .2s;
     }
@@ -164,7 +176,8 @@
         appearance: none;
         width: 15px;
         height: 15px;
-        background: lightskyblue;
+        background: rgba(135, 206, 250, 0.5);
+        box-shadow: inset 0 0 5px #fff, 0 0 5px rgba(255, 255, 255, 0.25);
         cursor: pointer;
         border-radius: 50%;
     }
@@ -187,7 +200,6 @@
     }
     .current-time,
     .total-duration {
-        padding: 10px;
     }
 
     i.fa-volume-down,
@@ -242,14 +254,15 @@
         margin-bottom: 30px;
         background: rgba(0, 0, 0, 0.25);
         backdrop-filter: blur(4px);
-        border-radius: 8px;
+        border-radius: 16px;
         border-top: outset 1px rgba(255, 255, 255, 0.5);
         border-bottom: outset 1px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
         padding-bottom: 20px;
     }
 
     .music-list h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
         padding: 20px;
     }
 
@@ -327,9 +340,10 @@
     }
     .loop-button i {
         font-size: 2rem;
+        text-shadow: 0 0 5px rgb(135 206 250 / 75%);
 
     }
-    #pause {
+    .hidden {
         display: none;
     }
 </style>
@@ -376,9 +390,10 @@
         </div>
     </div>
 
-    <div class="slider_container">
+    <div class="slider_container track-length">
         <div class="current-time">00:00</div>
         <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+        
         <div class="total-duration">00:00</div>
     </div>
     
@@ -399,9 +414,10 @@
             <h2>All Music</h2>
         </div>
 
-            <% audioFiles.forEach(function(song) { %>
-                <div class="song" onclick="thisSong(this)">
-                    <div class="song-body">
+            <% audioFiles.forEach(function(song, i) { %>
+                <div class="song">
+                    <div class="song-body" onclick="thisSong(this)">
+                        
                         <h6 class="song-name">
                             <%= song.song %>
                         </h6>
@@ -416,8 +432,8 @@
                         <p class="song-id" style="display: none;"><%= song.id %></p>
                     </div>
                     <div class="song-actions">
-                        <span id="play"><i class="fas fa-play" onclick="loadTrack()"></i></span>
-                        <span id="pause"><i class="fas fa-pause"></i></span>
+                        <span class="play"><i class="fas fa-play" onclick="loadThisTrack(<%= i %>)"><span class="thisPlayBtn" style="display: none;"><%= [i] %></span></i></span>
+                        <span class="pause hidden"><i class="fas fa-pause" onclick="pauseTrack(<%= i %>)"><span class="thisPauseBtn" style="display: none;">pause-<%= i %></span></i></span>
                     </div>
                 </div>
                 <% }) %>
@@ -426,15 +442,16 @@
 
 <script>
     const loopButton = document.querySelector('.loop-button')
+    loopButton.setAttribute('style', 'color: rgba(255, 255, 255, 0.5)')
     let now_playing = document.querySelector(".now-playing");
     let track_art = document.querySelector(".track-art");
     let track_name = document.querySelector(".track-name");
     let track_artist = document.querySelector(".track-artist");
-
+    
     let playpause_btn = document.querySelector(".playpause-track");
     let next_btn = document.querySelector(".next-track");
     let prev_btn = document.querySelector(".prev-track");
-
+    
     let seek_slider = document.querySelector(".seek_slider");
     let volume_slider = document.querySelector(".volume_slider");
     let curr_time = document.querySelector(".current-time");
@@ -451,7 +468,7 @@
     // Define the list of tracks that have to be played
     let track_list = [];
     const allSongs = document.querySelectorAll('.song')
-    allSongs.forEach(song => {
+    allSongs.forEach((song, i) => {
         let songData = {
             id: song.querySelector('.song-id').innerHTML,
             name: song.querySelector('.song-name').innerHTML,
@@ -460,14 +477,18 @@
             path: song.querySelector('.song-path').innerHTML
         }
         track_list.push(songData)
-        console.table(songData)
+        // console.table(songData)
+        console.log(allSongs[i])
     })
+    console.log('allSongs')
 
         function thisSong(songDiv) {
             let songIds = []
             let songId = songDiv.querySelector('.song-id').innerHTML
+
             console.log(songId)
             allSongs.forEach((song, index) => {
+
                 let songData = {
                     id: song.querySelector('.song-id').innerHTML,
                     name: song.querySelector('.song-name').innerHTML,
@@ -479,7 +500,25 @@
                     console.log('Song Name: ', songData.name)
                     console.log('Song ID: ', songData.id)
                     loadTrack([index])
-                    playTrack()
+                    playTrack() || playThisTrack()
+
+                    let songListPlayBtn = song.querySelector('.play')
+                    let songListPauseBtn = song.querySelector('.pause')
+                    songListPauseBtn.classList.add('hidden')
+                    if (!isPlaying) {
+                        songListPlayBtn.classList.remove('hidden')
+                        songListPauseBtn.classList.add('hidden')
+                        console.log('Paused - Should Show Play Buttton')
+                        
+                    } else { 
+                        songListPlayBtn.classList.add('hidden')
+                        songListPauseBtn.classList.remove('hidden')
+                        console.log('Playing - Should Show Pause Buttton')
+                    }
+                    console.log('Play Button: ', songListPlayBtn)
+                    console.log('Pause Button: ', songListPauseBtn)
+                    console.log('if (songId === songData.id) inside allSongs.forEach(): ', song)
+                    
                 }
                 songIds.push(songData)
             })
@@ -523,6 +562,28 @@
         curr_time.textContent = "00:00";
         total_duration.textContent = "00:00";
         seek_slider.value = 0;
+        let songListPlayBtn = document.body.querySelectorAll('.play')
+        let songListPauseBtn = document.body.querySelectorAll('.pause')
+        console.log('SongListPlayBtn: ', songListPlayBtn)
+        console.log('SongListPauseBtn: ', songListPauseBtn)
+        let allPlayButtons = songListPlayBtn.forEach((button, i) => {
+            console.log('Button: ', button)
+            if (button.classList.value === 'play hidden') {
+                button.classList.toggle('hidden')
+
+               }
+        })
+        let allPauseButtons = songListPauseBtn.forEach((button, i) => {
+            console.log('Button: ', button)
+            if (button.classList.value === 'pause') {
+                button.classList.toggle('hidden')
+
+
+               }
+        })
+        console.table(allPlayButtons)
+    
+
     }
 
 
@@ -532,8 +593,78 @@
         // depending on the current state
         if (!isPlaying) playTrack();
         else pauseTrack();
+        
     }
 
+
+    function loadThisTrack(songIndex) {
+        console.log('songIndex: ', songIndex)
+        console.log('allSongs: ', allSongs)
+        allSongs.forEach((song, i ) => {
+            console.log('allSongs.forEach(): ', song)
+            console.log('allSongs.forEach([i]): ', i)
+            let songButtonIndex = song.innerHTML
+
+            let songPath = song.querySelector('.song-path').innerHTML
+            console.log(songPath)
+            loadTrack(songIndex)
+            //song.previousElementSibling.querySelector('.song-path')
+
+
+            //loadTrack(songButtonIndex)
+        
+/*         let songListPlayBtn = document.body.querySelectorAll('.thisPlayBtn')
+        let songListPauseBtn = document.body.querySelectorAll('.thisPauseBtn')
+        console.log('SongListPlayBtn: ', songListPlayBtn)
+        console.log('SongListPauseBtn: ', songListPauseBtn)
+        songListPlayBtn.forEach((button, j) => {
+            console.log('Button: ', button)
+            console.log('Button: ', button)
+            let playSpan = button.innerText
+            console.log('Clicked Play Buttons SongId Index: ', playSpan)
+            if ([i] = [j]) {
+                console.log('[i] === [j]', i && j)
+                console.log('allSongs[j]', allSongs[j])
+
+                loadTrack()
+                let thisSongsId = allSongs[j].querySelector('.song-id').innerHTML
+                console.log('thisSongsId: ', thisSongsId)
+            } */
+            // console.log('[i]', i )
+            // console.log('[j]', j )
+
+          //})  
+            
+            
+          
+            
+        })  
+
+        //console.table(allPlayButtons)
+    }
+        // Play the loaded track
+        // allSongs[`${}`].loadTrack();
+
+
+        function playThisTrack() {
+        curr_track.play();
+        isPlaying = true;
+        curr_track.loop = false
+        if (loopButton.classList.value === 'loop-button looping') {
+
+            curr_track.loop = false
+            loopButton.setAttribute('style', 'color: rgba(255, 255, 255, 0.5)')
+            loopButton.classList.remove('looping')
+
+        }
+
+        // Replace icon with the pause icon
+        playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
+
+        console.log('Current Track HTML Element: ', curr_track)
+        console.log('Loop Reset - Loop On: ', curr_track.loop)
+
+    }
     function playTrack() {
         // Play the loaded track
         curr_track.play();
@@ -542,7 +673,7 @@
         if (loopButton.classList.value === 'loop-button looping') {
 
             curr_track.loop = false
-            loopButton.setAttribute('style', 'color: #fff')
+            loopButton.setAttribute('style', 'color: rgba(255, 255, 255, 0.5)')
             loopButton.classList.remove('looping')
             
         }
@@ -593,7 +724,10 @@
         // Calculate the seek position by the
         // percentage of the seek slider 
         // and get the relative duration to the track
-        seekto = curr_track.duration * (seek_slider.value / 100);
+        let seekValue = seek_slider.value
+
+        console.log('Seek Value: ', seekValue)
+        let seekto = curr_track.duration * (seekValue / 100);
 
         // Set the current track position to the calculated seek position
         curr_track.currentTime = seekto;
@@ -610,9 +744,29 @@
 
         // Check if the current track duration is a legible number
         if (!isNaN(curr_track.duration)) {
+            console.log('Current Track Duration is not a Number: ', isNaN(curr_track.duration))
             seekPosition = curr_track.currentTime * (100 / curr_track.duration);
             seek_slider.value = seekPosition;
 
+            // Calculate the time left and the total duration
+            let currentMinutes = Math.floor(curr_track.currentTime / 60);
+            let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
+            let durationMinutes = Math.floor(curr_track.duration / 60);
+            let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
+
+            // Add a zero to the single digit time values
+            if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+            if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+            if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
+            if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+
+            // Display the updated duration
+            curr_time.textContent = currentMinutes + ":" + currentSeconds;
+            total_duration.textContent = durationMinutes + ":" + durationSeconds;
+        } else {
+            console.log('Current Track Duration is not a Number: ', isNaN(curr_track.duration))
+            seekPosition = curr_track.currentTime * (100 / curr_track.duration);
+            seek_slider.value = seekPosition;
             // Calculate the time left and the total duration
             let currentMinutes = Math.floor(curr_track.currentTime / 60);
             let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
@@ -634,7 +788,7 @@
         
         if (curr_track.loop === false) {
             curr_track.loop = true
-            loopButton.setAttribute('style', 'color: lightskyblue')
+            loopButton.setAttribute('style', 'color: rgba(135, 206, 250, 0.5)')
             loopButton.classList.add('looping')
             console.log('Loop On: ', curr_track.loop)
             console.log(curr_track)
@@ -642,7 +796,7 @@
         else if (loopButton.classList.value === 'loop-button looping') {
             
             curr_track.loop = false
-            loopButton.setAttribute('style', 'color: #fff')
+            loopButton.setAttribute('style', 'color: rgba(255, 255, 255, 0.5)')
             loopButton.classList.remove('looping')
             console.log('Loop On: ', curr_track.loop)
             console.log(curr_track)
@@ -650,6 +804,8 @@
         }
 
     }
+
+   
     // Load the first track in the tracklist
     loadTrack(track_index);
 
