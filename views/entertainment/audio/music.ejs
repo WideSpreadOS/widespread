@@ -358,14 +358,12 @@
 <div class="track-art"></div>
 <div class="player">
 
-    <!-- Define the section for displaying details -->
     <div class="details">
         <div class="now-playing">Now Playing x of y</div>
         <div class="track-name">Track Name</div>
         <div class="track-artist">Track Artist</div>
     </div>
 
-    <!-- Define the section for displaying track buttons -->
     <div class="buttons">
         <div class="prev-track" onclick="prevTrack()">
             <i class="fa fa-step-backward fa-2x"></i>
@@ -378,14 +376,12 @@
         </div>
     </div>
 
-    <!-- Define the section for displaying the seek slider-->
     <div class="slider_container">
         <div class="current-time">00:00</div>
         <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
         <div class="total-duration">00:00</div>
     </div>
     
-    <!-- Define the section for displaying the volume slider-->
     <div class="slider_container">
         <div class="volume-container">
             <i class="fa fa-volume-down"></i>
@@ -429,7 +425,7 @@
 
 
 <script>
-
+    const loopButton = document.querySelector('.loop-button')
     let now_playing = document.querySelector(".now-playing");
     let track_art = document.querySelector(".track-art");
     let track_name = document.querySelector(".track-name");
@@ -480,13 +476,12 @@
                     path: song.querySelector('.song-path').innerHTML
                 }
                 if (songId === songData.id) {
-                    console.log(songData.name)
+                    console.log('Song Name: ', songData.name)
+                    console.log('Song ID: ', songData.id)
                     loadTrack([index])
                     playTrack()
                 }
-                console.log(songData.id)
                 songIds.push(songData)
-                console.log(songData)
             })
             
 
@@ -544,9 +539,19 @@
         curr_track.play();
         isPlaying = true;
         curr_track.loop = false
+        if (loopButton.classList.value === 'loop-button looping') {
+
+            curr_track.loop = false
+            loopButton.setAttribute('style', 'color: #fff')
+            loopButton.classList.remove('looping')
+            
+        }
+        
         // Replace icon with the pause icon
         playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
-        console.log(curr_track)
+
+        console.log('Current Track HTML Element: ', curr_track)
+        console.log('Loop Reset - Loop On: ', curr_track.loop)
     }
 
     function pauseTrack() {
@@ -626,20 +631,21 @@
         }
     }
     function loop() {
-        const loopButton = document.querySelector('.loop-button')
-        console.log(curr_track)
+        
         if (curr_track.loop === false) {
             curr_track.loop = true
             loopButton.setAttribute('style', 'color: lightskyblue')
             loopButton.classList.add('looping')
-            console.log('Loop On')
+            console.log('Loop On: ', curr_track.loop)
+            console.log(curr_track)
         } 
         else if (loopButton.classList.value === 'loop-button looping') {
             
-                       curr_track.loop = false
-                       loopButton.setAttribute('style', 'color: #fff')
-                       loopButton.classList.remove('looping')
-                       console.log('Loop Off')
+            curr_track.loop = false
+            loopButton.setAttribute('style', 'color: #fff')
+            loopButton.classList.remove('looping')
+            console.log('Loop On: ', curr_track.loop)
+            console.log(curr_track)
                    
         }
 
