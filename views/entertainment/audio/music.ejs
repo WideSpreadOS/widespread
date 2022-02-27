@@ -124,13 +124,23 @@
 
     /* Define the slider width so that it scales properly */
     .slider_container {
-        width: 75%;
+        width: 95%;
+        margin: 0 auto;
         max-width: 400px;
         display: flex;
-        justify-content: center;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
         align-items: center;
     }
-
+    .volume-container {
+        width: 75%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+    }
     /* Modify the appearance of the slider */
     .seek_slider,
     .volume_slider {
@@ -138,7 +148,9 @@
         -moz-appearance: none;
         appearance: none;
         height: 5px;
-        background: black;
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 0 2px lightskyblue, 0 0 8px rgba(255, 255, 255, 0.25);
+        border-radius: 2px;
         opacity: 0.7;
         -webkit-transition: .2s;
         transition: opacity .2s;
@@ -152,7 +164,7 @@
         appearance: none;
         width: 15px;
         height: 15px;
-        background: white;
+        background: lightskyblue;
         cursor: pointer;
         border-radius: 50%;
     }
@@ -168,7 +180,7 @@
     }
 
     .volume_slider {
-        width: 30%;
+        width: 70%;
     }
     .current-time {
         text-align: right;
@@ -302,7 +314,21 @@
         color: rgba(255, 255, 255, 0.5);
         text-shadow: 0 0 2px lightskyblue;
     }
+    .playing-options {
+        width: 25%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .loop-button {
+        text-align: right;
+    }
+    .loop-button i {
+        font-size: 2rem;
 
+    }
     #pause {
         display: none;
     }
@@ -358,12 +384,17 @@
         <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
         <div class="total-duration">00:00</div>
     </div>
-
+    
     <!-- Define the section for displaying the volume slider-->
     <div class="slider_container">
-        <i class="fa fa-volume-down"></i>
-        <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
-        <i class="fa fa-volume-up"></i>
+        <div class="volume-container">
+            <i class="fa fa-volume-down"></i>
+            <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
+            <i class="fa fa-volume-up"></i>
+        </div>
+        <div class="playing-options">
+            <div class="loop-button" onclick="loop()"><i class="fas fa-sync"></i></div>
+        </div>
     </div>
 </div>
 
@@ -433,9 +464,8 @@
             path: song.querySelector('.song-path').innerHTML
         }
         track_list.push(songData)
-        console.log(songData)
+        console.table(songData)
     })
-    console.log(allSongs)
 
         function thisSong(songDiv) {
             let songIds = []
@@ -513,9 +543,10 @@
         // Play the loaded track
         curr_track.play();
         isPlaying = true;
-
+        curr_track.loop = false
         // Replace icon with the pause icon
         playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
+        console.log(curr_track)
     }
 
     function pauseTrack() {
@@ -594,8 +625,25 @@
             total_duration.textContent = durationMinutes + ":" + durationSeconds;
         }
     }
+    function loop() {
+        const loopButton = document.querySelector('.loop-button')
+        console.log(curr_track)
+        if (curr_track.loop === false) {
+            curr_track.loop = true
+            loopButton.setAttribute('style', 'color: lightskyblue')
+            loopButton.classList.add('looping')
+            console.log('Loop On')
+        } 
+        else if (loopButton.classList.value === 'loop-button looping') {
+            
+                       curr_track.loop = false
+                       loopButton.setAttribute('style', 'color: #fff')
+                       loopButton.classList.remove('looping')
+                       console.log('Loop Off')
+                   
+        }
 
-
+    }
     // Load the first track in the tracklist
     loadTrack(track_index);
 
