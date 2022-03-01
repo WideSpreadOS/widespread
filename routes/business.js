@@ -41,6 +41,15 @@ router.get('/company/:id/page/:pageId', async (req, res) => {
     const pageName = page.page_name;
     res.render('business/company/sub-page', { items, subZone: 'Company', zone: 'Business', subZonePage: pageName, company, page, pages})
 });
+router.get('/company/:companyId/product/:itemId', async (req, res) => {
+    const companyId = req.params.id;
+    const itemId = req.params.itemId;
+    const company = await Company.findById(companyId);
+    const pages = await Subpage.find({ 'company_site': { $eq: companyId } });
+    const item = await Item.findById(itemId)
+    const itemName = item.name
+    res.render('business/company/store-product', { item, subZone: 'Company', zone: 'Business', subZonePage: itemName, company, pages})
+});
 
 
 /* Employee Portal */
