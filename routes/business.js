@@ -37,7 +37,6 @@ router.get('/company/:id/page/:pageId', async (req, res) => {
     const page = await Subpage.findById(pageId);
     const items = await Item.find({ for_company: companyId, for_sale: true})
     const pageName = page.page_name;
-    console.log('Page: ', page)
     res.render('business/company/sub-page', { items, subZone: 'Company', zone: 'Business', subZonePage: pageName, company, page, pages})
 });
 
@@ -63,7 +62,6 @@ router.get('/admin/:id/manage/public-pages', async (req, res) => {
     const companyId = req.params.id; 
     const company = await Company.findById(companyId)
     const subPages = await Subpage.find({ company_site: { $eq: companyId } });
-    console.log(subPages)
     res.render('business/company/admin/manage-pages', { subZone: 'Company', zone: 'Business', subZonePage: 'Manage Public Pages', company, subPages})
 
 });
@@ -119,6 +117,8 @@ router.post('/admin/:id/manage/public-pages/add', async (req, res) => {
         "page_side.sub_office.state_sub": req.body.state_sub,
         "page_side.sub_office.country_sub": req.body.country_sub,
         "page_side.sub_office.zip_sub": req.body.zip_sub,
+        list_name: req.body.list_name,
+        list: req.body.list
     });
     newPage.save()
     res.redirect(`/business/admin/${company.id}/manage/public-pages`);    
@@ -156,6 +156,8 @@ router.patch('/admin/:id/manage/public-pages/:pageId', async (req, res) => {
         "page_side.sub_office.state_sub": req.body.state_sub,
         "page_side.sub_office.country_sub": req.body.country_sub,
         "page_side.sub_office.zip_sub": req.body.zip_sub,
+        list_name: req.body.list_name,
+        list: req.body.list
     });
     res.redirect(req.get('referer'));    
 });

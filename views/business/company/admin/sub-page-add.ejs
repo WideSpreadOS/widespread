@@ -241,6 +241,48 @@
         outline: none;
         box-shadow: 0 0 12px rgba(255, 255, 255, 0.25), 0 0 2px lightskyblue;
     }
+    #pageList {
+        width: 90%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .list {
+        margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .list input {
+        border-radius: 4px;
+        padding: 5px;
+        outline: none;
+        border: none;
+        width: 80%;
+        background: rgba(135, 206, 250, 0.25);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 12px rgb(255 255 255 / 25%), 0 0 2px lightskyblue;
+    }
+    .add-item {
+        width: 10%;
+        border: none;
+        outline: none;
+        font-size: 1.5rem;
+        border-radius: 4px;
+        background: rgba(0, 128, 0, 0.25);
+        box-shadow: 0 0 12px rgb(255 255 255 / 25%), 0 0 2px lime;
+        backdrop-filter: blur(4px);
+        color: #fff;
+        padding: 5px;
+        padding-top: 0;
+        margin: 0;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
 
 <%- include('../../../partials/menus/business'); %>
@@ -253,6 +295,12 @@
 
     <form action="/business/admin/<%= company.id %>/manage/public-pages/add" method="post">
         <div class="edit-form">
+
+
+
+
+
+
 
             <div class="edit-form-main-header">
                 <h3>Add Subpage</h3>
@@ -274,7 +322,7 @@
 
                 <div class="edit-input">
                     <label for="pageName">Page Name</label>
-                    <input type="text" id="pageName" name="page_name" placeholder="Page Name">
+                    <input type="text" id="pageName" name="page_name" placeholder="Page Name" required>
                 </div>
 
                 <div class="edit-input">
@@ -311,6 +359,31 @@
                 </div>
 
             </div>
+
+
+
+
+
+            <div class="edit-form-section" id="pageList">
+                <div class="edit-form-header">
+                    <h5>Add A List</h5>
+                </div>
+                <div class="edit-input">
+                    <label for="listName">List Name</label>
+                    <input type="text" name="list_name" id="listName" placeholder="List Name">
+                </div>
+                <div class="list">
+                    <input type="text" name="list" placeholder="List Item">
+                    <button class="add-item">+</button>
+                </div>
+            </div>
+
+
+
+
+
+
+
             <div class="edit-form-section">
                 <div class="edit-form-header">
                     <h5>Page Contact Details</h5>
@@ -436,3 +509,35 @@
 
         </div>
     </form>
+
+
+
+
+    <script>
+        let pageList = document.getElementById('pageList')
+        let listItems = []
+        let eachListItem = pageList.querySelectorAll('.list')
+
+        
+        eachListItem.forEach(item => {
+            let inputVal = item.querySelector('input').value
+            console.log('Item: ', inputVal)
+            item.querySelector('.add-item').addEventListener('click', function(event) {
+                event.preventDefault()
+                let newListItemContainer = document.createElement('div')
+                let newListItemInput = document.createElement('input')
+                newListItemInput.setAttribute('placeholder', 'List Item')
+                newListItemInput.setAttribute('name', 'list')
+                newListItemInput.setAttribute('type', 'text')
+                newListItemContainer.classList.add('list')
+                newListItemContainer.appendChild(newListItemInput)
+                pageList.appendChild(newListItemContainer)
+                console.log("Clicked")
+                
+            })
+
+            listItems.push(inputVal)
+        })
+        console.table(listItems)
+
+    </script>

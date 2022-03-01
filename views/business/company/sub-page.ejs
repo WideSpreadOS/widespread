@@ -209,6 +209,9 @@
         text-align: center;
         margin-bottom: 15px;
     }
+    .page-header h3 {
+        font-size: 1.4rem;
+    }
     .page-body {
         color: #fff;
         padding: 15px;
@@ -326,6 +329,31 @@
         text-shadow: 0 0 2px #fff;
         text-decoration: none;
     }
+    .page-list {
+        background: rgba(0, 0, 0, 0.25);
+        padding-bottom: 30px;
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 16px;
+        border-top: outset 1px #fff;
+        border-bottom: outset 1px #fff;
+        backdrop-filter: blur(4px);
+
+    }
+    .list {
+        display: flex;    
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .list ul {
+        list-style-type: circle;
+        font-size: 1rem;
+    }
+    .list li {
+        margin-bottom: 10px;
+        color: #fff;
+    }
 </style>
 
 <%- include('../../partials/menus/business'); %>
@@ -354,9 +382,9 @@
         <div class="store-items">
         <% items.forEach(function(item) { %>
             <div class="item-container">
-                <div class="item-header">
+                <div class="item-header" style="border-bottom: solid 1px <%= company.colors.main %>">
                     <div class="item-name">
-                        <h5><%= item.make %></h5>
+                        <h5 style="color: <%= company.colors.main %>"><%= item.make %></h5>
                         <h6><%= item.name %></h6>
                     </div>
                 </div>
@@ -366,12 +394,12 @@
                 <div class="item-body">
                     <p><%= item.description %></p>
                 </div>
-                <div class="item-footer">
+                <div class="item-footer" style="border-top: solid 1px <%= company.colors.main %>">
                     <div class="item-price">
-                        <p>$<%= item.price %></p>
+                        <p style="color: <%= company.colors.main %>">$<%= item.price %></p>
                     </div>
                     <div class="item-link">
-                        <a href="/business/company/<%= company.id %>/product/<%= item.id %>"><i class="fas fa-arrow-alt-circle-right"></i></a>
+                        <a href="/business/company/<%= company.id %>/product/<%= item.id %>"><i style="color: <%= company.colors.main %>" class="fas fa-arrow-alt-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -387,7 +415,7 @@
     <% if (page.page_body.page_header1 && page.page_body.page_body1) { %>
     <div class="page-section">
         <div class="page-header">
-            <h3><%= page.page_body.page_header1 %></h3>
+            <h3 style="color: <%= company.colors.main %>"><%= page.page_body.page_header1 %></h3>
         </div>
         <div class="page-body">
             <p><%= page.page_body.page_body1 %></p>
@@ -400,7 +428,7 @@
     <% if (page.page_body.page_header2 && page.page_body.page_body2) { %>
     <div class="page-section">
         <div class="page-header">
-            <h3><%= page.page_body.page_header2 %></h3>
+            <h3 style="color: <%= company.colors.main %>"><%= page.page_body.page_header2 %></h3>
         </div>
         <div class="page-body">
             <p><%= page.page_body.page_body2 %></p>
@@ -413,7 +441,7 @@
     <% if (page.page_body.page_header3 && page.page_body.page_body3) { %>
     <div class="page-section">
         <div class="page-header">
-            <h3><%= page.page_body.page_header3 %></h3>
+            <h3 style="color: <%= company.colors.main %>"><%= page.page_body.page_header3 %></h3>
         </div>
         <div class="page-body">
             <p><%= page.page_body.page_body3 %></p>
@@ -426,6 +454,25 @@
 
 
 </div>
+
+<% if (page.list_name && page.list) { %>
+    <div class="page-list">
+
+        <div class="page-header">
+            <h3><%= page.list_name %></h3>
+        </div>
+        <div class="list">
+            <ul>
+                <% page.list.forEach(function(item) { %>
+                    <li style="color: <%= company.colors.main %>"><%= item %></li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+<% } else { %>
+    <span style="display: none;"></span>
+<% } %>
+
 
 <% if (!page.page_side.phone1 && !page.page_side.phone2 && !page.page_side.phone3 && !page.page_side.email1 && !page.page_side.email2 && !page.page_side.email3 && !page.page_side.email4 && !page.page_side.fax1 && !page.page_side.fax2) { %>
     <span style="display: none;"></span>
@@ -441,19 +488,19 @@
     <% } %>
     <div class="subpage-side-section">
     <% if (page.page_side.phone1) { %>
-        <a href="tel:<%= page.page_side.phone1 %>"><%= page.page_side.phone1 %></a>
+        <a style="color: <%= company.colors.main %>" href="tel:<%= page.page_side.phone1 %>"><%= page.page_side.phone1 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>
 
     <% if (page.page_side.phone2) { %>
-        <a href="tel:<%= page.page_side.phone2 %>"><%= page.page_side.phone2 %></a>
+        <a style="color: <%= company.colors.main %>" href="tel:<%= page.page_side.phone2 %>"><%= page.page_side.phone2 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>
 
     <% if (page.page_side.phone3) { %>
-        <a href="tel:<%= page.page_side.phone3 %>"><%= page.page_side.phone3 %></a>
+        <a style="color: <%= company.colors.main %>" href="tel:<%= page.page_side.phone3 %>"><%= page.page_side.phone3 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>
@@ -469,25 +516,25 @@
     <div class="subpage-side-section">
 
     <% if (page.page_side.email1) { %>
-        <a href="mailto:<%= page.page_side.email1 %>"><%= page.page_side.email1 %></a>
+        <a style="color: <%= company.colors.main %>" href="mailto:<%= page.page_side.email1 %>"><%= page.page_side.email1 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>
 
     <% if (page.page_side.email2) { %>
-        <a href="mailto:<%= page.page_side.email2 %>"><%= page.page_side.email2 %></a>
+        <a style="color: <%= company.colors.main %>" href="mailto:<%= page.page_side.email2 %>"><%= page.page_side.email2 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>
 
     <% if (page.page_side.email3) { %>
-        <a href="mailto:<%= page.page_side.email3 %>"><%= page.page_side.email3 %></a>
+        <a style="color: <%= company.colors.main %>" href="mailto:<%= page.page_side.email3 %>"><%= page.page_side.email3 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>
 
     <% if (page.page_side.email4) { %>
-        <a href="mailto:<%= page.page_side.email4 %>"><%= page.page_side.email4 %></a>
+        <a style="color: <%= company.colors.main %>" href="mailto:<%= page.page_side.email4 %>"><%= page.page_side.email4 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>
@@ -503,13 +550,13 @@
     <div class="subpage-side-section">
 
     <% if (page.page_side.fax1) { %>
-        <a href="tel:<%= page.page_side.fax1 %>"><%= page.page_side.fax1 %></a>
+        <a style="color: <%= company.colors.main %>" href="tel:<%= page.page_side.fax1 %>"><%= page.page_side.fax1 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>
 
     <% if (page.page_side.fax2) { %>
-        <a href="tel:<%= page.page_side.fax2 %>"><%= page.page_side.fax2 %></a>
+        <a style="color: <%= company.colors.main %>" href="tel:<%= page.page_side.fax2 %>"><%= page.page_side.fax2 %></a>
     <% } else { %>
         <span style="display: none;"></span>
     <% } %>

@@ -45,7 +45,7 @@
         color: #fff;
     }
     .company-contact {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
         margin-top: 8px;
         border-top: inset 1px rgba(135, 206, 250, 0.5);
@@ -71,8 +71,17 @@
     }
 
 @media screen and (orientation : landscape) {
+    #companyList {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: flex-start;
+    }
+    .company-card {
+        width: 40%;
+    }
     .company-contact {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
         margin-top: 8px;
         border-top: inset 1px rgba(135, 206, 250, 0.5);
@@ -84,18 +93,16 @@
         justify-content: space-between;
         flex-wrap: wrap;
     }
-    .company-contact-item:last-of-type > p {
-        text-align: right;
-    }
+
 }
 </style>
 
+<%- include('../partials/menus/business'); %>
 <div class="page-title">
     <h2>
         Business
     </h2>
 </div>
-<%- include('../partials/menus/business'); %>
 
 
 <div class="page-header">
@@ -103,16 +110,17 @@
 </div>
 <div id="companyList">
     <% allCompanies.forEach(function(company) { %>
-        <a href="/business/company/<%= company.id %>">
-            <div class="company-card">
-                <div class="company-header">
-                    <% if (!company.logo) { %>
-                        <img style="filter: drop-shadow(0 0 2px lightskyblue);" src="https://cdn.cleverism.com/wp-content/uploads/2017/01/logo-placeholder.png" alt="Default Buisness Logo">
+        <div class="company-card">
+            <a href="/business/company/<%= company.id %>">
+            <div class="company-header">
+                <% if (!company.logo) { %>
+                    <img style="filter: drop-shadow(0 0 2px lightskyblue);" src="https://cdn.cleverism.com/wp-content/uploads/2017/01/logo-placeholder.png" alt="Default Buisness Logo">
                     <% } else { %>
                         <img style="filter: drop-shadow(0 0 0.5px <%= company.colors.main %>);" src="/image/<%= company.logo %>" alt="<%= company.company_name %>'s Logo">
-                    <% } %>
+                        <% } %>
                     <h5><%= company.company_name %></h5>
                 </div>
+            </a>
                 <div class="company-info">
                     <div class="company-intro">
                         <p><%= company.company_bio %></p>
@@ -124,6 +132,5 @@
                         </div>
                 </div>
             </div>
-        </a>
     <% }) %>
 </div>
