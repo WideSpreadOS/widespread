@@ -198,6 +198,10 @@
 <%- include('../../partials/menus/academy'); %>
 <%- include('../../partials/menus/sub/academy/class', { classes: course.classes, currentCourse: course, currentPage: className.name}); %>
 
+
+<div class="code-editor">
+    <%- include('../../partials/tools/code-editor'); %>
+</div>
 <div class="page-background">
     <img src="/image/<%= course.background_image %>" alt="">
 </div>
