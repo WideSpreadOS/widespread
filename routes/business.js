@@ -12,6 +12,7 @@ const Store = require('../models/Store');
 const Cart = require('../models/Cart');
 const UnregisteredCart = require('../models/UnregisteredCart');
 const Address = require('../models/Address');
+const ItemImage = require('../models/ItemImage');
 
 router.get('/', async (req, res) => {
     let company = null
@@ -36,6 +37,7 @@ router.get('/company/:id/page/:pageId', async (req, res) => {
     const pages = await Subpage.find({ 'company_site': { $eq: companyId } });
     const page = await Subpage.findById(pageId);
     const items = await Item.find({ for_company: companyId, for_sale: true})
+    
     const pageName = page.page_name;
     res.render('business/company/sub-page', { items, subZone: 'Company', zone: 'Business', subZonePage: pageName, company, page, pages})
 });

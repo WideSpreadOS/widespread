@@ -196,6 +196,17 @@
     <h2>Manage Store Item</h2>
 </div>
 
+<div class="add-item-photo">
+    <form action="/upload-item-image/<%= companyId %>/<%= storeItem.id %>?_method=PATCH" method="post" enctype="multipart/form-data" >
+        <div class="custom-file">
+            <input type="file" name="item_image" id="itemImage">
+            <label for="itemImage" class="custom-file-label"></label>
+        </div>
+        <button type="submit" class="custom-file-button">Change</button>
+    </form>
+</div>
+
+
 <div class="add-item">
     <form action="/business/admin/<%= companyId %>/manage/store/item/<%= storeItem.id %>/edit?_method=PATCH" method="post">
         <div class="add-item-header">

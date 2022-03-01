@@ -25,6 +25,8 @@ const crypto = require('crypto');
 const User = require('./models/User');
 const UserPhoto = require('./models/UserPhoto');
 const UserAudio = require('./models/UserAudio');
+const Item = require('./models/Item');
+const ItemImage = require('./models/ItemImage');
 
 
 require('./config/passport')(passport);
@@ -185,6 +187,40 @@ app.get('/image/:filename', (req, res) => {
 });
 
 
+/* Background Image Upload */
+app.patch('/upload-item-image/:companyId/:itemId', upload.single('item_image'), (req, res) => {
+    const itemId = req.params.itemId;
+    const companyId = req.params.companyId;
+    const obj = {
+        for_item: itemId,
+        img: {
+            data: req.file.filename,
+            contentType: 'image/png'
+        }
+    }
+    ItemImage.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            item.save();
+            console.log(`For Item: ${itemId} Image Data: ${obj.img.data}`);
+            const newImage = obj.img.data;
+            Item.findByIdAndUpdate(itemId,
+                { $push: { item_images: req.file.filename } },
+                { safe: true, upsert: true },
+                function (err, doc) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        return
+                    }
+                }
+            )
+            res.redirect(`/business/admin/${companyId}/manage/store/item/${itemId}`);
+        }
+    })
+});
 
 
 
