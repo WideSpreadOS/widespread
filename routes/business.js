@@ -35,8 +35,10 @@ router.get('/company/:id/page/:pageId', async (req, res) => {
     const company = await Company.findById(companyId);
     const pages = await Subpage.find({ 'company_site': { $eq: companyId } });
     const page = await Subpage.findById(pageId);
+    const items = await Item.find({ for_company: companyId, for_sale: true})
     const pageName = page.page_name;
-    res.render('business/company/sub-page', { subZone: 'Company', zone: 'Business', subZonePage: pageName, company, page, pages})
+    console.log('Page: ', page)
+    res.render('business/company/sub-page', { items, subZone: 'Company', zone: 'Business', subZonePage: pageName, company, page, pages})
 });
 
 
@@ -91,6 +93,7 @@ router.post('/admin/:id/manage/public-pages/add', async (req, res) => {
     const newPage = new Subpage({
         company_site: company.id,
         page_name: req.body.page_name,
+        page_type: req.body.page_type,
         "page_body.page_header1": req.body.page_header1,
         "page_body.page_body1": req.body.page_body1,
         "page_body.page_header2": req.body.page_header2,
@@ -154,7 +157,6 @@ router.patch('/admin/:id/manage/public-pages/:pageId', async (req, res) => {
         "page_side.sub_office.country_sub": req.body.country_sub,
         "page_side.sub_office.zip_sub": req.body.zip_sub,
     });
-    const pageName = page.page_name;
     res.redirect(req.get('referer'));    
 });
 
