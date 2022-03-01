@@ -126,7 +126,7 @@ router.patch('/admin/:id/manage/public-pages/:pageId', async (req, res) => {
     const companyId = req.params.id;
     const pageId = req.params.pageId;
     const company = await Company.findById(companyId);
-    const page = await Subpage.findByIdAndUpdate(pageId, {
+    await Subpage.findByIdAndUpdate(pageId, {
         page_name: req.body.page_name,
         "page_body.page_header1": req.body.page_header1,
         "page_body.page_body1": req.body.page_body1,
@@ -192,7 +192,6 @@ router.get('/admin/:companyId/manage/store', async (req, res) => {
     const company = await Company.findById(companyId)
     const companyInventory = await Item.find({'for_company': {$eq: companyId}})
     const store = await Store.find({'for_company': {$eq: companyId}})
-    console.log(store)
     res.render('business/company/admin/store', { store, company, companyInventory, subZone: 'Admin', zone: 'Business', subZonePage: 'Inventory'})
 });
 
@@ -205,6 +204,93 @@ router.post('/admin/:companyId/manage/store/add', async (req, res) => {
     res.redirect(`/business/admin/${companyId}/manage/store`)
 })
 
+
+
+router.post('/admin/:companyId/manage/store/item/add', async (req, res) => {
+    const companyId = req.params.companyId;
+    const newStoreItem = new Item({
+        for_company: companyId,
+        for_sale: true,
+        name: req.body.name,
+        description: req.body.description,
+        sku: req.body.sku,
+        make: req.body.make,
+        model: req.body.model,
+        year: req.body.year,
+        price: req.body.price,
+        color1: req.body.color1,
+        color2: req.body.color2,
+        "dimensions.units": req.body.units,
+        "dimensions.width": req.body.width,
+        "dimensions.height": req.body.height,
+        "dimensions.depth": req.body.depth,
+        "weight.units": req.body.weight_units,
+        "weight.value": req.body.weight_value,
+        category: req.body.category,
+        supplier_website: req.body.supplier_website,
+        product_webpage: req.body.product_webpage,
+        product_image_url: req.body.product_image_url,
+        total: req.body.total,
+        need: req.body.need,
+        item_main_image: req.body.item_main_image,
+        reorder_alert: req.body.reorder_alert,
+    })
+    newStoreItem.save()
+    res.redirect(`/business/admin/${companyId}/manage/store`)
+})
+
+
+router.get('/admin/:id/manage/store/item/:itemId', async (req, res) => {
+    const companyId = req. params.id;
+    const itemId = req.params.itemId;
+    const storeItem = await Item.findById(itemId);
+
+    res.render('business/company/admin/store-item', { storeItem, companyId, subZone: 'Admin', zone: 'Business', subZonePage: 'Store Inventory' })
+
+});
+
+router.get('/admin/:id/manage/store/item/:itemId/edit', async (req, res) => {
+    const companyId = req. params.id;
+    const itemId = req.params.itemId;
+    const storeItem = await Item.findById(itemId);
+
+    res.render('business/company/admin/store-item-edit', { storeItem, companyId, subZone: 'Admin', zone: 'Business', subZonePage: 'Store Inventory' })
+
+});
+
+
+router.patch('/admin/:id/manage/store/item/:itemId/edit', async (req, res) => {
+    const companyId = req.params.id;
+    const itemId = req.params.itemId;
+    await Item.findByIdAndUpdate(itemId, {
+        for_company: companyId,
+        for_sale: true,
+        name: req.body.name,
+        description: req.body.description,
+        sku: req.body.sku,
+        make: req.body.make,
+        model: req.body.model,
+        year: req.body.year,
+        price: req.body.price,
+        color1: req.body.color1,
+        color2: req.body.color2,
+        "dimensions.units": req.body.units,
+        "dimensions.width": req.body.width,
+        "dimensions.height": req.body.height,
+        "dimensions.depth": req.body.depth,
+        "weight.units": req.body.weight_units,
+        "weight.value": req.body.weight_value,
+        category: req.body.category,
+        supplier_website: req.body.supplier_website,
+        product_webpage: req.body.product_webpage,
+        product_image_url: req.body.product_image_url,
+        total: req.body.total,
+        need: req.body.need,
+        item_main_image: req.body.item_main_image,
+        reorder_alert: req.body.reorder_alert,
+    })
+    res.redirect(`/business/admin/${companyId}/manage/store/item/${itemId}`)
+});
 
 /* WORK */
 

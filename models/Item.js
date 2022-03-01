@@ -58,12 +58,11 @@ const itemSchema = new mongoose.Schema({
     supplier_website: String,
     product_webpage: String,
     product_image_url: String,
-    total: Number,
     need: Number,
     for_sale: Boolean,
     item_main_image: String,
     item_images: [String],
-    total_quantity: Number,
+    total: Number,
     reorder_alert: Number
 });
 
