@@ -125,12 +125,47 @@
     .product-buttons a {
         color: lightskyblue;
     }
+    .popup-image {
+        position: fixed;
+        z-index: 10000;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(4px);
+
+    }
+    .popup-image img {
+        width: 100%;
+        max-height: 100vh;
+    }
+    .exit {
+        position: fixed;
+        top: 80px;
+        right: 30px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 0, 0, 0.25);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.25), inset 0 0 5px #fff;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
 </style>
 <%- include('../../partials/menus/business'); %>
     <div class="company-background-image"
         style="background:url('/image/<%= company.background_image %>') 50% 50% no-repeat; background-size:cover;">
     </div>
-
+    <div id="popup"></div>
 <div class="company-pages-nav">
     <div class="company-nav-item <%= subZonePage=='Home' ? 'company-nav-item subpage-active' : 'company-nav-item' %>">
         <a href="/business/company/<%= company.id %>">Home</a>
@@ -153,11 +188,9 @@
     </div>
 
     <div class="image-slider">
-        <% item.item_images.forEach(function(image) { %>
             <div class="image">
-                <img src="/image/<%= image %>" alt="">
+                <img src="/image/<%= item.item_images[0] %>" alt="">
             </div>
-        <% }) %>
     </div>
 
     <div class="product-data">
@@ -181,3 +214,32 @@
 
 
 </div>
+
+
+<script>
+    const mainImageContainer = document.querySelector('.image')
+    const popup = document.getElementById('popup')
+    const mainImage = mainImageContainer.querySelector('img')
+    const imageSrc = mainImage.getAttribute('src')
+    console.log(imageSrc)
+    console.log(mainImage)
+    mainImage.addEventListener('click', () => {
+        console.log("click")
+        let popupImageContainer = document.createElement('div')
+        popupImageContainer.classList.add('popup-image')
+        let popupImageSrc = imageSrc
+        let exitBtn = document.createElement('div')
+        exitBtn.classList.add('exit')
+        exitBtn.innerText = 'X'
+        exitBtn.addEventListener('click', () => {
+            popup.removeChild(popupImageContainer)
+        })
+        let popupImage = document.createElement('img')
+        popupImage.setAttribute('src', popupImageSrc)
+        popupImageContainer.appendChild(popupImage)
+        popupImageContainer.appendChild(exitBtn)
+        popup.appendChild(popupImageContainer)
+    })
+
+
+</script>
