@@ -10,21 +10,139 @@ const sdk = require('api')('@fsq-docs/v1.0#39rivyvkzr89i46');
 
 /* Models */
 const User = require('../models/User');
+const GolfCourse = require('../models/GolfCourse');
+const GolfHole = require('../models/GolfHole');
+const GolfBag = require('../models/GolfBag');
+const GolfScoreCardSingle = require('../models/GolfScoreCardSingle');
+const GolfScoreCard = require('../models/GolfScoreCard');
 
 
 
-// VR Dashboard Page
-router.get('/sports/golf', ensureAuthenticated, async (req, res) => {
+// AR Golf Home Page
+router.get('/sports/golf',  async (req, res) => {
     const currentUser = req.user;
-    const userId = req.user.id;
-
-    const user = await User.findById(userId)
 
 
-    res.render('ar', {
-        layout: 'ar', currentPageTitle: 'AR', currentUser, user
+
+    res.render('ar/leisure/golf', {
+         currentPageTitle: 'AR', currentUser
     });
 })
+
+// AR All Golf Courses Page
+router.get('/sports/golf/courses',  async (req, res) => {
+    const currentUser = req.user;
+    const allCourses = await GolfCourse.find()
+
+
+    res.render('ar/leisure/all-courses', {
+         currentPageTitle: 'AR', currentUser, allCourses
+    });
+})
+router.post('/sports/golf/courses/add',  async (req, res) => {
+    const newCourse = new GolfCourse({
+        name: req.body.name,
+        'address.street': req.body.street,
+        'address.city': req.body.city,
+        'address.state': req.body.state,
+        'address.zip': req.body.zip,
+        'address.country': req.body.country,
+        'll.lat': req.body.lat,
+        'll.long': req.body.long,
+        driving_range: req.body.driving_range
+    })
+    newCourse.save()
+    res.redirect('/ar/sports/golf/courses')
+})
+
+router.get('/sports/golf/courses/view/:courseId', async (req, res) => {
+    const courseId = req.params.courseId
+    const currentUser = req.user;
+    const course = await GolfCourse.findById(courseId).populate('holes').exec()
+    console.log(course)
+    res.render('ar/leisure/single-course', {
+        currentPageTitle: 'AR', currentUser, course
+    });
+})
+
+
+
+router.post('/sports/golf/courses/view/:courseId/holes/add', async (req, res) => {
+    const courseId = req.params.courseId
+    const newHole = new GolfHole({
+        hole_number: req.body.hole_number,
+        par: req.body.par,
+        'pin.lat': req.body.lat,
+        'pin.long': req.body.long,
+    })
+    newHole.save()
+
+await GolfCourse.findByIdAndUpdate(courseId, 
+        { $addToSet: { holes: newHole.id } },
+        { safe: true, upsert: true },
+        function (err, doc) {
+            if (err) {
+                console.log(err)
+            } else {
+                return
+            }
+        }
+    )
+    res.redirect(`/ar/sports/golf/courses/view/${courseId}`)
+})
+
+
+
+router.get('/sports/golf/courses/view/:courseId/holes/play/:holeId', async (req, res) => {
+    const courseId = req.params.courseId
+    const holeId = req.params.holeId
+    const currentUser = req.user;
+    const hole = await GolfHole.findById(holeId)
+    console.log(hole)
+    res.render('ar/leisure/single-hole', {
+        currentPageTitle: 'AR', currentUser, hole, courseId
+    });
+})
+
+
+
+router.post('/sports/golf/courses/view/:courseId/holes/:holeId/play/tee/add', async (req, res) => {
+    const holeId = req.params.holeId
+    const courseId = req.params.courseId
+
+    await GolfHole.findByIdAndUpdate(holeId,
+        { $push: { tees: {
+            color: req.body.color,
+            'll.lat': req.body.lat,
+            'll.long': req.body.long
+        } } },
+        { safe: true, upsert: true },
+        function (err, doc) {
+            if (err) {
+                console.log(err)
+            } else {
+                return
+            }
+        }
+    )
+    res.redirect(`/ar/sports/golf/courses/view/${courseId}/holes/play/${holeId}`)
+})
+
+
+
+
+router.get('/sports/golf/courses/view/:courseId/holes/play/:holeId/tee/color/:teeColor', async (req, res) => {
+    const teeColor = req.params.teeColor
+    const courseId = req.params.courseId
+    const holeId = req.params.holeId
+    const currentUser = req.user;
+    const hole = await GolfHole.findById(holeId)
+    console.log(hole)
+    res.render('ar/leisure/play-hole', {
+        layout: 'ar', currentPageTitle: 'AR', currentUser, hole, courseId, teeColor
+    });
+})
+
 
 
 

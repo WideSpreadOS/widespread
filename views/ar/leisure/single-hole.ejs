@@ -1,0 +1,164 @@
+<style>
+    .leisure-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 90000;
+    }
+
+    .leisure-app-header {
+        position: relative;
+        z-index: 90001;
+        background-color: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(4px);
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .leisure-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: drop-shadow(0 0 2px lightskyblue);
+    }
+
+    .leisure-app {
+        position: relative;
+        z-index: 90002;
+        background-color: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(4px);
+        margin-top: 30px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .leisure-app-page {
+        text-align: center;
+    }
+
+    .leisure-app-page h5 {
+        font-size: 3rem;
+        border-bottom: solid 1px #fff;
+    }
+
+    .app-body-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-top: 20px;
+    }
+
+    .app-body-menu a {
+        color: rgb(18, 168, 18);
+        text-shadow: 0 0 1px rgba(0, 0, 0, 0.75);
+        background-color: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(4px);
+        border-radius: 4px;
+        font-size: 1.5rem;
+        text-decoration: none;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+
+
+    .golf-course-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+
+    .golf-course-list h5 {
+        font-size: 2rem;
+        padding: 10px;
+    }
+
+    .course-link {
+        text-align: center;
+    }
+
+    .course-link a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.5rem;
+    }
+
+
+    .par-number h6 {
+        font-size: 3rem;
+        text-align: center;
+    }
+    .add-golf-course input {
+        background-color: #000;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+
+
+
+<div class="leisure-background"
+    style="background-image: url('/images/system/ar/ar_golf_background_1a1a1a.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+</div>
+<div class="leisure-app-header">
+    <div class="page-title">
+        <h2>WideSpread</h2>
+    </div>
+
+    <div class="leisure-logo">
+        <img src="/images/system/ar/ar_golf_1a1a1a.png" alt="">
+    </div>
+
+
+
+
+    <div class="app-body-menu">
+        <a href="/ar/sports/golf/player">Your Caddy</a>
+        <a href="/ar/sports/golf/courses">Golf Courses</a>
+</div>
+</div>
+<div class="leisure-app">
+
+    <div class="leisure-app-page">
+        <h5>Hole <%= hole.hole_number %></h5>
+    </div>
+
+    <div class="leisure-app-body">
+
+        <div class="par-number">
+            <h6>Par <%= hole.par %></h6>
+        </div>
+
+
+        <div class="golf-course-list">
+            <h5>Tees</h5>
+            <% hole.tees.forEach(function(tee) { %>
+                <div class="course-link">
+                    <a href="/ar/sports/golf/courses/view/<%= courseId %>/holes/play/<%= hole.id %>/tee/color/<%= tee.color %>">
+                        Tee <%= tee.color %>
+                    </a>
+                </div>
+                <% }) %>
+        </div>
+
+        <div class="add-golf-course">
+            <form action="/ar/sports/golf/courses/view/<%= courseId %>/holes/<%= hole.id %>/play/tee/add" method="post">
+                <p>Tee</p>
+                <input type="text" name="color" placeholder="Tee Box Color">
+                <input type="text" name="lat" placeholder="Latitude">
+                <input type="text" name="long" placeholder="Longitude">
+
+                <button type="submit">Add Tee Box</button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,61 @@
+<style>
+
+</style>
+
+
+<a-assets>
+    <img id="tee" src="/images/system/ar/tee-off_1a1a1a.png" alt="">
+    <img id="flag" src="/images/system/ar/flag_1a1a1a.png" alt="">
+    <img id="hole" src="/images/system/ar/hole_number_background_1a1a1a.png" alt="" style="filter: drop-shadow(0 0 4px lightskyblue);">
+</a-assets>
+
+
+
+<a-entity gps-entity-place='latitude: <%= hole.tees[0].ll.lat %>; longitude: <%= hole.tees[0].ll.long %>;' scale='3 3 3' distanceMsg look-at="#camera" >
+    <a-text align='right' value="<%= hole.hole_number %>" scale="3 3 3" color="lightskyblue"></a-text>
+    <a-text align='center' value="<%= hole.par %>" scale="1 1 1" color="#fff"></a-text>
+    <a-image src="#hole" position="0 0 0" width="2" height="2"></a-image>
+</a-entity>
+
+
+<% hole.tees.forEach(function(tee) { %>
+    <a-entity gps-entity-place='latitude: <%= tee.ll.lat %>; longitude: <%= tee.ll.long %>' scale='3 3 3' look-at="#camera">
+        <a-text align='center' value="<%= tee.color %>"></a-text>
+        <a-image src="#tee" position="0 0 0" width="0.5" height="2"></a-image>
+    </a-entity>
+<% }) %>
+
+
+    <a-entity gps-entity-place='latitude: <%= hole.pin.lat %>; longitude: <%= hole.pin.long %>' scale='3 3 3' look-at="#camera">
+        <a-image src="#flag" position="0 0 0" width="0.5" height="2"></a-image>
+    </a-entity>
+
+
+
+    <script>
+
+        window.onload = () => {
+            let position = navigator.geolocation.getCurrentPosition(
+                function (position) {
+
+                    console.log('Latitude: ', position.coords.latitude)
+                    console.log('Longitude: ', position.coords.longitude)
+                    const currentLat = position.coords.latitude
+                    const currentLong = position.coords.longitude
+        
+                    const currentLatString = currentLat.toString()
+                    const currentLongString = currentLong.toString()
+        
+                    console.log(currentLatString)
+                    console.log(currentLongString)
+                }
+
+            )
+            
+        }
+        
+        const distanceMsg = document.querySelector('[gps-entity-place]').getAttribute('distanceMsg');
+        console.log('Distance From Pin: ', distanceMsg); 
+
+
+    </script>
