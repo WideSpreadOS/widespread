@@ -87,8 +87,9 @@ https://api.foursquare.com/v3/places/nearby/search
                 let placeContainer = document.createElement('a-entity')
                 const latLong = `latitude: ${latitude}; longitude: ${longitude}`
                 placeContainer.innerHTML = `
-                    <a-entity gps-entity-place='latitude: ${latitude}; longitude: ${longitude}' scale='1 1 1'>
-                        <a-text value="${placeName}"></a-text>
+                    <a-entity gps-entity-place='latitude: ${latitude}; longitude: ${longitude}' scale='3 3 3' look-at="#camera">
+                            <a-text align='center' value="${placeName}"></a-text>
+                            <a-ring scale='1 1 1' color='lightskyblue'></a-ring>
                     </a-entity>
                 `;
 /*                 placeContainer.setAttribute('gps-entity-place', latLong)
