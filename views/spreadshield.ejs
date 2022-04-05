@@ -15,20 +15,73 @@
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <link rel="stylesheet" href="/style/main.css">
+    <style>
+        .a-scene {
+            position: relative;
+            z-index: -100;
+        }
+        #placesList {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            z-index: 79989;
+            min-height: 100px;
+            max-height: 200px;
+            background-color: rgba(135, 206, 250, 0.25);
+            backdrop-filter: blur(4px);
+            overflow-y: auto;
+        }
+        .place {
+            color: #fff;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 79999;
+            border-bottom: solid 1px lightskyblue;
+        }
+        .category {
+            background-color: lightskyblue;
+            color: #000;
+            margin-left: 5px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            padding: 1px;
+
+        }
+        body {
+            
+        }
+    </style>
 </head>
 
-<body  style='margin: 0; overflow: hidden; -webkit-transform: scaleX(-1); transform: scaleX(-1); backface-visibility: visible; background: black; opacity: 0.8; height: 100vh;'>
+<body  style='margin: 0 0 0 0; overflow: hidden; backface-visibility: visible; background: black; opacity: 0.8; height: 100vh;'>
     <%- include('./partials/layout/core-menu'); %>
-    <a-scene style="background: transparent; backface-visibility: visible;"
-        loading-screen="dotsColor: lightskyblue; backgroundColor: black" vr-mode-ui="enabled: true"
-        arjs='sourceType: webcam; sourceWidth:3840; sourceHeight:2160; displayWidth: 2930; displayHeight: 1440; debugUIEnabled: false;'
-        inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
-        <!-- WideSpread Matrix -->
-        <a-camera gps-camera rotation-reader></a-camera>
 
-    </a-scene>
+    <div id="placesList">
+        <% nearbyPlaces.forEach(function(place) { %>
+            <div class="place" data-place="<%= place.fsq_id %>" data-lat="<%= place.geocodes.main.latitude %>" data-long="<%= place.geocodes.main.longitude %>">
+                <p style="color: lightskyblue;"><%= place.name %></p>
+                <p>Categories: </p>
+                <% place.categories.forEach(function(category) { %>
+                    <img src="<%= category.icon.prefix %>60<%= category.icon.suffix %>" alt="">
+                <% }) %>
+
+            </div>
+        <% }) %>
+    </div>
+<a-scene gps-camera-debug embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+            <!-- WideSpread Matrix -->
+
+
+
+
+            <a-camera gps-camera rotation-reader></a-camera>
+        
+        </a-scene>
+    <script src="/logic/spreadshield-markers.js"></script>
+
 </body>
 
 
-<script src="/logic/spreadshield-markers.js"></script>
+
 </html>

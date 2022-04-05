@@ -8,6 +8,7 @@ const { readUserData, allUserPosts, getUserPosts } = require("../modules/user/us
 
 /* Models */
 const User = require('../models/User');
+const Post = require('../models/Post');
 
 
 
@@ -124,9 +125,10 @@ router.get('/test', ensureAuthenticated, async (req, res) => {
 });
 
 
-router.get('/dashboard', ensureAuthenticated, (req, res) => {
-    const user = req.user;
+router.get('/dashboard', ensureAuthenticated, async (req, res) => {
+    const thisUser = req.user;
     const userId = req.user.id;
+    const user = await User.findById(userId).populate('friends').exec()
     res.render('users/user-dashboard', { subZone: 'Dashboard', zone: 'User', user});
 });
 
@@ -184,6 +186,33 @@ router.delete('/delete', ensureAuthenticated, async (req, res) => {
 
 
 
+
+// User Profile Page
+
+router.get('/:id', ensureAuthenticated, async (req, res) => {
+    const id = req.params.id
+    const userId = req.user._id;
+
+    const posts = await Post.find({ author: { $eq: id } }).sort({ createdAt: 'desc' }).populate(
+        {
+            path: 'comments',
+            model: 'Comment',
+            populate: {
+                path: 'author',
+                model: 'User'
+            }
+        }
+    )
+    .populate('author')
+    .exec();
+
+    const user = await User.findById(id)
+        .populate('friends')
+        .populate('user_images')
+        .exec()
+
+        res.render('users/public-profile', { currentPageTitle: "Profile", posts, userId, user })
+});
 
 
 module.exports = router;
