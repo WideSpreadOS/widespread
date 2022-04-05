@@ -9,6 +9,8 @@ const { readUserData, allUserPosts, getUserPosts } = require("../modules/user/us
 /* Models */
 const User = require('../models/User');
 const Post = require('../models/Post');
+const ProfileImage = require('../models/ProfileImage');
+const Avatar = require('../models/Avatar');
 
 
 
@@ -203,15 +205,20 @@ router.get('/:id', ensureAuthenticated, async (req, res) => {
             }
         }
     )
-    .populate('author')
+    .populate({
+        path: 'author',
+        model: 'User'
+    })
     .exec();
+    console.log(posts)
+    const profileImages = await ProfileImage.find({ imageOwner: { $eq: id } });
+    const avatarImage = await Avatar.findOne({ imageOwner: { $eq: id } });
 
     const user = await User.findById(id)
         .populate('friends')
-        .populate('user_images')
         .exec()
 
-        res.render('users/public-profile', { currentPageTitle: "Profile", posts, userId, user })
+        res.render('users/public-profile', { currentPageTitle: "Profile", posts, userId, user, profileImages, avatarImage })
 });
 
 

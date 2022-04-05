@@ -72,9 +72,9 @@ router.get('/spreadshield/nearby', async (req, res) => {
     const CLIENT_SECRET = dotenv.FOURSQUARE_CLIENT_SECRET; */
 
 
-FOURSQUARE_CLIENT_ID="BAVW34WNTJEZ2HC1HIB4R5VCGAORU2N0GNGZ1OOPCYWSBD1Y",
+/* FOURSQUARE_CLIENT_ID="BAVW34WNTJEZ2HC1HIB4R5VCGAORU2N0GNGZ1OOPCYWSBD1Y",
 FOURSQUARE_CLIENT_SECRET="5AEIKFIMLUVNRTWXDLOVWHE3BVMXIOCQH2DX4BGXLLEIW0H4"
-    FOURSQUARE_API_KEY ="fsq3JlyvV30Lm9ZN7+HNXFk86n1/iswy59C+VMufKYlV4rc="
+    FOURSQUARE_API_KEY ="fsq3JlyvV30Lm9ZN7+HNXFk86n1/iswy59C+VMufKYlV4rc=" */
 /* 
      sdk['places-nearby']({
          ll: '28.84,-82.00',
@@ -89,7 +89,7 @@ FOURSQUARE_CLIENT_SECRET="5AEIKFIMLUVNRTWXDLOVWHE3BVMXIOCQH2DX4BGXLLEIW0H4"
         })
         .catch(err => console.error(err)); */
 
-
+/* 
     const options = {
         method: 'GET',
         headers: {
@@ -105,10 +105,10 @@ FOURSQUARE_CLIENT_SECRET="5AEIKFIMLUVNRTWXDLOVWHE3BVMXIOCQH2DX4BGXLLEIW0H4"
             const nearbyPlaces = places.results
             categories = places.results[0].categories[0]
             console.log('Categories: ', categories)
-            res.render('ar', { layout: 'spreadshield', currentPageTitle: 'SpreadShield', nearbyPlaces });
         })
         .catch(err => console.error(err));
- 
+        */
+ res.render('ar', { layout: 'spreadshield', currentPageTitle: 'SpreadShield' });
 /*      const options = {
         method: 'GET',
         url: 'https://api.foursquare.com/v3/places/nearby',

@@ -5,6 +5,7 @@ function loadPlaces(position) {
     console.log('Longitude: ', position.longitude)
     const currentLat = position.latitude
     const currentLong = position.longitude
+    
     const currentLatString = currentLat.toString()
     const currentLongString = currentLong.toString()
     let ll
@@ -85,7 +86,12 @@ https://api.foursquare.com/v3/places/nearby/search
 
                 let placeContainer = document.createElement('a-entity')
                 const latLong = `latitude: ${latitude}; longitude: ${longitude}`
-                placeContainer.setAttribute('gps-entity-place', latLong)
+                placeContainer.innerHTML = `
+                    <a-entity gps-entity-place='latitude: ${latitude}; longitude: ${longitude}' scale='1 1 1'>
+                        <a-text value="${placeName}"></a-text>
+                    </a-entity>
+                `;
+/*                 placeContainer.setAttribute('gps-entity-place', latLong)
                 placeContainer.setAttribute('data-lat', latitude)
                 placeContainer.setAttribute('data-long', longitude)
                 placeContainer.setAttribute('scale', '1 1 1')
@@ -101,7 +107,7 @@ https://api.foursquare.com/v3/places/nearby/search
                 placePin.setAttribute('radius-inner', '1.5')
                 placePin.setAttribute('radius-outer', '2')
                 placePin.setAttribute('segmentsTheta', '100')
-                placeContainer.appendChild(placePin)
+                placeContainer.appendChild(placePin) */
                 placeContainer.addEventListener("loaded", () => {
                     window.dispatchEvent(new CustomEvent("gps-entity-place-loaded"));
                 });
