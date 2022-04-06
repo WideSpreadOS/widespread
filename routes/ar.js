@@ -110,11 +110,12 @@ router.post('/sports/golf/courses/view/:courseId/holes/:holeId/play/tee/add', as
     const holeId = req.params.holeId
     const courseId = req.params.courseId
 
-    await GolfHole.findByIdAndUpdate(holeId,
-        { $push: { tees: {
+    GolfHole.findByIdAndUpdate(req.params.holeId,
+        { $addToSet: { tees: {
             color: req.body.color,
             'll.lat': req.body.lat,
-            'll.long': req.body.long
+            'll.long': req.body.long,
+            distance: req.body.distance
         } } },
         { safe: true, upsert: true },
         function (err, doc) {
@@ -226,7 +227,7 @@ FOURSQUARE_CLIENT_SECRET="5AEIKFIMLUVNRTWXDLOVWHE3BVMXIOCQH2DX4BGXLLEIW0H4"
         })
         .catch(err => console.error(err));
         */
- res.render('ar', { layout: 'spreadshield', currentPageTitle: 'SpreadShield' });
+ res.render('ar/spreadshield/nearby-places', { layout: 'ar/spreadshield/nearby-places', currentPageTitle: 'SpreadShield' });
 /*      const options = {
         method: 'GET',
         url: 'https://api.foursquare.com/v3/places/nearby',

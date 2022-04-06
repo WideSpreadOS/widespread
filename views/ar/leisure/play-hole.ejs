@@ -1,5 +1,96 @@
 <style>
+    #caddyContainer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 99999;
+        background-color: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(4px);
+        border-top-right-radius: 16px;
+        padding: 8px;
+        border-top: outset 2px rgba(255, 255, 255, 0.5);
+        border-right: outset 2px rgba(255, 255, 255, 0.5);
+        font-family: 'Gruppo', cursive;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 50vw;
+    }
+    .caddy-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        width: 90%;
+    }
+    .caddy-header p {
+        width: 50%;
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-shadow: 0 0 2px #000;
+        margin: 0;
+        
+    }
+    .caddy-header p:last-of-type {
+        margin-left: 10px;
+    }
+    .caddy-body {
+        margin-top: 15px;
+        border-top: solid 1px #fff;
+        padding: 2px;
+    }
 
+    .caddy-score form {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .caddy-score-item {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .caddy-score-item label {
+        width: 50%;
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 0;
+        padding: 5px;
+        padding-right: 2px;
+    }
+    .caddy-score-item input {
+        width: 30%;
+        padding: 5px;
+        outline: none;
+        border: none;
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        color: #fff;
+    }
+    .caddy-score-item input::placeholder {
+        color: green;
+    }
+    .caddy-score button {
+        width: 20%;
+        outline: none;
+        border: none;
+        border-radius: 8px;
+        background-color: green;
+        color: #fff;
+        font-size: 1rem;
+        padding: 5px;
+    }
 </style>
 
 
@@ -32,6 +123,30 @@
 
 
 
+    <div id="caddyContainer">
+        <div class="caddy-header">
+            <p style="color: <%= teeColor %>">Hole <%= hole.hole_number %></p>
+            <p style="color: <%= teeColor %>; border-left: solid 2px <%= teeColor %>">Par <%= hole.par %></p>
+            
+
+
+
+            <p style="display: none;" id="currentLat"></p>
+            <p style="display: none;" id="currentLong"></p>
+        </div>
+        <div class="caddy-body">
+            <div class="caddy-score">
+                <form action="" method="post">
+                    <div class="caddy-score-item">
+                        <label for="strokes">Strokes:</label>
+                        <input type="number" name="strokes" id="strokes" placeholder="#">
+                    </div>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
 
         window.onload = () => {
@@ -45,7 +160,11 @@
         
                     const currentLatString = currentLat.toString()
                     const currentLongString = currentLong.toString()
-        
+                    
+                    const currentLatEl = document.getElementById('currentLat')
+                    currentLatEl.innerText = currentLatString
+                    const currentLongEl = document.getElementById('currentLong')
+                    currentLongEl.innerText = currentLongString
                     console.log(currentLatString)
                     console.log(currentLongString)
                 }
