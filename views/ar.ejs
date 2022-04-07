@@ -23,6 +23,21 @@
 
 
     <title>WideSpread</title>
+
+    <style>
+        @media screen and (orientation : portrait) {
+            .landscape {
+                display: none;
+            }
+
+        }
+        @media screen and (orientation : landscape) {
+            .portrait {
+                display: none;
+            }
+
+        }
+    </style>
 </head>
 
 <body style='margin: 0; overflow: hidden; backface-visibility: visible; background: black; opacity: 0.8;'>
@@ -47,23 +62,37 @@ Note 10+ - 2930x1440
 
     <!--  CELL PHONE SIZES END -->
 
-    <a-scene style="background: transparent; backface-visibility: visible;"
-        loading-screen="dotsColor: lightskyblue; backgroundColor: black" vr-mode-ui="enabled: false"
-        arjs='sourceType: webcam; sourceWidth:900; sourceHeight:844; displayWidth: 900; displayHeight: 844; debugUIEnabled: false;'
-        inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
-        <!-- WideSpread Matrix -->
+    <div class="portrait">
 
 
-        <%- body %>
-        <a-camera gps-camera rotation-reader>
-        </a-camera>
-
-        <!-- Businesses Appear Below -->
-
+        <a-scene style="background: transparent; backface-visibility: visible;"
+            loading-screen="dotsColor: lightskyblue; backgroundColor: black" vr-mode-ui="enabled: false"
+            arjs='sourceType: webcam; sourceWidth:2184; sourceHeight:4608; displayWidth: 390; displayHeight: 844; debugUIEnabled: false;'
+            inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
 
 
-        <!-- WideSpread Matrix -->
-    </a-scene>
+            <%- body %>
+            <a-camera gps-camera rotation-reader>
+            </a-camera>
+
+        </a-scene>
+    </div>
+
+    <div class="landscape">
+
+
+        <a-scene style="background: transparent; backface-visibility: visible;"
+            loading-screen="dotsColor: lightskyblue; backgroundColor: black" vr-mode-ui="enabled: false"
+            arjs='sourceType: webcam; sourceWidth:4608; sourceHeight:2184; displayWidth: 844; displayHeight: 390; debugUIEnabled: false;'
+            inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
+
+
+            <%- body %>
+            <a-camera gps-camera rotation-reader>
+            </a-camera>
+
+        </a-scene>
+    </div>
 
 
     <!-- AR END  -->

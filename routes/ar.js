@@ -138,11 +138,44 @@ router.get('/sports/golf/courses/view/:courseId/holes/play/:holeId/tee/color/:te
     const holeId = req.params.holeId
     const currentUser = req.user;
     const hole = await GolfHole.findById(holeId)
+    const course = await GolfCourse.findById(courseId).populate('holes')
+    const allHoles = course.holes
+    console.log(allHoles)
     console.log(hole)
     res.render('ar/leisure/play-hole', {
-        layout: 'ar', currentPageTitle: 'AR', currentUser, hole, courseId, teeColor
+        layout: 'ar', currentPageTitle: 'AR', currentUser, hole, courseId, teeColor, allHoles
     });
 })
+
+
+
+
+
+router.post('/sports/golf/courses/view/:courseId/holes/play/:holeId/tee/color/:teeColor/add-score', async (req, res) => {
+    const teeColor = req.params.teeColor
+    const courseId = req.params.courseId
+    const holeId = req.params.holeId
+    const nextHole = req.body.next_hole
+    console.log(nextHole)
+    const currentUser = req.user;
+    res.redirect(`/ar/sports/golf/courses/view/${courseId}/holes/play/${nextHole}/tee/color/${teeColor}`)
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
