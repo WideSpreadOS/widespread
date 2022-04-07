@@ -143,7 +143,9 @@
         width: 100%;
         border-collapse: collapse;
     }
-
+    .current-score tr {
+        position: relative;
+    }
     .current-score td {
         border-left: solid 1px #fff;
         border-bottom: solid 1px #fff;
@@ -160,7 +162,15 @@
     .current-score td:last-of-type {
         border-right: solid 1px #fff;
     }
-
+    #total {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 75px;
+    }
+    .total {
+        width: 75px;
+    }
     .active {
         display: block;
     }
@@ -238,14 +248,16 @@
                     <% course.holes.forEach(function(hole) { %>
                         <td><%= hole.hole_number %></td>
                     <% }) %>
+                    <td class="total">Total</td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><%= score.player_name %></td>
                     <% score.holes.forEach(function(hole) { %>
-                        <td><%= hole.strokes %></td>
+                        <td class="strokes"><%= hole.strokes %></td>
                     <% }) %>
+                    <td id="total"></td>
                 </tr>
             </tbody>
         </table>
@@ -386,4 +398,19 @@
 
         })
         console.table(holes)
+
+        let strokesArray = []
+        const totalScore = document.getElementById('total')
+        const totalStrokes = document.querySelectorAll('.strokes')
+        totalStrokes.forEach(stroke => {
+            const strokeInt = parseInt(stroke.innerText)
+            strokesArray.push(strokeInt)
+        })
+
+        const totalScoreAdded = strokesArray.reduce((currentTotal, hole) => {
+            return hole + currentTotal
+        })
+        console.log(strokesArray)
+        console.log('Total Score: ', totalScoreAdded)
+        totalScore.innerText = totalScoreAdded
     </script>
