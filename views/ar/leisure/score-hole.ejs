@@ -42,13 +42,21 @@
         border-top: solid 1px #fff;
         padding: 2px;
     }
-    .caddy-body h5 {
+    .yards-to-pin {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px;
+    }
+    .yards-to-pin h5 {
         text-align: center;
         font-size: 1.5rem;
         color: #fff;
         margin: 0;
-        padding: 5px;
     }
+
     .caddy-score form {
         display: flex;
         flex-direction: row;
@@ -152,6 +160,13 @@
     .current-score td:last-of-type {
         border-right: solid 1px #fff;
     }
+
+    .active {
+        display: block;
+    }
+    .inactive {
+        display: none;
+    }
 </style>
 
 
@@ -197,7 +212,11 @@
             <p style="display: none;" id="currentLong"></p>
         </div>
         <div class="caddy-body">
-            <h5 id="yardsToPin"></h5>
+            <div class="yards-to-pin">
+                <i id="switchMeasurements" style="color: lightskyblue;" class="fas fa-exchange-alt"></i>
+                <h5 id="yardsToPin"></h5>
+                <h5 id="feetToPin"></h5>
+            </div>
             <div class="caddy-score">
                 <form action="/ar/sports/golf/courses/view/<%= courseId %>/round/<%= scoreCardId %>/holes/<%= hole.id %>/tee/color/<%= teeColor %>/add-score" method="post">
                     <div class="caddy-score-item">
@@ -246,33 +265,61 @@
                 console.log("Waited for 2 seconds...");
            
 
-
-
-
                     let distanceMsg = document.getElementById('currentPin').getAttribute('distancemsg');
         console.log('Distance From Pin: ', distanceMsg); 
             const string = distanceMsg;
             const substring = "kilometers";
             console.log(string.includes(substring));
+
+            let yardsToPinEl = document.getElementById('yardsToPin')
+            let feetToPinEl = document.getElementById('feetToPin')
+            
             if (string.includes(substring) === true) {
                 console.log("THIS IS KM MULTIPLY BY 1000")
                 const metersFromPin = parseInt(distanceMsg) * 1000
                 const converterForYards = 1.0936133
                 let yards = metersFromPin * converterForYards
                 console.log('Yards to pin: ', yards)
-                const yardsToPinEl = document.getElementById('yardsToPin')
+                let feet = yards * 3
                 yardsToPinEl.innerText = Math.trunc(yards) + ' yds'
+                feetToPinEl.innerText = Math.trunc(feet) + ' ft'
+                yardsToPinEl.classList.add('active')
+                feetToPinEl.classList.add('inactive')
+                
+                let switchMeasurements = document.getElementById('switchMeasurements')
+                switchMeasurements.addEventListener('click', () => {
+                    toggleClass()
+
+                })
+
             } else {
                 const metersFromPin = parseInt(distanceMsg)
                 const converterForYards = 1.0936133
                 let yards = metersFromPin * converterForYards
                 console.log('Yards to pin: ', yards)
                 const yardsToPinEl = document.getElementById('yardsToPin')
+
                 yardsToPinEl.innerText = Math.trunc(yards) + ' yds'
+                yardsToPinEl.classList.add('active')
             }
 
 
+                function toggleClass() {
+                    if (yardsToPinEl.classList.contains('active')) {
+                        yardsToPinEl.classList.remove('active');
+                        yardsToPinEl.classList.add('inactive');
+                        feetToPinEl.classList.add('active');
+                        feetToPinEl.classList.remove('inactive');
+                    } else {
+                        yardsToPinEl.classList.add('active');
+                        yardsToPinEl.classList.remove('inactive');
+                        feetToPinEl.classList.remove('active');
+                        feetToPinEl.classList.add('inactive');
+                    }
+                }
              }, 2000);
+
+
             let position = navigator.geolocation.getCurrentPosition(
                 function (position) {
 
