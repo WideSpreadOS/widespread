@@ -10,8 +10,7 @@ const GolfScoreCardSingleSchema = new mongoose.Schema({
     holes: [
         {
             hole_number: {
-                type: Number,
-                unique: true
+                type: Number
             },
             strokes: Number
         }

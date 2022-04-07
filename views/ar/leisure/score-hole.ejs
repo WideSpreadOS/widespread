@@ -413,4 +413,9 @@
         console.log(strokesArray)
         console.log('Total Score: ', totalScoreAdded)
         totalScore.innerText = totalScoreAdded
+
+
+        let scoreCardArray = [...holes, ...strokesArray]
+        console.table(scoreCardArray)
+
     </script>
