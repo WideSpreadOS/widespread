@@ -120,6 +120,22 @@
         border-radius: 8px;
         text-decoration: none;
     }
+    .delete-score {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        margin-top: 40px;
+    }
+    .delete-score a {
+        font-size: 1.5rem;
+        color: #fff;
+        background-color: red;
+        padding: 10px;
+        border-radius: 8px;
+        text-decoration: none;
+    }
     .scorecard {
         background-color: #fff;
         min-width: 100vw;
@@ -296,8 +312,13 @@
                 <a href="/ar/sports/golf/courses/view/<%= course.id %>/round/<%= scoreCard.id %>/holes/<%= course.holes[0].id %>">Play Front 9</a>
                 <a href="/ar/sports/golf/courses/view/<%= course.id %>/round/<%= scoreCard.id %>/holes/<%= course.holes[8].id %>">Play Back 9</a>
             </div>
-        <% } %>
+            <% } %>
 
 
+            <div class="delete-score">
+                <% if (scoreCard.holes.length == course.holes.length) { %>
+                    <a href="/ar/sports/golf/courses/view/<%= course.id %>/round/<%= scoreCard.id %>/delete">Clear Card</a>            
+                <% } %>
+            </div>
     </div>
 </div>

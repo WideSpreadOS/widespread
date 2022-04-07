@@ -91,6 +91,7 @@
         background-color: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(4px);
         color: #fff;
+        box-shadow: inset 0 0 3px lime;
     }
     .caddy-score-item input::placeholder {
         color: green;
@@ -157,6 +158,10 @@
         font-weight: bold;
         text-align: center;
         position: relative;
+    }
+    .current-score td a {
+        color: #fff;
+        text-decoration: none;
     }
     .current-score td:first-of-type {
         text-align: left;
@@ -235,6 +240,7 @@
     <div id="caddyContainer">
         <div class="caddy-header">
             <% var holeNumber = hole.hole_number %>
+            <% var scoreIndex = holeNumber + 1 %>
             <p style="color: <%= teeColor %>">Hole <%= holeNumber %></p>
             <p style="color: <%= teeColor %>; border-left: solid 2px <%= teeColor %>">Par <%= hole.par %></p>
             
@@ -254,8 +260,9 @@
                 <form action="/ar/sports/golf/courses/view/<%= courseId %>/round/<%= scoreCardId %>/holes/<%= hole.id %>/tee/color/<%= teeColor %>/add-score?_method=PATCH" method="post">
                     <div class="caddy-score-item">
                         <label for="strokes">Strokes:</label>
-                        <input type="number" name="strokes" id="strokes" placeholder="#">
+                            <input type="number" name="strokes" id="strokes" placeholder="#">
                     </div>
+                    <input type="text" name="last_hole" value="<%= lastHole %>" hidden>
                     <input type="text" name="next_hole" id="nextHoleEl" hidden>
                     <button type="submit">Add</button>
                 </form>
@@ -273,14 +280,8 @@
                 <tr>
                     <td>Hole</td>
                     <% course.holes.forEach(function(hole, index) { %>
-                        <td class="holeScoreUpdateButton" data-id="<%= hole.id %>"><%= hole.hole_number %>
-                                <div class="formContainer">
-                                    <form action="/ar/sports/golf/courses/view/<%= courseId %>/round/<%= scoreCardId %>/holes/<%= hole.id %>/tee/color/<%= teeColor %>/edit-score?_method=PATCH" method="post">
-                                        <input type="number" name="strokes" value="">
-                                        <button type="submit">Update</button>
-                                        <button class="cancelUpdate" type="reset">Cancel</button>
-                                    </form>
-                                </div>
+                        <td class="holeScoreUpdateButton" data-id="<%= hole.id %>">
+                            <a href="/ar/sports/golf/courses/view/<%= courseId %>/round/<%= scoreCardId %>/holes/<%= hole.id %>/tee/color/<%= teeColor %>"><%= hole.hole_number %></a>                                    
                         </td>
                         <% }) %>
                         <td class="total">Total</td>
@@ -305,6 +306,9 @@
             </div>
         <% }) %>
     </div>
+
+
+ 
     <script>
 
         window.onload = () => {
@@ -425,62 +429,18 @@
                 console.log('NEXT HOLE: ', nextHole)
                 const nextHoleIndex = parseInt(currentHole)
                 console.log(nextHole)
-                const nextHoleId = holes[nextHoleIndex].hole_id
-                const nextHoleEl = document.getElementById('nextHoleEl')
-                nextHoleEl.setAttribute('value', nextHoleId)
-                console.log(holes[nextHoleIndex].hole_id)
+                if (holes[nextHoleIndex]) {
+
+                    const nextHoleId = holes[nextHoleIndex].hole_id
+                    const nextHoleEl = document.getElementById('nextHoleEl')
+                    nextHoleEl.setAttribute('value', nextHoleId)
+                    console.log(holes[nextHoleIndex].hole_id)
+                }
             }
 
         })
         console.table(holes)
 
-        let strokesArray = []
-        const totalScore = document.getElementById('total')
-        const totalStrokes = document.querySelectorAll('.strokes')
-        totalStrokes.forEach(stroke => {
-            const strokeInt = parseInt(stroke.innerText)
-            strokesArray.push(strokeInt)
-        })
-
-        if (strokesArray.length > 0) {
-            const totalScoreAdded = strokesArray.reduce((currentTotal, hole) => {
-                return hole + currentTotal
-            })
-            console.log('Total Score: ', totalScoreAdded)
-            totalScore.innerText = totalScoreAdded
-        }
-        console.log(strokesArray)
-
-/*         const holeScoreUpdateButton = document.querySelectorAll('.holeScoreUpdateButton')
-        holeScoreUpdateButton.forEach((hole, index) => {
-            let formContainer = hole.querySelector('.formContainer')
-            console.log('\n\nHole Score Update Button: ', hole)
-            const holeIdForForm = hole.getAttribute('data-id')
-            console.log('holeIdForForm: ', holeIdForForm)
-            hole.addEventListener('click', () => {
-
-                        console.log(hole)
-                        console.log('clicked on form: ', holeIdForForm)
-                        const updateForm = hole.querySelector('form')
-                        console.log(updateForm)
-                        formContainer.style.display = 'block'
-                        updateForm.style.display = 'block'
-                        updateForm.style.zIndex = '99999'
-
-
-                        
-                    })
-                    const cancelUpdate = document.querySelector('.cancelUpdate')
-                    cancelUpdate.addEventListener('click', () => {
-                        const updateForm = document.querySelector('form')
-                        updateForm.style.display = 'none'
-                        formContainer.style.display = 'none'
-                    })
-        })
- */
-
-/*         
-        let scoreCardArray = [...holes, ...strokesArray]
-        console.table(scoreCardArray) */
+        
 
     </script>
