@@ -170,9 +170,100 @@ router.post('/sports/golf/courses/view/:courseId/holes/play/:holeId/tee/color/:t
 
 
 
+/* Play Round */
 
+router.get('/sports/golf/courses/view/:courseId/start-round', async (req, res) => {
+    const courseId = req.params.courseId
+    const course = await Course.findById(courseId)
 
+    const newScoreCard = new GolfScoreCardSingle({
+        golf_course: courseId,
+        player_name: req.body.player_name
+    })
+    await newScoreCard.save()
+    res.redirect(`/ar/sports/golf/courses/view/${courseId}/round/${newScoreCard.id}/holes`)
 
+})
+
+router.post('/sports/golf/courses/view/:courseId/start-round', async (req, res) => {
+    const courseId = req.params.courseId
+
+    const newScoreCard = new GolfScoreCardSingle({
+        golf_course: courseId,
+        player_name: req.body.player_name
+    })
+    await newScoreCard.save()
+    res.redirect(`/ar/sports/golf/courses/view/${courseId}/round/${newScoreCard.id}/holes`)
+
+})
+
+router.get('/sports/golf/courses/view/:courseId/round/:scoreId/holes', async (req, res) => {
+    const courseId = req.params.courseId
+    const scoreId = req.params.scoreId
+    const scoreCard = await GolfScoreCardSingle.findById(scoreId)
+    const course = await GolfCourse.findById(courseId).populate('holes').exec()
+    res.render('ar/leisure/scorecard', {scoreCard, course})
+
+})
+router.get('/sports/golf/courses/view/:courseId/round/:scoreId/holes/:holeId', async (req, res) => {
+    const teeColor = req.params.teeColor
+    const courseId = req.params.courseId
+    const holeId = req.params.holeId
+    const scoreCardId = req.params.scoreId
+    const currentUser = req.user;
+    const hole = await GolfHole.findById(holeId)
+    const course = await GolfCourse.findById(courseId).populate('holes')
+    const allHoles = course.holes
+    console.log(allHoles)
+    console.log(hole)
+    res.render('ar/leisure/score-select-tee', {
+         currentPageTitle: 'AR', currentUser, hole, courseId, teeColor, allHoles, scoreCardId
+    });
+
+})
+router.get('/sports/golf/courses/view/:courseId/round/:scoreId/holes/:holeId/tee/color/:teeColor', async (req, res) => {
+    const teeColor = req.params.teeColor
+    const courseId = req.params.courseId
+    const holeId = req.params.holeId
+    const scoreCardId = req.params.scoreId
+    const currentUser = req.user;
+    const hole = await GolfHole.findById(holeId)
+    const course = await GolfCourse.findById(courseId).populate('holes')
+    const score = await GolfScoreCardSingle.findById(scoreCardId)
+    const allHoles = course.holes
+    console.log(allHoles)
+    console.log(hole)
+    res.render('ar/leisure/score-hole', {
+        layout: 'ar', currentPageTitle: 'AR', currentUser, hole, courseId, teeColor, allHoles, scoreCardId, score, course
+    });
+
+})
+
+router.post('/sports/golf/courses/view/:courseId/round/:scoreCardId/holes/:holeId/tee/color/:teeColor/add-score', async (req, res) => {
+    const courseId = req.params.courseId
+    const holeId = req.params.holeId
+    const teeColor = req.params.teeColor
+    const scoreCardId = req.params.scoreCardId
+    const hole = await GolfHole.findById(holeId)
+    const nextHole = req.body.next_hole
+
+    await GolfScoreCardSingle.findByIdAndUpdate(scoreCardId, {
+         $push: { holes: {
+            hole_number: hole.hole_number,
+            strokes: req.body.strokes
+        } } },
+        { safe: true, upsert: true },
+        function (err, doc) {
+            if (err) {
+                console.log(err)
+            } else {
+                return
+            }
+        }
+    )
+    res.redirect(`/ar/sports/golf/courses/view/${courseId}/holes/play/${nextHole}/tee/color/${teeColor}`)
+
+})
 
 
 
