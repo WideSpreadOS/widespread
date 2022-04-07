@@ -137,11 +137,13 @@
         overflow-x: auto;
         background-color: rgba(255, 255, 255, 0.5);
         backdrop-filter: blur(4px);
+        z-index: 95000;
     
     }
     .current-score table {
         width: 100%;
         border-collapse: collapse;
+        position: relative;
     }
     .current-score tr {
         position: relative;
@@ -154,6 +156,7 @@
         font-size: 1.3rem;
         font-weight: bold;
         text-align: center;
+        position: relative;
     }
     .current-score td:first-of-type {
         text-align: left;
@@ -176,6 +179,26 @@
     }
     .inactive {
         display: none;
+    }
+
+
+    .formContainer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: lime;
+        z-index: 99998;
+        display: none;
+    }
+    .formContainer form {
+        position: relative;
+        z-index: 99999;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 </style>
 
@@ -228,7 +251,7 @@
                 <h5 id="feetToPin"></h5>
             </div>
             <div class="caddy-score">
-                <form action="/ar/sports/golf/courses/view/<%= courseId %>/round/<%= scoreCardId %>/holes/<%= hole.id %>/tee/color/<%= teeColor %>/add-score" method="post">
+                <form action="/ar/sports/golf/courses/view/<%= courseId %>/round/<%= scoreCardId %>/holes/<%= hole.id %>/tee/color/<%= teeColor %>/add-score?_method=PATCH" method="post">
                     <div class="caddy-score-item">
                         <label for="strokes">Strokes:</label>
                         <input type="number" name="strokes" id="strokes" placeholder="#">
@@ -240,22 +263,34 @@
         </div>
     </div>
 
+
+
+
+
     <div class="current-score">
         <table>
             <thead>
                 <tr>
                     <td>Hole</td>
-                    <% course.holes.forEach(function(hole) { %>
-                        <td><%= hole.hole_number %></td>
-                    <% }) %>
-                    <td class="total">Total</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><%= score.player_name %></td>
-                    <% score.holes.forEach(function(hole) { %>
-                        <td class="strokes"><%= hole.strokes %></td>
+                    <% course.holes.forEach(function(hole, index) { %>
+                        <td class="holeScoreUpdateButton" data-id="<%= hole.id %>"><%= hole.hole_number %>
+                                <div class="formContainer">
+                                    <form action="/ar/sports/golf/courses/view/<%= courseId %>/round/<%= scoreCardId %>/holes/<%= hole.id %>/tee/color/<%= teeColor %>/edit-score?_method=PATCH" method="post">
+                                        <input type="number" name="strokes" value="">
+                                        <button type="submit">Update</button>
+                                        <button class="cancelUpdate" type="reset">Cancel</button>
+                                    </form>
+                                </div>
+                        </td>
+                        <% }) %>
+                        <td class="total">Total</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= score.player_name %></td>
+                        <% score.holes.forEach(function(hole, index) { %>
+                            <td class="strokes"><%= hole.strokes %></td>
                     <% }) %>
                     <td id="total"></td>
                 </tr>
@@ -407,15 +442,45 @@
             strokesArray.push(strokeInt)
         })
 
-        const totalScoreAdded = strokesArray.reduce((currentTotal, hole) => {
-            return hole + currentTotal
-        })
+        if (strokesArray.length > 0) {
+            const totalScoreAdded = strokesArray.reduce((currentTotal, hole) => {
+                return hole + currentTotal
+            })
+            console.log('Total Score: ', totalScoreAdded)
+            totalScore.innerText = totalScoreAdded
+        }
         console.log(strokesArray)
-        console.log('Total Score: ', totalScoreAdded)
-        totalScore.innerText = totalScoreAdded
+
+/*         const holeScoreUpdateButton = document.querySelectorAll('.holeScoreUpdateButton')
+        holeScoreUpdateButton.forEach((hole, index) => {
+            let formContainer = hole.querySelector('.formContainer')
+            console.log('\n\nHole Score Update Button: ', hole)
+            const holeIdForForm = hole.getAttribute('data-id')
+            console.log('holeIdForForm: ', holeIdForForm)
+            hole.addEventListener('click', () => {
+
+                        console.log(hole)
+                        console.log('clicked on form: ', holeIdForForm)
+                        const updateForm = hole.querySelector('form')
+                        console.log(updateForm)
+                        formContainer.style.display = 'block'
+                        updateForm.style.display = 'block'
+                        updateForm.style.zIndex = '99999'
 
 
+                        
+                    })
+                    const cancelUpdate = document.querySelector('.cancelUpdate')
+                    cancelUpdate.addEventListener('click', () => {
+                        const updateForm = document.querySelector('form')
+                        updateForm.style.display = 'none'
+                        formContainer.style.display = 'none'
+                    })
+        })
+ */
+
+/*         
         let scoreCardArray = [...holes, ...strokesArray]
-        console.table(scoreCardArray)
+        console.table(scoreCardArray) */
 
     </script>

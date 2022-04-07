@@ -239,7 +239,7 @@ router.get('/sports/golf/courses/view/:courseId/round/:scoreId/holes/:holeId/tee
 
 })
 
-router.post('/sports/golf/courses/view/:courseId/round/:scoreCardId/holes/:holeId/tee/color/:teeColor/add-score', async (req, res) => {
+router.patch('/sports/golf/courses/view/:courseId/round/:scoreCardId/holes/:holeId/tee/color/:teeColor/add-score', async (req, res) => {
     const courseId = req.params.courseId
     const holeId = req.params.holeId
     const teeColor = req.params.teeColor
@@ -247,8 +247,9 @@ router.post('/sports/golf/courses/view/:courseId/round/:scoreCardId/holes/:holeI
     const hole = await GolfHole.findById(holeId)
     const nextHole = req.body.next_hole
 
+
     await GolfScoreCardSingle.findByIdAndUpdate(scoreCardId, {
-         $push: { holes: {
+         $addToSet: { holes: {
             hole_number: hole.hole_number,
             strokes: req.body.strokes
         } } },
@@ -261,7 +262,7 @@ router.post('/sports/golf/courses/view/:courseId/round/:scoreCardId/holes/:holeI
             }
         }
     )
-    res.redirect(`/ar/sports/golf/courses/view/${courseId}round/${scoreCardId}/holes/${nextHole}/tee/color/${teeColor}`)
+    res.redirect(`/ar/sports/golf/courses/view/${courseId}/round/${scoreCardId}/holes/${nextHole}/tee/color/${teeColor}`)
 
 })
 
