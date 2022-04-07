@@ -339,6 +339,7 @@
                 
                 let switchMeasurements = document.getElementById('switchMeasurements')
                 switchMeasurements.addEventListener('click', () => {
+                    console.log('click')
                     toggleClass()
 
                 })
@@ -351,7 +352,19 @@
                 const yardsToPinEl = document.getElementById('yardsToPin')
 
                 yardsToPinEl.innerText = Math.trunc(yards) + ' yds'
+                let feet = yards * 3
                 yardsToPinEl.classList.add('active')
+                yardsToPinEl.innerText = Math.trunc(yards) + ' yds'
+                feetToPinEl.innerText = Math.trunc(feet) + ' ft'
+                yardsToPinEl.classList.add('active')
+                feetToPinEl.classList.add('inactive')
+
+                let switchMeasurements = document.getElementById('switchMeasurements')
+                switchMeasurements.addEventListener('click', () => {
+                    console.log('click')
+                    toggleClass()
+
+                })
             }
 
 
@@ -441,6 +454,18 @@
         })
         console.table(holes)
 
-        
+        let totalStrokes = []
 
+        const strokeElems = document.querySelectorAll('.strokes')
+        strokeElems.forEach(stroke => {
+            const strokeNumber = parseInt(stroke.innerText)
+            totalStrokes.push(strokeNumber)
+        })
+
+        const totalScore = totalStrokes.reduce((total, stroke) => {
+            return total + stroke
+        }, 0)
+        console.log(totalScore)
+        const totalScoreEl = document.getElementById('total')
+        totalScoreEl.innerText = totalScore
     </script>

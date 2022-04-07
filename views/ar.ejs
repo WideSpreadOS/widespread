@@ -62,7 +62,6 @@ Note 10+ - 2930x1440
 
     <!--  CELL PHONE SIZES END -->
 
-    <div class="portrait">
 
 
         <a-scene style="background: transparent; backface-visibility: visible;"
@@ -76,23 +75,9 @@ Note 10+ - 2930x1440
             </a-camera>
 
         </a-scene>
-    </div>
-
-    <div class="landscape">
 
 
-        <a-scene style="background: transparent; backface-visibility: visible;"
-            loading-screen="dotsColor: lightskyblue; backgroundColor: black" vr-mode-ui="enabled: false"
-            arjs='sourceType: webcam; sourceWidth:844; sourceHeight:390; displayWidth: 844; displayHeight: 390; debugUIEnabled: false;'
-            inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
 
-
-            <%- body %>
-            <a-camera gps-camera rotation-reader>
-            </a-camera>
-
-        </a-scene>
-    </div>
 
 
     <!-- AR END  -->
