@@ -261,7 +261,7 @@ router.post('/sports/golf/courses/view/:courseId/round/:scoreCardId/holes/:holeI
             }
         }
     )
-    res.redirect(`/ar/sports/golf/courses/view/${courseId}/holes/play/${nextHole}/tee/color/${teeColor}`)
+    res.redirect(`/ar/sports/golf/courses/view/${courseId}round/${scoreCardId}/holes/${nextHole}/tee/color/${teeColor}`)
 
 })
 
