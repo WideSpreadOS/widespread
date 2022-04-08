@@ -3,6 +3,14 @@ const mongoose = require('mongoose');
 
 const GolfCourseSchema = new mongoose.Schema({
     name: String,
+    logo: String,
+    fees: [
+        {
+            fee_name: String,
+            fee_amount: Number
+
+        }
+    ],
     address: {
         street: String,
         city: String,

@@ -22,6 +22,7 @@
         align-items: center;
         justify-content: center;
         filter: drop-shadow(0 0 2px lightskyblue);
+        opacity: 0.5;
     }
 
     .leisure-app {
@@ -157,7 +158,7 @@
         max-width: 200px;
         font-weight: bold;
     }
-    #total {
+    #total {    
         font-size: 3rem;
         text-align: center;
         margin-bottom: 30px;
@@ -204,7 +205,7 @@
                     <tr>
                         <td>Par</td>
                         <% course.holes.forEach(function(hole) { %>
-                            <td><%= hole.par %></td>
+                            <td class="par"><%= hole.par %></td>
                         <% }) %>
                     </tr>
                     <% if (course.holes[0].tees[0]) { %>
@@ -339,17 +340,41 @@
 
 <script>
             let totalStrokes = []
+            let totalPar = []
 
+            const parElems = document.querySelectorAll('.par')
+            parElems.forEach(par => {
+                const parNumber = parseInt(par.innerText)
+                totalPar.push(parNumber)
+            })
+
+            console.table(totalPar)
         const strokeElems = document.querySelectorAll('.strokes')
         strokeElems.forEach(stroke => {
             const strokeNumber = parseInt(stroke.innerText)
             totalStrokes.push(strokeNumber)
         })
-
+        const totalParCount = totalPar.reduce((total, par) => {
+            return total + par
+        }, 0)
+        console.log(totalParCount)
         const totalScore = totalStrokes.reduce((total, stroke) => {
             return total + stroke
         }, 0)
+
+        const parScore = totalParCount - totalScore
+        console.log('Par: ', parScore)
+
+
         console.log(totalScore)
         const totalScoreEl = document.getElementById('total')
-        totalScoreEl.innerText = ('You finished in ' + totalScore + ' strokes')
+
+        if (parScore > 0) {
+            totalScoreEl.innerText = ('You finished -' + parScore + ' under par!')
+        } else if (parScore < 0) {
+            totalScoreEl.innerText = ('You finished ' + Math.abs(parScore) + ' over par.')
+        } else {
+            totalScoreEl.innerText = ('You parred the course!')
+        }
+
 </script>
