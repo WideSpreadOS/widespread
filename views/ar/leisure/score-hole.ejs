@@ -239,7 +239,7 @@
 
 
 
-<a-entity id="currentPin" gps-entity-place='latitude: <%= hole.tees[0].ll.lat %>; longitude: <%= hole.tees[0].ll.long %>;' scale='3 3 3' distanceMsg look-at="#camera" position="0 5 0">
+<a-entity gps-entity-place='latitude: <%= hole.tees[0].ll.lat %>; longitude: <%= hole.tees[0].ll.long %>;' scale='3 3 3' look-at="#camera" position="0 5 0">
     <a-text align='right' value="Hole <%= hole.hole_number %>" scale="3 3 3" color="lightskyblue"></a-text>
     <a-text align='center' value="Par <%= hole.par %>" scale="1 1 1" color="#fff"></a-text>
     <a-image src="#hole" position="0 0 0" width="2" height="2"></a-image>
@@ -254,7 +254,7 @@
 <% }) %>
 
 
-    <a-entity gps-entity-place='latitude: <%= hole.pin.lat %>; longitude: <%= hole.pin.long %>' scale='3 3 3' look-at="#camera">
+    <a-entity id="currentPin" gps-entity-place='latitude: <%= hole.pin.lat %>; longitude: <%= hole.pin.long %>' scale='3 3 3' distanceMsg look-at="#camera">
         <a-image src="#flag" position="0 0 0" width="1" height="4"></a-image>
     </a-entity>
 
@@ -336,7 +336,7 @@
 
         window.onload = () => {
             setTimeout(function () {
-                console.log("Waited for 2 seconds...");
+                console.log("Waited for 3 seconds...");
            
 
                     let distanceMsg = document.getElementById('currentPin').getAttribute('distancemsg');
