@@ -117,7 +117,8 @@
     .movie-title {
         text-align: center;
         padding: 5px;
-        margin-bottom: 20px;
+        padding-bottom: 0;
+        margin-bottom: 0;
     }
 
     .movie-title h5 {
@@ -345,13 +346,43 @@
 
 
 
+    pubdate, video_title, trailer_id, release_date {
+        display: none;
+    }
 
+    #trailerContainer {
+        max-height: 250px;
+        min-height: 250px;
+        overflow: hidden;
+        background-color: #000;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 
+    } 
+    embed_standard {
+        max-height: 250px;
+    }
 
+    #trailerContainer p {
+        color: transparent;
+    }
+    .top-bar {
+        display: none;
+    }
+    .mobile-nav {
+        display: none;
+    }
+    .outer-embed-ta {
+        min-height: 300px;
 
+        width: 100vw;
+    }
+    .outer-embed-ta iframe {
+        min-height: 250px;
+    }
 
-
-
+    .brid-touch-overlay {
+        display: none;
+    }
 
 
 
@@ -447,6 +478,29 @@
             width: 90%;
 
         }
+
+        #trailerContainer {
+            max-height: 100vh;
+            min-height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+            
+        } 
+        embed_standard {
+            max-height: 100vh;
+            min-height: 100vh;
+            max-width: 60vw;
+        }
+        .outer-embed-ta {
+            min-height: 100vh;
+
+            width: 100vw;
+        }
+        .outer-embed-ta iframe {
+            min-height: 100vh;
+        }
+
     }
     @media screen and (min-width: 499) {
 
@@ -507,7 +561,16 @@
                 <%= returnedData.Title %>
             </h5>
         </div>
-
+        <% if (!trailerVids) { %>
+            <span style="display: none;"></span>
+            <% } else { %>
+                <div id="trailerContainer">
+            <% var movieTrailer = trailerVids %>
+            <p>
+                <%- trailerVids %>
+            </p>
+        </div>
+        <% } %>
         <div class="show-container">
             <div class="video-stream" id="theater">
                 <iframe id="videoFrame" src="https://www.2embed.ru/embed/imdb/movie?id=<%= returnedData.imdbID %>" frameborder="0" allowfullscreen="true"></iframe>
@@ -617,11 +680,13 @@
 
 
 
+
     <script>
-        var iframe = document.getElementById("videoFrame");
-        var elmnt = iframe.contentWindow.document.querySelector(".alert");
-        elmnt.style.display = "none";
+        const movieTrailerEl = document.getElementById('trailerContainer')
+        const movieTrailerData = <%- movieTrailer %>
+        console.log(movieTrailer)
     </script>
+
 
     <script>
         const theater = document.getElementById('theater')
