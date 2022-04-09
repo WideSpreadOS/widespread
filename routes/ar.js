@@ -58,10 +58,11 @@ router.post('/sports/golf/courses/add',  async (req, res) => {
 router.get('/sports/golf/courses/view/:courseId', async (req, res) => {
     const courseId = req.params.courseId
     const currentUser = req.user;
-    const course = await GolfCourse.findById(courseId).populate('holes').exec()
+    const course = await GolfCourse.findById(courseId)
+    const holes = await GolfHole.find({'for_course': courseId})
     console.log(course)
     res.render('ar/leisure/single-course', {
-        currentPageTitle: 'AR', currentUser, course
+        currentPageTitle: 'AR', currentUser, course, holes
     });
 })
 
@@ -70,24 +71,16 @@ router.get('/sports/golf/courses/view/:courseId', async (req, res) => {
 router.post('/sports/golf/courses/view/:courseId/holes/add', async (req, res) => {
     const courseId = req.params.courseId
     const newHole = new GolfHole({
+        for_course: courseId,
         hole_number: req.body.hole_number,
         par: req.body.par,
+        handicap: req.body.handicap,
         'pin.lat': req.body.lat,
         'pin.long': req.body.long,
     })
     newHole.save()
 
-await GolfCourse.findByIdAndUpdate(courseId, 
-        { $addToSet: { holes: newHole.id } },
-        { safe: true, upsert: true },
-        function (err, doc) {
-            if (err) {
-                console.log(err)
-            } else {
-                return
-            }
-        }
-    )
+
     res.redirect(`/ar/sports/golf/courses/view/${courseId}`)
 })
 
@@ -98,9 +91,10 @@ router.get('/sports/golf/courses/view/:courseId/holes/play/:holeId', async (req,
     const holeId = req.params.holeId
     const currentUser = req.user;
     const hole = await GolfHole.findById(holeId)
+    const course = await GolfCourse.findById(courseId)
     console.log(hole)
     res.render('ar/leisure/single-hole', {
-        currentPageTitle: 'AR', currentUser, hole, courseId
+        currentPageTitle: 'AR', currentUser, hole, courseId, course
     });
 })
 
@@ -138,12 +132,12 @@ router.get('/sports/golf/courses/view/:courseId/holes/play/:holeId/tee/color/:te
     const holeId = req.params.holeId
     const currentUser = req.user;
     const hole = await GolfHole.findById(holeId)
-    const course = await GolfCourse.findById(courseId).populate('holes')
-    const allHoles = course.holes
+    const course = await GolfCourse.findById(courseId)
+    const allHoles = await GolfHole.find({'for_course': courseId})
     console.log(allHoles)
     console.log(hole)
     res.render('ar/leisure/play-hole', {
-        layout: 'ar', currentPageTitle: 'AR', currentUser, hole, courseId, teeColor, allHoles
+        layout: 'ar', currentPageTitle: 'AR', currentUser, hole, courseId, teeColor, allHoles, course
     });
 })
 
@@ -175,9 +169,10 @@ router.post('/sports/golf/courses/view/:courseId/holes/play/:holeId/tee/color/:t
 router.get('/sports/golf/courses/view/:courseId/start-round', async (req, res) => {
     const courseId = req.params.courseId
     const course = await GolfCourse.findById(courseId)
-
+    const playerId = req.user.id
     const newScoreCard = new GolfScoreCardSingle({
         golf_course: courseId,
+        player: playerId,
         player_name: req.body.player_name
     })
     await newScoreCard.save()
@@ -190,6 +185,7 @@ router.post('/sports/golf/courses/view/:courseId/start-round', async (req, res) 
 
     const newScoreCard = new GolfScoreCardSingle({
         golf_course: courseId,
+        player: req.body.player,
         player_name: req.body.player_name
     })
     await newScoreCard.save()
@@ -207,8 +203,20 @@ router.get('/sports/golf/courses/view/:courseId/round/:scoreId/holes', async (re
     const courseId = req.params.courseId
     const scoreId = req.params.scoreId
     const scoreCard = await GolfScoreCardSingle.findById(scoreId)
-    const course = await GolfCourse.findById(courseId).populate('holes').exec()
-    res.render('ar/leisure/scorecard', {scoreCard, course})
+    const course = await GolfCourse.findById(courseId)
+    const holes = await GolfHole.find({'for_course': courseId})
+    console.log(holes)
+    res.render('ar/leisure/new-round', {scoreCard, course, holes})
+
+})
+router.get('/sports/golf/courses/view/:courseId/round/:scoreId/final', async (req, res) => {
+    const courseId = req.params.courseId
+    const scoreId = req.params.scoreId
+    const scoreCard = await GolfScoreCardSingle.findById(scoreId)
+    const course = await GolfCourse.findById(courseId)
+    const holes = await GolfHole.find({'for_course': courseId})
+    console.log(holes)
+    res.render('ar/leisure/scorecard', {scoreCard, course, holes})
 
 })
 router.get('/sports/golf/courses/view/:courseId/round/:scoreId/holes/:holeId', async (req, res) => {
@@ -234,27 +242,24 @@ router.get('/sports/golf/courses/view/:courseId/round/:scoreId/holes/:holeId/tee
     const scoreCardId = req.params.scoreId
     const currentUser = req.user;
     const hole = await GolfHole.findById(holeId)
-    const course = await GolfCourse.findById(courseId).populate('holes')
+    const course = await GolfCourse.findById(courseId)
+    const holes = await GolfHole.find({'for_course': courseId})
     const score = await GolfScoreCardSingle.findById(scoreCardId).populate({
-        path: 'golf_course',
-        model: 'GolfCourse',
-        populate: {
             path: 'holes',
             model: 'GolfHole'
-        }
     }).exec()
     const scoreHoles = score.holes.forEach(hole => {
         console.log(hole)
     })
     console.log(scoreHoles)
-    const allHoles = course.holes
-    const lastHole = course.holes.length
+    const allHoles = holes
+    const lastHole = holes.length
 
     console.log('LAST HOLE: ', lastHole)
     console.log(allHoles)
     console.log(hole)
     res.render('ar/leisure/score-hole', {
-        layout: 'ar', currentPageTitle: 'AR', currentUser, hole, courseId, teeColor, allHoles, scoreCardId, score, course, lastHole
+        layout: 'ar', currentPageTitle: 'AR', currentUser, hole, courseId, teeColor, allHoles, scoreCardId, score, course, lastHole, holes
     });
 
 })
@@ -286,7 +291,7 @@ router.patch('/sports/golf/courses/view/:courseId/round/:scoreCardId/holes/:hole
         }
     )
     if (hole.hole_number == lastHole) {
-        res.redirect(`/ar/sports/golf/courses/view/${courseId}/round/${scoreCardId}/holes`)
+        res.redirect(`/ar/sports/golf/courses/view/${courseId}/round/${scoreCardId}/final`)
     } else {
         res.redirect(`/ar/sports/golf/courses/view/${courseId}/round/${scoreCardId}/holes/${nextHole}/tee/color/${teeColor}`)
     }
@@ -295,9 +300,25 @@ router.patch('/sports/golf/courses/view/:courseId/round/:scoreCardId/holes/:hole
 
 
 
+router.get('/sports/golf/user/:userId', ensureAuthenticated, async (req, res) => {
+    const userId = req.user.id
+    console.log(userId)
+    const allScoreCards = await GolfScoreCardSingle.find({"player": userId}).populate('holes.hole_id').populate('golf_course').exec()
+    console.log(allScoreCards)
+    allScoreCards.forEach(card => {
+        console.log(card.holes)
+    })
+    res.render('ar/leisure/golf-user', {userId, allScoreCards})
+})
 
+router.get('/sports/golf/user/:userId/scorecard/:scorecardId/delete', ensureAuthenticated, async (req, res) => {
+    const userId = req.user.id
+    const scorecardId = req.params.scorecardId
 
+    await GolfScoreCardSingle.findByIdAndDelete(scorecardId)
 
+    res.redirect(`/ar/sports/golf/user/${userId}`)
+})
 
 // SpreadShield Nearby Places Page
 router.get('/spreadshield/nearby', async (req, res) => {

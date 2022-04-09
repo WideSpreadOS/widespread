@@ -188,9 +188,7 @@
 
     <div class="leisure-app-body">
         <div class="app-body-menu">
-            <% if (user) { %>
-                <a href="/ar/sports/golf/user/<%= user.id %>">Your Caddy</a>
-            <% } %>
+            <a href="/ar/sports/golf/player">Your Caddy</a>
         </div>
 
         <div class="scorecard">
@@ -311,72 +309,21 @@
         
         </div>
 
-            <div class="score">
-                <% if (scoreCard.holes.length == holes.length) { %>
-                    <h3 id="total"></h3>
-                <% } %>
-            </div>
 
         
         <% if (holes.length <= 9) { %>
         <div class="play-hole">
-            <a href="/ar/sports/golf/courses/view/<%= course.id %>">Play Again</a>
+            <a href="/ar/sports/golf/courses/view/<%= course.id %>/round/<%= scoreCard.id %>/holes/<%= holes[0].id %>">Play Hole <%= holes[0].hole_number %></a>
         </div>
         <% } %>
         <% if (holes.length > 9) { %>
             <div class="play-hole">
-                <a href="/ar/sports/golf/courses/view/<%= course.id %>">Play Front 9 Again</a>
-                <a href="/ar/sports/golf/courses/view/<%= course.id %>">Play Back 9 Again</a>
+                <a href="/ar/sports/golf/courses/view/<%= course.id %>/round/<%= scoreCard.id %>/holes/<%= course.holes[0].id %>">Play Front 9</a>
+                <a href="/ar/sports/golf/courses/view/<%= course.id %>/round/<%= scoreCard.id %>/holes/<%= course.holes[8].id %>">Play Back 9</a>
             </div>
             <% } %>
 
-
-            <div class="delete-score">
-                <% if (scoreCard.holes.length == holes.length) { %>
-                    <a href="/ar/sports/golf/courses/view/<%= course.id %>/round/<%= scoreCard.id %>/delete">Clear Card</a>            
-                <% } %>
-            </div>
     </div>
 </div>
 
 
-<script>
-            let totalStrokes = []
-            let totalPar = []
-
-            const parElems = document.querySelectorAll('.par')
-            parElems.forEach(par => {
-                const parNumber = parseInt(par.innerText)
-                totalPar.push(parNumber)
-            })
-
-            console.table(totalPar)
-        const strokeElems = document.querySelectorAll('.strokes')
-        strokeElems.forEach(stroke => {
-            const strokeNumber = parseInt(stroke.innerText)
-            totalStrokes.push(strokeNumber)
-        })
-        const totalParCount = totalPar.reduce((total, par) => {
-            return total + par
-        }, 0)
-        console.log(totalParCount)
-        const totalScore = totalStrokes.reduce((total, stroke) => {
-            return total + stroke
-        }, 0)
-
-        const parScore = totalParCount - totalScore
-        console.log('Par: ', parScore)
-
-
-        console.log(totalScore)
-        const totalScoreEl = document.getElementById('total')
-
-        if (parScore > 0) {
-            totalScoreEl.innerText = ('You finished -' + parScore + ' under par!')
-        } else if (parScore < 0) {
-            totalScoreEl.innerText = ('You finished ' + Math.abs(parScore) + ' over par.')
-        } else {
-            totalScoreEl.innerText = ('You parred the course!')
-        }
-
-</script>

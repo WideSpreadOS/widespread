@@ -13,8 +13,11 @@ const GolfScoreCardSingleSchema = new mongoose.Schema({
             tee: String,
             strokes: Number
         }
-    ]
-
+    ],
+    date_played: {
+        type: Date,
+        default: Date.now()
+    }
 });
 
 const GolfScoreCardSingle = mongoose.model('GolfScoreCardSingle', GolfScoreCardSingleSchema);

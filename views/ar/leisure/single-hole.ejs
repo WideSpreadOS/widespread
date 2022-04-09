@@ -95,6 +95,9 @@
         box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
     }
 
+    .par-number {
+        margin-bottom: 30px;
+    }
 
     .par-number h6 {
         font-size: 3rem;
@@ -161,6 +164,15 @@
     .add-golf-course-section input {
         width: 90%;
     }
+    .go-back-container {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .go-back-container a {
+        color: lightskyblue;
+        text-decoration: none;
+        font-size: 2rem;
+    }
 </style>
 
 
@@ -181,12 +193,16 @@
 
 
     <div class="app-body-menu">
-        <a href="/ar/sports/golf/player">Your Caddy</a>
+        <% if (user) { %>
+            <a href="/ar/sports/golf/player">Your Caddy</a>
+        <% } %>
         <a href="/ar/sports/golf/courses">Golf Courses</a>
 </div>
 </div>
 <div class="leisure-app">
-
+    <div class="go-back-container">
+        <a href="/ar/sports/golf/courses/view/<%= courseId %>/">Back to <%= course.name %></a>
+    </div>
     <div class="leisure-app-page">
         <h5>Hole <%= hole.hole_number %></h5>
     </div>

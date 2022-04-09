@@ -115,6 +115,37 @@
         font-size: 1.3rem;
         color: #fff;
     }
+    .tees {
+        margin-top: 10px;
+    }
+    .tees p {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: bold;
+        text-shadow: 0 0 2px #fff;
+        margin-bottom: 5px;
+
+    }
+    .go-back-container {
+        position: fixed;
+        top: 50px;
+        left: 10%;
+        width: 80%;
+        background-color: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(4px);
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        border: outset 2px #fff;
+        border-top: none;
+        text-align: center;
+    }
+    .go-back-container a {
+        padding: 10px;
+        color: lightskyblue;
+        font-size: 2rem;
+        text-decoration: none;
+        font-family: 'Gruppo', cursive;
+    }
 </style>
 
 
@@ -152,28 +183,25 @@
             <% var holeNumber = hole.hole_number %>
             <p style="color: <%= teeColor %>">Hole <%= holeNumber %></p>
             <p style="color: <%= teeColor %>; border-left: solid 2px <%= teeColor %>">Par <%= hole.par %></p>
-            
+            <% var holeIndex = holeNumber + 1 %>
+        </div>
 
+            <% var thisTeeColor = teeColor %>
+            <div class="tees">
+                <% hole.tees.forEach(function(tee) { %>
+                    <p style="color: <%= tee.color %>"><%= tee.color %> - <%= tee.distance %> yds.</p>
+                <% }) %>
+            </div>
 
 
             <p style="display: none;" id="currentLat"></p>
             <p style="display: none;" id="currentLong"></p>
-        </div>
-        <div class="caddy-body">
-            <div class="caddy-score">
-                <form action="/ar/sports/golf/courses/view/<%= courseId %>/holes/play/<%= hole.id %>/tee/color/<%= teeColor %>/add-score" method="post">
-                    <div class="caddy-score-item">
-                        <label for="strokes">Strokes:</label>
-                        <input type="number" name="strokes" id="strokes" placeholder="#">
-                    </div>
-                    <input type="text" name="next_hole" id="nextHoleEl" hidden>
-                    <button type="submit">Add</button>
-                </form>
-            </div>
-        </div>
+
     </div>
 
-
+    <div class="go-back-container">
+        <a href="/ar/sports/golf/courses/view/<%= courseId %>/">Back to <%= course.name %></a>
+    </div>
     <div class="all-holes">
         <% allHoles.forEach(function(hole) { %>
             <div class="hole">
@@ -212,44 +240,7 @@
         console.log('Distance From Pin: ', distanceMsg); 
 
 
-        let holes = []
-        const allHolesEl = document.querySelectorAll('.hole')
-        console.log(allHolesEl)
-        allHolesEl.forEach(hole => {
-            console.log(hole)
-            let holeData = hole.querySelectorAll('p')
-            holeData.forEach(data => {
-                console.log(data.innerText)
-
-            })
-            const holeObject = {
-                hole_number: holeData[0].innerText,
-                hole_id: holeData[1].innerText,
-            }
-            holes.push(holeObject)
-            
-        })
-        const currentHole = <%- holeNumber %>;
-        holes.forEach((hole, index) => {
-            const thisHole = parseInt(hole.hole_number)
-            console.log((index+1).toString())
-            console.log(currentHole.toString())
-            const currentHoleString = currentHole.toString()
-            if (currentHole === (thisHole)) {
-                console.log('THIS IS CURRENT HOLE', currentHole)
-                console.log('HOLE ID: ', hole.hole_id)
-                const nextHole = (currentHole + 1).toString()
-                console.log('NEXT HOLE INDEX: ', nextHole)
-
-                console.log('NEXT HOLE: ', nextHole)
-                const nextHoleIndex = parseInt(currentHole)
-                console.log(nextHole)
-                const nextHoleId = holes[nextHoleIndex].hole_id
-                const nextHoleEl = document.getElementById('nextHoleEl')
-                nextHoleEl.setAttribute('value', nextHoleId)
-                console.log(holes[nextHoleIndex].hole_id)
-            }
-
+        
         })
         console.table(holes)
     </script>

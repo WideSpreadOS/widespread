@@ -80,7 +80,9 @@
 
     <div class="leisure-app-body">
         <div class="app-body-menu">
-            <a href="/ar/sports/golf/player">Your Caddy</a>
+            <% if (user) { %>
+                <a href="/ar/sports/golf/user/<%= user.id %>">Your Caddy</a>
+            <% } %>
             <a href="/ar/sports/golf/courses">Golf Courses</a>
         </div>
     </div>

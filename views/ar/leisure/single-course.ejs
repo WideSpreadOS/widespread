@@ -212,7 +212,9 @@
 
     <div class="leisure-app-body">
         <div class="app-body-menu">
-            <a href="/ar/sports/golf/player">Your Caddy</a>
+            <% if (user) { %>
+                <a href="/ar/sports/golf/user/<%= user.id %>">Your Caddy</a>
+            <% } %>
             <a href="/ar/sports/golf/courses">Golf Courses</a>
         </div>
 
@@ -226,14 +228,20 @@
             </div>
         <% } else { %>
             <div class="start-round">
-                <a href="/ar/sports/golf/courses/view/<%= course.id %>/start-round">Play Round</a>
+                <p>To start your round of golf at <%= course.name %>, enter your name below and tap "Play Round". Good luck today!</p>
+                <form style="justify-content: center;" action="/ar/sports/golf/courses/view/<%= course.id %>/start-round" method="post">
+                    <input type="text" name="player" value="<%= user.id %>" hidden>
+                    <input type="text" name="player_name" value="<%= user.fname %> <%= user.lname %>" hidden>
+                    <button type="submit">Play Round</button>
+                </form>
             </div>
+
         <% } %>
 
         
         <h5 style="text-align: center; font-size: 3rem; color: #fff; margin-bottom: 30px; margin-top: 30px;">Preview Holes</h5>
         <div class="golf-course-list">
-            <% course.holes.forEach(function(hole) { %>
+            <% holes.forEach(function(hole) { %>
                 <div class="course-link">
                     <a href="/ar/sports/golf/courses/view/<%= course.id %>/holes/play/<%= hole.id %>">
                         Hole <%= hole.hole_number %>
@@ -248,6 +256,8 @@
                 <input type="number" name="hole_number" placeholder="Hole Number">
                 
                 <input type="number" name="par" placeholder="Par">
+                <input type="number" name="handicap" placeholder="Handicap">
+                <input type="number" name="slope" placeholder="Slope">
 
 
                 <p>Pin</p>

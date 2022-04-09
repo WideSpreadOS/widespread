@@ -22,8 +22,7 @@ const GolfCourseSchema = new mongoose.Schema({
         lat: String,
         long: String
     },
-    driving_range: Boolean,
-    holes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'GolfHole' }]
+    driving_range: Boolean
 });
 
 const GolfCourse = mongoose.model('GolfCourse', GolfCourseSchema);

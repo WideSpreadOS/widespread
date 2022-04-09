@@ -74,16 +74,19 @@
         margin-bottom: 50px;
     }
     .golf-course-list h5 {
-        font-size: 2rem;
+        font-size: 3rem;
         padding: 10px;
+        border-bottom: solid 1px #fff;
+        margin-bottom: 30px;
     }
     .course-link {
         text-align: center;
+        margin-bottom: 20px;
     }
     .course-link a {
         text-decoration: none;
         color: #fff;
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
     .add-golf-course {
         border-top: solid 1px #fff;
@@ -173,13 +176,14 @@ input[type="checkbox"]:checked {
 </div>
 <div class="leisure-app">
     <div class="leisure-app-page">
-        <h5>Home</h5>
+        <h5>Courses</h5>
     </div>
 
     <div class="leisure-app-body">
         <div class="app-body-menu">
-            <a href="/ar/sports/golf/player">Your Caddy</a>
-            <a href="/ar/sports/golf/courses">Golf Courses</a>
+            <% if (user) { %>
+                <a href="/ar/sports/golf/user/<%= user.id %>">Your Caddy</a>
+            <% } %>
         </div>
 
 
