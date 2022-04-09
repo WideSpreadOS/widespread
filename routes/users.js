@@ -190,7 +190,7 @@ router.delete('/delete', ensureAuthenticated, async (req, res) => {
 
 
 // User Profile Page
-
+/* 
 router.get('/:id', ensureAuthenticated, async (req, res) => {
     const id = req.params.id
     const userId = req.user._id;
@@ -219,7 +219,7 @@ router.get('/:id', ensureAuthenticated, async (req, res) => {
         .exec()
 
         res.render('users/public-profile', { currentPageTitle: "Profile", posts, userId, user, profileImages, avatarImage })
-});
+}); */
 
 
 module.exports = router;
