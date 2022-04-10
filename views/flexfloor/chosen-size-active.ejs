@@ -1,0 +1,15 @@
+<style>
+
+</style>
+
+<a-text position="0 3 -10" scale="3 3 3" align="center" value="FlexFloor Room <%= size %>' X <%= size %>'"></a-text>
+<a-text color="red" position="0 2 -10" scale="2 2 2" align="center" value="FlexFloor Room <%= sizeMeters %>m X <%= sizeMeters %>m"></a-text>
+
+<a-entity id="flexRoom" opacity="0.5">
+    <a-box opacity="0.5" position="0 0 0" scale="<%= sizeMeters %> 0.1 <%= sizeMeters %>" color="white" rotation="0 0 0"></a-box>
+    <a-box opacity="0.5" position="0 3 0" scale="<%= sizeMeters %> 0.1 <%= sizeMeters %>" color="white" rotation="0 0 0"></a-box>
+    <a-box opacity="0.5" position="<%= wallPosition %> 1.5 0" scale="<%= sizeMeters %> 0.1 3" color="white" rotation="90 90 0"></a-box>
+    <a-box opacity="0.5" position="-<%= wallPosition %> 1.5 0" scale="<%= sizeMeters %> 0.1 3" color="white" rotation="90 90 0"></a-box>
+    <a-box opacity="0.5" position="0 1.5 <%= wallPosition %>" scale="<%= sizeMeters %> 0.1 3" color="white" rotation="90 0 0"></a-box>
+    <a-box opacity="0.5" position="0 1.5 -<%= wallPosition %>" scale="<%= sizeMeters %> 0.1 3" color="white" rotation="90 0 0"></a-box>
+</a-entity>

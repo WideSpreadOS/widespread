@@ -132,6 +132,7 @@ app.use('/wellness', require('./routes/wellness'));
 app.use('/things', require('./routes/things'));
 app.use('/help', require('./routes/help'));
 app.use('/vr', require('./routes/vr'));
+app.use('/flexfloor', require('./routes/flexfloor'));
 // app.use('/vr/academy', require('./routes/vr/academy'));
 
 
