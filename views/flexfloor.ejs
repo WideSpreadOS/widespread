@@ -26,22 +26,73 @@
 <body>
 
     <%- include('./partials/layout/core-menu-vr'); %>
+
+    <script>
+    AFRAME.registerComponent('rotation-reader', {
+        tick: function () {
+            // `this.el` is the element.
+            // `object3D` is the three.js object.
+
+            // `rotation` is a three.js Euler using radians. `quaternion` also available.
+            //console.log(this.el.object3D.rotation);
+
+            // `position` is a three.js Vector3.
+
+
+            // console.log(this.el.object3D.position);
+            const position = this.el.object3D.position
+            const menuEl = document.getElementById('vrMenu')
+            menuEl.setAttribute('position', {x: position.x, y: 0.1, z: (position.z - 0.4)})
+        }
+    });
+
+    </script>
     <a-scene loading-screen="dotsColor: lightskyblue; backgroundColor: black">
         <a-assets>
+            <!-- Pattern_1 -->
             <img id="pat1_Img" src="/images/system/vr/walls/pattern_1/img.png" alt="">
             <img id="pat1_Map" src="/images/system/vr/walls/pattern_1/map.png" alt="">
             <img id="pat1_Dis" src="/images/system/vr/walls/pattern_1/displacement.png" alt="">
             <img id="pat1_Occ" src="/images/system/vr/walls/pattern_1/occlusion.png" alt="">
+            <!-- Log 1 -->
             <img id="log1_Img" src="/images/system/vr/walls/log_1/img.png" alt="">
             <img id="log1_Dis" src="/images/system/vr/walls/log_1/displacement.png" alt="">
             <img id="log1_Height" src="/images/system/vr/walls/log_1/height.png" alt="">
             <img id="log1_Norm" src="/images/system/vr/walls/log_1/normal.png" alt="">
             <img id="log1_Rough" src="/images/system/vr/walls/log_1/roughness.png" alt="">
+            
+            
+            <!-- Oak Floor 1 -->
+            
+            <img id="oak1_Img" src="/images/system/vr/floors/oak/img.png" alt="">
+            <img id="oak1_Height" src="/images/system/vr/floors/oak/height.png" alt="">
+            <img id="oak1_Rough" src="/images/system/vr/floors/oak/roughness.png" alt="">
+
+            <!-- 3D Models -->
+            <a-asset id="couch1obj" src="/models/furniture/obj/couch.obj"></a-asset>
+            <a-asset id="couch1mtl" src="/models/furniture/obj/couch.mtl"></a-asset>
         </a-assets>
+
+                <a-entity id="cameraRig" position="0 1.6 0">
+                    <a-camera look-controls wasd-controls rotation-reader position="0 0 0">
+                        <a-gui-cursor id="cursor" raycaster="objects: [gui-interactable]" fuse="true" fuse-timeout="2000"
+                            color="#888" hover-color="#fff" active-color="lightskyblue" design="ring">
+                            <!-- dot, ring, reticle, cross  -->
+                        </a-gui-cursor> <!-- /cursor -->
+
+                    </a-camera> <!-- /camera -->
+                </a-entity>
+
+                <a-gui-flex-container rotation="-90 0 0" id="vrMenu">
+                    <a-gui-button position="0 0.5 0" gui-button="backgroundColor: #000; borderColor: lightskyblue; fontColor: lightskyblue; activeColor: #888; hoverColor: hotpink;" value="Menu"></a-gui-button>
+                </a-gui-flex-container>
+                <!-- <a-entity id="vrMenu">
+                    <a-box scale="0.3 0.3 0.3" color="red"></a-box>
+
+                </a-entity> -->
         <%- body %>
 
 
-<a-passthrough width="16" height="9"></a-passthrough>
 
 
 
@@ -51,4 +102,3 @@
 
 
     </a-scene>
-
