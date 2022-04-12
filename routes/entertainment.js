@@ -247,39 +247,14 @@ router.get('/movies/title/:movie', (req, res) => {
         method: 'GET',
         url: `http://www.omdbapi.com/?apikey=${apiKey}&t=${movie}`
     };
-    const lowercaseMovie = movie.toLowerCase()
-    trailerString = lowercaseMovie.replace(/\+/g, "-");
-    axios.all([
-        axios.get(`http://simpleapi.traileraddict.com/${trailerString}/trailer&credit=no`),
-        axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&t=${movie}`)
-    ]).then(axios.spread((trailer, movie) => {
-        const trailerVidsPath = trailer.request.socket._httpMessage.path
-        const trailerVids = trailer.data
-        const returnedData = movie.data
-        console.log(trailer.request.socket._httpMessage.path)
 
-        if (trailerVidsPath === '/error') {
-            console.log('NO TRAILER')
-            res.render('entertainment/movies/title', { subZone: "Movies", zone: 'Entertainment', subZonePage: returnedData.Title, returnedData, movie, userId })
-        } else {
-
-            console.log('Movies (movie.data): ', returnedData)
-            res.render('entertainment/movies/title', { subZone: "Movies", zone: 'Entertainment', subZonePage: returnedData.Title, returnedData, movie, userId, trailerVids })
-        }
-        // console.log('Trailers (trailer.data): ', trailerVids)
-        // console.log('Movies (movie.data): ', returnedData)
-        // res.render('entertainment/movies/title', { subZone: "Movies", zone: 'Entertainment', subZonePage: returnedData.Title, returnedData, movie, userId, trailerVids })
-    }))
-
-});
-
-/*     axios.request(options).then(function (response) {
+    axios.request(options).then(function (response) {
         const returnedData = response.data;
         console.log(returnedData)
         res.render('entertainment/movies/title', { subZone: "Movies", zone: 'Entertainment', subZonePage: returnedData.Title, returnedData, movie, userId })
     }).catch(function (error) {
         console.error(error);
-    }); */
+    });
 
 router.get('/photos/movies/:imdbID', (req, res) => {
     const imdbID = req.params.imdbID;

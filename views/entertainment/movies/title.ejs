@@ -561,16 +561,7 @@
                 <%= returnedData.Title %>
             </h5>
         </div>
-        <% if (!trailerVids) { %>
-            <span style="display: none;"></span>
-            <% } else { %>
-                <div id="trailerContainer">
-            <% var movieTrailer = trailerVids %>
-            <p>
-                <%- trailerVids %>
-            </p>
-        </div>
-        <% } %>
+
         <div class="show-container">
             <div class="video-stream" id="theater">
                 <iframe id="videoFrame" src="https://www.2embed.ru/embed/imdb/movie?id=<%= returnedData.imdbID %>" frameborder="0" allowfullscreen="true"></iframe>
@@ -681,11 +672,6 @@
 
 
 
-    <script>
-        const movieTrailerEl = document.getElementById('trailerContainer')
-        const movieTrailerData = <%- movieTrailer %>
-        console.log(movieTrailer)
-    </script>
 
 
     <script>
