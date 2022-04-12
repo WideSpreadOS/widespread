@@ -255,6 +255,7 @@ router.get('/movies/title/:movie', (req, res) => {
     }).catch(function (error) {
         console.error(error);
     });
+});
 
 router.get('/photos/movies/:imdbID', (req, res) => {
     const imdbID = req.params.imdbID;
