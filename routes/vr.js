@@ -41,6 +41,25 @@ router.get('/academy', async (req, res) => {
     res.render('vr/academy/home', { layout: 'vr', currentPageTitle: 'VR Academy', courses})
 });
 
+// Academy - Course ID
+router.get('/academy/course/:courseId', async (req, res) => {
+    const courseId = req.params.courseId
+    const course = await Course.findById(courseId).populate('classes').exec()
+    console.log(course)
+    res.render('vr/academy/course-home', { layout: 'vr', currentPageTitle: 'VR Academy', course})
+});
+
+// Academy - Course ID - Class ID
+router.get('/academy/course/:courseId/classes/:classId', async (req, res) => {
+    const courseId = req.params.courseId
+    const classId = req.params.classId
+    const currentClass = await Class.findById(classId).populate('in_course').exec()
+    const learningPoints = await LearningPoint.find({'class': {$eq: classId}})
+    console.log(learningPoints)
+    console.log(currentClass)
+    res.render('vr/academy/class-home', { layout: 'vr', currentPageTitle: 'VR Academy', currentClass, learningPoints})
+});
+
 
 // Business
 router.get('/business', async (req, res) => {

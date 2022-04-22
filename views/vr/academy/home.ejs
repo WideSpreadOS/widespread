@@ -148,7 +148,39 @@
             <a-image scale="0.6 0.9 1" src="/image/<%= course.background_image %>" opacity="0.75"></a-image>
             <a-text value="<%= course.subject %>" color="lightskyblue" position="0 0.3 0.01" scale="0.3 0.3 1" align="center" width="3"></a-text>
             <a-text value="<%= course.course %>" color="#fff" position="0 0 0.01" scale="0.5 0.5 1" align="center" width="3"></a-text>
+            <a-gui-button scale="0.2 0.2 0.1" position="0 -0.25 0" width="2.5" height="0.75" onclick="runPage('/vr/academy/course/<%= course.id %>')" gui-button="fontFamily:  assets/fonts/PermanentMarker-Regular.ttf;  fontSize:  0.3;  focusColor:  #fff;  activeColor:  #fff"
+                font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" >
+                <a-entity geometry="width: 2.5; height: 0.75; depth: 0.01" position="0 0 0.005" rotation=""
+                    material="opacity: 0.92; side: double; color: #4bc4ec; blending: additive" visible=""></a-entity>
+                <a-entity geometry="width: 2.475; height: 0.725; depth: 0.02" position="0 0 0.01"
+                    material="shader: flat; opacity: 0.38; side: double; color: #8a9bb7; blending: additive" rotation=""
+                    animation__leave="property: material.color; from: #2c3037; to: #22252a; dur: 200; easing: easeOutQuad">
 
+                    <% if (course.course_colors.main) { %>                    
+                        <a-entity
+                            troika-text="value: <%= course.course %>; align: center; color: <%= course.course_colors.main %>; font: assets/fonts/PermanentMarker-Regular.ttf; fontSize: 0.22; depthOffset: 1; maxWidth: 2.381; outlineColor: #d4edf2"
+                            troika-text-material="shader: flat;" position="0 0 0.060000000000000005">
+                        </a-entity>
+                    <% } else { %>
+                        <a-entity
+                            troika-text="value: <%= course.course %>; align: center; color: #00d5ff; font: assets/fonts/PermanentMarker-Regular.ttf; fontSize: 0.22; depthOffset: 1; maxWidth: 2.381; outlineColor: #d4edf2"
+                            troika-text-material="shader: flat;" position="0 0 0.060000000000000005">
+                        </a-entity>
+                    <% } %>
+
+                </a-entity>
+                <a-entity geometry="width: 2.5; height: 0.75; depth: 0.01" position="0 0 0.005" rotation=""
+                    material="shader: flat; opacity: 0.09; side: double; color: #d3d3d4"></a-entity>
+                    <a-entity geometry="width: 2.475; height: 0.725; depth: 0.02" position="0 0 0.01"
+                        material="opacity: 0.3; side: double; color: #78a7c4" rotation=""
+                        animation__leave="property: material.color; from: #2c3037; to: #22252a; dur: 200; easing: easeOutQuad">
+                        <a-entity
+                            troika-text="align: center; color: #d3d3d4; font: assets/fonts/PermanentMarker-Regular.ttf; fontSize: 0.3; depthOffset: 1; maxWidth: 2.380952380952381"
+                            troika-text-material="shader: flat;" position="0 0 0.060000000000000005">
+    
+                        </a-entity>
+                    </a-entity>
+            </a-gui-button>
         </a-entity>
     <% }) %>
 </a-entity>
@@ -311,6 +343,7 @@
 
     window.runPage = function (page) {
         console.log(page)
+        window.location.href = `http://localhost:5000${page}`
     }
 
 </script>
