@@ -34,35 +34,27 @@
             // `object3D` is the three.js object.
 
             // `rotation` is a three.js Euler using radians. `quaternion` also available.
-            //console.log(this.el.object3D.rotation);
 
             // `position` is a three.js Vector3.
 
 
             // console.log(this.el.object3D.position);
+            const rotation = this.el.object3D.rotation
             const position = this.el.object3D.position
             const menuEl = document.getElementById('vrMenu')
             menuEl.setAttribute('position', {x: position.x, y: 0.1, z: (position.z - 0.4)})
+            // menuEl.setAttribute('rotate', {x: rotation._x, y: 0, z: rotation._z})
         }
     });
 
     </script>
     <a-scene loading-screen="dotsColor: lightskyblue; backgroundColor: black">
         <a-assets>
-            <!-- Pattern_1 -->
-            <img id="pat1_Img" src="/images/system/vr/walls/pattern_1/img.png" alt="">
-            <img id="pat1_Map" src="/images/system/vr/walls/pattern_1/map.png" alt="">
-            <img id="pat1_Dis" src="/images/system/vr/walls/pattern_1/displacement.png" alt="">
-            <img id="pat1_Occ" src="/images/system/vr/walls/pattern_1/occlusion.png" alt="">
-            <!-- Log 1 -->
-            <img id="log1_Img" src="/images/system/vr/walls/log_1/img.png" alt="">
-            <img id="log1_Dis" src="/images/system/vr/walls/log_1/displacement.png" alt="">
-            <img id="log1_Height" src="/images/system/vr/walls/log_1/height.png" alt="">
-            <img id="log1_Norm" src="/images/system/vr/walls/log_1/normal.png" alt="">
-            <img id="log1_Rough" src="/images/system/vr/walls/log_1/roughness.png" alt="">
-            <!-- Brick -->
-            <img id="brick1_Img" src="/images/system/vr/walls/brick_1/img.png" alt="">
-            <img id="brick1_Norm" src="/images/system/vr/walls/brick_1/normal.png" alt="">
+
+            <!-- FLOORS -->
+
+
+
             
             <!-- Oak Floor 1 -->
             
@@ -76,9 +68,40 @@
             <!-- Metal Floor 1 -->
             <img id="metal1_Img" src="/images/system/vr/floors/metal-treadplate_2.jpg" alt="">
             
-            <!-- Sci-Fi 2 -->
+            
+            
+            <!-- WALLS -->
+            
+            <!-- Pattern_1 -->
+            <img id="pat1_Img" src="/images/system/vr/walls/pattern_1/img.png" alt="">
+            <img id="pat1_Map" src="/images/system/vr/walls/pattern_1/map.png" alt="">
+            <img id="pat1_Dis" src="/images/system/vr/walls/pattern_1/displacement.png" alt="">
+            <img id="pat1_Occ" src="/images/system/vr/walls/pattern_1/occlusion.png" alt="">
+            <!-- Log 1 -->
+            <img id="log1_Img" src="/images/system/vr/walls/log_1/img.png" alt="">
+            <img id="log1_Dis" src="/images/system/vr/walls/log_1/displacement.png" alt="">
+            <img id="log1_Height" src="/images/system/vr/walls/log_1/height.png" alt="">
+            <img id="log1_Norm" src="/images/system/vr/walls/log_1/normal.png" alt="">
+            <img id="log1_Rough" src="/images/system/vr/walls/log_1/roughness.png" alt="">
+
+            <!-- Oak Floor 1 -->
+
+            <img id="woodPanel1_Img" src="/images/system/vr/walls/wood-panel_1/img.png" alt="">
+            <img id="woodPanel1_Amb" src="/images/system/vr/walls/wood-panel_1/ambient.png" alt="">
+            <img id="woodPanel1_Norm" src="/images/system/vr/walls/wood-panel_1/normal.png" alt="">
+
+
+            <!-- Brick -->
+            <img id="brick1_Img" src="/images/system/vr/walls/brick_1/img.png" alt="">
+            <img id="brick1_Norm" src="/images/system/vr/walls/brick_1/normal.png" alt="">
+            
+            <!-- Sci-Fi 1 -->
             <img id="sciFi1_Img" src="/images/system/vr/walls/scifi_1/img.png" alt="">
             <img id="sciFi1_Norm" src="/images/system/vr/walls/scifi_1/normal.png" alt="">
+            
+            <!-- Sci-Fi 2 -->
+            <img id="sciFiPanel_Img" src="/images/system/vr/walls/scifi-panel_1/img.png" alt="">
+            <img id="sciFiPanel_Norm" src="/images/system/vr/walls/scifi-panel_1/normal.png" alt="">
             
             <!-- 3D Models -->
             <a-asset id="couch1obj" src="/models/furniture/obj/couch.obj"></a-asset>
@@ -114,9 +137,14 @@
                                         </a-gui-icon-label-button>
                                     </a-gui-flex-container>
                             
-                                    <a-gui-flex-container id="myoptions" flex-direction="column" justify-content="flexEnd" align-items="normal"
-                                        component-padding="0.1" opacity="0" width="2.5" height="0.75" position="0 -0.15 -0.15" rotation="0 0 0"
+
+
+                                    <a-gui-flex-container id="myoptions" flex-direction="column" justify-content="flexStart" align-items="flexStart"
+                                        component-padding="0.1" opacity="0" width="9" height="12" position="0 3.25 -0.15" rotation="0 0 0"
                                         scale="1 0.001 0.001" visible="false"
+                                        gui-flex-container="
+                                            panelColor: lime;
+                                        "
                                         animation__positionIn="property: position; to: 0 0.375 0.15; dur: 1000; startEvents:opendropdown"
                                         animation__scaleIn="property: scale; to: 1 1 1; dur: 1000; startEvents:opendropdown"
                                         animation__visibleIn="property: visible; to: true; dur: 100; startEvents:opendropdown"
@@ -124,41 +152,150 @@
                                         animation__scaleOut="property: scale; to: 1 0.001 0.001; dur: 1000; startEvents:closedropdown"
                                         animation__visibleOut="property: visible; to: false; dur: 100; delay: 500; startEvents:closedropdown">
 
-                                        <a-gui-button width="2.5" height="0.75" onclick="logs" font-family="assets/fonts/PermanentMarker-Regular.ttf"
-                                            gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
-                                            font-size="0.3" value="Log">
-                                        </a-gui-button>
-                                        <a-gui-button width="2.5" height="0.75" onclick="bricks"
-                                        gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
-                                        font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Brick">
-                                    </a-gui-button>
-                                    <a-gui-button width="2.5" height="0.75" onclick="space"
-                                    gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
-                                            font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Space">
-                                        </a-gui-button>
-                                        <a-gui-button width="2.5" height="0.75" onclick="marble" font-family="assets/fonts/PermanentMarker-Regular.ttf"
-                                            gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
-                                            font-size="0.3" value="Marble">
-                                        </a-gui-button>
-                                        <a-gui-button width="2.5" height="0.75" onclick="wood"
-                                        gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
-                                        font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Wood">
-                                    </a-gui-button>
-                                    <a-gui-button width="2.5" height="0.75" onclick="metal"
-                                    gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
-                                            font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Metal">
-                                        </a-gui-button>
-                                    <a-gui-button width="2.5" height="0.75" onclick="scifi1"
-                                    gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
-                                            font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="SciFi">
-                                        </a-gui-button>
+
+                                        <a-gui-flex-container
+                                            flex-direction="row"
+                                            justify-content="center"
+                                            item-padding="0.5"
+                                            align-items="flexStart"
+                                            width="9"
+                                            height="7"
+                                        >
 
 
-                                        <a-gui-icon-button height="0.5" onclick="closeDropdown" icon="f00d"
-                                            gui-icon-button="fontColor: lightskyblue; backgroundColor: red;"
-                                            icon-font="/fonts/fa-solid-900.ttf">
-                                        </a-gui-icon-button>
-                            
+                                        <a-gui-flex-container
+                                            gui-flex-container="
+                                                flexDirection: column;
+                                                "
+                                            align-items="center"
+                                            justify-content="flexStart"
+                                            width="3"    
+                                        >
+                                            <a-gui-label geometry="primitive: plane" position="0 0 0.01" material="shader:  standard; visible: false;  color:  transparent;  transparent:  true;  opacity:  0;  alphaTest:  0.5;">
+                                                <a-entity
+                                                    troika-text="value: Walls; align: center; lineHeight: 0.2; color: lightskyblue; fontSize: 0.5; depthOffset: 1; maxWidth: 0.9523809523809523"
+                                                    position="0 0 0.01">
+                                                    <a-entity></a-entity>
+                                                </a-entity>
+                                            </a-gui-label>
+
+                                            <!-- Logs -->
+                                            <a-gui-button width="2.5" height="0.75" onclick="logs" font-family="assets/fonts/PermanentMarker-Regular.ttf"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-size="0.3" value="Log">
+                                            </a-gui-button>
+
+                                            <!-- Bricks -->
+                                            <a-gui-button width="2.5" height="0.75" onclick="bricks"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Brick">
+                                            </a-gui-button>
+
+                                            <!-- SciFi 1 -->
+                                            <a-gui-button width="2.5" height="0.75" onclick="space"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Space">
+                                            </a-gui-button>
+
+                                            <!-- SciFi Panel -->
+                                            <a-gui-button width="2.5" height="0.75" onclick="scifiPanel1" font-family="assets/fonts/PermanentMarker-Regular.ttf"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-size="0.3" value="SciFi Panel">
+                                            </a-gui-button>
+                                            <!-- Wood Panels 1 -->
+                                            <a-gui-button width="2.5" height="0.75" onclick="woodPanels1" font-family="assets/fonts/PermanentMarker-Regular.ttf"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-size="0.3" value="Wood Panels">
+                                            </a-gui-button>
+
+                                        </a-gui-flex-container>
+
+                                        
+                                        <a-gui-flex-container
+                                            gui-flex-container="
+                                                flexDirection: column;
+                                                "
+                                            align-items="center"
+                                            justify-content="flexStart"
+                                            width="3"    
+                                        >
+                                            <a-gui-label geometry="primitive: plane" position="0 0 0.01"
+                                                material="shader:  standard; visible: false;  color:  transparent;  transparent:  true;  opacity:  0;  alphaTest:  0.5;">
+                                                <a-entity
+                                                    troika-text="value: Floors; align: center; lineHeight: 0.2; color: lightskyblue; fontSize: 0.5; depthOffset: 1; maxWidth: 0.9523809523809523"
+                                                    position="0 0 0.01">
+                                                    <a-entity></a-entity>
+                                                </a-entity>
+                                            </a-gui-label>
+
+
+                                            <a-gui-button width="2.5" height="0.75" onclick="marble" font-family="assets/fonts/PermanentMarker-Regular.ttf"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-size="0.3" value="Marble">
+                                            </a-gui-button>
+                                            <a-gui-button width="2.5" height="0.75" onclick="wood"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Wood">
+                                            </a-gui-button>
+                                            <a-gui-button width="2.5" height="0.75" onclick="metal"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Metal">
+                                            </a-gui-button>
+
+
+                                        </a-gui-flex-container>
+
+                                        <a-gui-flex-container
+                                            gui-flex-container="
+                                                flexDirection: column;
+                                                "
+                                            align-items="center"
+                                            justify-content="flexStart"
+                                            width="3"    
+                                        >
+                                            <a-gui-label geometry="primitive: plane" position="0 0 0.01"
+                                                material="shader:  standard; visible: false;  color:  transparent;  transparent:  true;  opacity:  0;  alphaTest:  0.5;">
+                                                <a-entity
+                                                    troika-text="value: Ceilings; align: center; lineHeight: 0.2; color: lightskyblue; fontSize: 0.5; depthOffset: 1; maxWidth: 0.9523809523809523"
+                                                    position="0 0 0.01">
+                                                    <a-entity></a-entity>
+                                                </a-entity>
+                                            </a-gui-label>
+
+                                            <a-gui-button width="2.5" height="0.75" onclick="scifi1"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="SciFi">
+                                            </a-gui-button>
+                                            <a-gui-button width="2.5" height="0.75" onclick="woodCeiling"
+                                                gui-button="backgroundColor: #000; fontColor: lightskyblue; borderColor: lightskyblue;"
+                                                font-family="assets/fonts/PermanentMarker-Regular.ttf" font-size="0.3" value="Wood">
+                                            </a-gui-button>
+
+                                        </a-gui-flex-container>
+
+
+                                        </a-gui-flex-container>
+
+                                        <a-gui-flex-container
+                                            justify-content="center"
+                                            item-padding="0.5"
+                                            align-items="center"
+                                            width="9"
+                                            height="1"
+                                            >
+
+                                            <a-gui-icon-button height="0.5" onclick="closeDropdown" icon="f00d"
+                                                gui-icon-button="fontColor: lightskyblue; backgroundColor: red;"
+                                                icon-font="/fonts/fa-solid-900.ttf">
+                                            </a-gui-icon-button>
+                                        </a-gui-flex-container>
+                                
+
+
+
+
+
+
                                     </a-gui-flex-container>
                             
                             
@@ -227,10 +364,10 @@
             wall2.removeAttribute('material')
             wall3.removeAttribute('material')
             wall4.removeAttribute('material')
-            wall1.setAttribute('material', 'src: #pat1_Img; repeat: 15 15; normalMap: #pat1_Map; normalTextureRepeat: 15 15; metalness: 0.75; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #pat1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 15 15; roughnessMap: #pat1_Map; roughness: 0.3; roughnessTextureRepeat: 15 15; envMap: #pat1_Height;')
-            wall2.setAttribute('material', 'src: #pat1_Img; repeat: 15 15; normalMap: #pat1_Map; normalTextureRepeat: 15 15; metalness: 0.75; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #pat1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 15 15; roughnessMap: #pat1_Map; roughness: 0.3; roughnessTextureRepeat: 15 15; envMap: #pat1_Height;')
-            wall3.setAttribute('material', 'src: #pat1_Img; repeat: 15 15; normalMap: #pat1_Map; normalTextureRepeat: 15 15; metalness: 0.75; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #pat1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 15 15; roughnessMap: #pat1_Map; roughness: 0.3; roughnessTextureRepeat: 15 15; envMap: #pat1_Height;')
-            wall4.setAttribute('material', 'src: #pat1_Img; repeat: 15 15; normalMap: #pat1_Map; normalTextureRepeat: 15 15; metalness: 0.75; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #pat1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 15 15; roughnessMap: #pat1_Map; roughness: 0.3; roughnessTextureRepeat: 15 15; envMap: #pat1_Height;')
+            wall1.setAttribute('material', 'src: #pat1_Img; color: #191919; repeat: 15 15; normalMap: #pat1_Map; normalTextureRepeat: 15 15; metalness: 0.3; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #pat1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 15 15; roughnessMap: #pat1_Map; roughness: 0.7; roughnessTextureRepeat: 15 15; envMap: #pat1_Height;')
+            wall2.setAttribute('material', 'src: #pat1_Img; color: #191919; repeat: 15 15; normalMap: #pat1_Map; normalTextureRepeat: 15 15; metalness: 0.3; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #pat1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 15 15; roughnessMap: #pat1_Map; roughness: 0.7; roughnessTextureRepeat: 15 15; envMap: #pat1_Height;')
+            wall3.setAttribute('material', 'src: #pat1_Img; color: #191919; repeat: 15 15; normalMap: #pat1_Map; normalTextureRepeat: 15 15; metalness: 0.3; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #pat1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 15 15; roughnessMap: #pat1_Map; roughness: 0.7; roughnessTextureRepeat: 15 15; envMap: #pat1_Height;')
+            wall4.setAttribute('material', 'src: #pat1_Img; color: #191919; repeat: 15 15; normalMap: #pat1_Map; normalTextureRepeat: 15 15; metalness: 0.3; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #pat1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 15 15; roughnessMap: #pat1_Map; roughness: 0.7; roughnessTextureRepeat: 15 15; envMap: #pat1_Height;')
         }
 
         window.logs = function () {
@@ -244,6 +381,17 @@
             wall3.setAttribute('material', 'src: #log1_Img; repeat: 1 1; normalMap: #log1_Norm; normalTextureRepeat: 1 1; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #log1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 1 1; roughnessMap: #log1_Rough; roughness: 0.8; roughnessTextureRepeat: 1 1; envMap: #log1_Height;')
             wall4.setAttribute('material', 'src: #log1_Img; repeat: 1 1; normalMap: #log1_Norm; normalTextureRepeat: 1 1; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 2 2; displacementMap: #log1_Dis; ambientOcclusionMap: #pat1_Occ; ambientOcclusionTextureRepeat: 1 1; roughnessMap: #log1_Rough; roughness: 0.8; roughnessTextureRepeat: 1 1; envMap: #log1_Height;')
         }
+        window.woodPanels1 = function () {
+            wall1.removeAttribute('material')
+            wall2.removeAttribute('material')
+            wall3.removeAttribute('material')
+            wall4.removeAttribute('material')
+
+            wall1.setAttribute('material', 'src: #woodPanel1_Img; repeat: 3 2; normalMap: #woodPanel1_Norm; normalTextureRepeat: 3 2; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 2 2; ambientOcclusionMap: #woodPanel1_Amb; ambientOcclusionTextureRepeat: 3 2; roughness: 0.6;')
+            wall2.setAttribute('material', 'src: #woodPanel1_Img; repeat: 3 2; normalMap: #woodPanel1_Norm; normalTextureRepeat: 3 2; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 2 2; ambientOcclusionMap: #woodPanel1_Amb; ambientOcclusionTextureRepeat: 3 2; roughness: 0.6;')
+            wall3.setAttribute('material', 'src: #woodPanel1_Img; repeat: 3 2; normalMap: #woodPanel1_Norm; normalTextureRepeat: 3 2; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 2 2; ambientOcclusionMap: #woodPanel1_Amb; ambientOcclusionTextureRepeat: 3 2; roughness: 0.6;')
+            wall4.setAttribute('material', 'src: #woodPanel1_Img; repeat: 3 2; normalMap: #woodPanel1_Norm; normalTextureRepeat: 3 2; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 2 2; ambientOcclusionMap: #woodPanel1_Amb; ambientOcclusionTextureRepeat: 3 2; roughness: 0.6;')
+        }
 
         window.bricks = function () {
             wall1.removeAttribute('material')
@@ -256,24 +404,39 @@
             wall3.setAttribute('material', 'src: #brick1_Img; repeat: 2 2; normalMap: #brick1_Norm; normalTextureRepeat: 2 2; metalness: 0.85; normalScale: 2 2; normalTextureOffset: 1 1; roughness: 0.8;')
             wall4.setAttribute('material', 'src: #brick1_Img; repeat: 2 2; normalMap: #brick1_Norm; normalTextureRepeat: 2 2; metalness: 0.85; normalScale: 2 2; normalTextureOffset: 1 1; roughness: 0.8;')
         }
+        window.scifiPanel1 = function () {
+            wall1.removeAttribute('material')
+            wall2.removeAttribute('material')
+            wall3.removeAttribute('material')
+            wall4.removeAttribute('material')
+
+            wall1.setAttribute('material', 'src: #sciFiPanel_Img; repeat: 2 2; normalMap: #scifiPanel_Norm; normalTextureRepeat: 2 2; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 1 1; roughness: 0.5;')
+            wall2.setAttribute('material', 'src: #sciFiPanel_Img; repeat: 2 2; normalMap: #scifiPanel_Norm; normalTextureRepeat: 2 2; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 1 1; roughness: 0.5;')
+            wall3.setAttribute('material', 'src: #sciFiPanel_Img; repeat: 2 2; normalMap: #scifiPanel_Norm; normalTextureRepeat: 2 2; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 1 1; roughness: 0.5;')
+            wall4.setAttribute('material', 'src: #sciFiPanel_Img; repeat: 2 2; normalMap: #scifiPanel_Norm; normalTextureRepeat: 2 2; metalness: 0.25; normalScale: 2 2; normalTextureOffset: 1 1; roughness: 0.5;')
+        }
 
         window.marble = function () {
-            ceiling.removeAttribute('material')
-            ceiling.setAttribute('material', 'src: #marble1_Img; repeat: 1 1; metalness: 0.25;')
+            floor.removeAttribute('material')
+            floor.setAttribute('material', 'src: #marble1_Img; repeat: 1 1; metalness: 0.25;')
         }
 
         window.wood = function () {
+            floor.removeAttribute('material')
+            floor.setAttribute('material', 'src: #oak1_Img; repeat: 1 1; metalness: 0.25;')
+        }
+        window.woodCeiling = function () {
             ceiling.removeAttribute('material')
             ceiling.setAttribute('material', 'src: #oak1_Img; repeat: 1 1; metalness: 0.25;')
         }
 
         window.metal = function () {
-            ceiling.removeAttribute('material')
-            ceiling.setAttribute('material', 'src: #metal1_Img; repeat: 15 15; metalness: 0.75;')
+            floor.removeAttribute('material')
+            floor.setAttribute('material', 'src: #metal1_Img; repeat: 15 15; metalness: 0.75;')
         }
 
         window.scifi1 = function () {
-            floor.removeAttribute('material')
-            floor.setAttribute('material', 'src: #sciFi1_Img; repeat: 10 10; normalMap: #sciFi1_Norm; normalTextureRepeat: 10 10; metalness: 0.5; normalScale: 2 2; normalTextureOffset: 1 1; roughness: 0.4;')
+            ceiling.removeAttribute('material')
+            ceiling.setAttribute('material', 'src: #sciFi1_Img; repeat: 10 10; normalMap: #sciFi1_Norm; normalTextureRepeat: 10 10; metalness: 0.5; normalScale: 2 2; normalTextureOffset: 1 1; roughness: 0.4;')
         }
     </script>
