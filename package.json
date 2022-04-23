@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/WideSpreadOS/widespread#readme",
   "dependencies": {
+    "@editorjs/editorjs": "^2.23.2",
     "amadeus": "^5.7.1",
     "api": "^4.2.0",
     "axios": "^0.24.0",

@@ -3,6 +3,8 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 
 
+
+
 /* Models */
 const User = require('../models/User');
 const Post = require('../models/Post');
@@ -15,7 +17,7 @@ const Company = require('../models/Company');
 router.get('/', ensureAuthenticated, async (req, res) => {
     const user = req.user;
     const postIds = await Post.find();
-    
+
     let userLikes = []
     postIds.forEach(post => {
         user.likedPosts.forEach(likedPost => {

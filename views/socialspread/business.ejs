@@ -72,6 +72,15 @@
         color: #fff;
         font-size: 1.2rem;
     }
+    .socialspread-spreader-container {
+    }
+    #businessPost, #articlePost {
+        margin: 0 auto;
+        margin-bottom: 30px;
+        background-color: #fff;
+        width: 90%;
+        border-radius: 16px;
+    }
 </style>
 
 <div class="zone-title">
@@ -82,7 +91,11 @@
 
 <%- include('../partials/menus/socialspread'); %>
 
-
+<div class="socialspread-spreader-container">
+    <div id="businessPost"></div>
+    <div id="articlePost"></div>
+    <button id="articlePostSave">Save Article</button>
+</div>
 <div class="ss-mini-card-slider">
     <% companies.forEach(function(company) { %>
         <div class="ss-mini-card">
@@ -103,3 +116,62 @@
         </div>
     <% }) %>
 </div>
+
+<script src="../dist/editor.js"></script>
+<script src="./tools/header/dist/bundle.js"></script>
+<script>
+    const editor1 = new EditorJS({
+        holder: 'businessPost',
+        tools: {
+            header: {
+                class: Header,
+                shortcut: 'CMD+SHIFT+H'
+            }
+        }
+    })
+    const editor2 = new EditorJS({
+        holder: 'articlePost',
+        tools: {
+            header: {
+                class: Header,
+                shortcut: 'CMD+SHIFT+H',
+                inlineToolbar: ['link']
+            },
+            list: {
+                class: List,
+                inlineToolbar: true
+            },
+            image: SimpleImage,
+            checklist: Checklist,
+            quote: Quote,
+            embed: Embed,
+            table: Table
+        },
+        autofocus: true,
+        placeholder: 'Let`s write an awesome story!'
+    })
+
+    editor2.isReady
+        .then(() => {
+            console.log('Editor.js is ready to work!')
+            /** Do anything you need after editor initialization */
+        })
+        .catch((reason) => {
+            console.log(`Editor.js initialization failed because of ${reason}`)
+        });
+
+    const articleSaveBtn = document.getElementById('articlePostSave')
+    articleSaveBtn.addEventListener('click', (e) => {
+        console.log(e)
+        editor2.save().then((outputData) => {
+                console.log('Article data: ', outputData.blocks)
+                outputData.blocks.forEach(block => {
+                    console.log('Block: ', block)
+                })
+            }).catch((error) => {
+                console.log('Saving failed: ', error)
+            });
+
+    })
+    
+</script>
