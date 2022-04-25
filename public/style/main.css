@@ -45,6 +45,7 @@ body {
     padding-bottom: 50px;
     position: relative;
     z-index: -1;
+    cursor: url('/images/system/cursors/pointer_1a1a1a.png'), auto;
 }
 
 
@@ -104,9 +105,9 @@ body {
 }
 
 ::selection {
-  color: rgba(136, 136, 136, 0.25);
-  text-shadow: 0 0 1px #fff;
-  background: rgba(135, 206, 250, 0.5);
+  color: rgba(0, 0, 0, 0.25);
+  text-shadow: 0 0 1px #000;
+  background: lightskyblue;
 
 }
 ol, ul {
@@ -172,6 +173,18 @@ button {
     font-family: 'Gruppo', cursive;
 
 }
+/* Editor JS */
+/* Text */
+.ce-paragraph {
+    cursor: url('/images/system/cursors/text_1a1a1a.png'), auto;
+    
+}
+.cdx-checklist__item--checked .cdx-checklist__item-checkbox {
+    background: lightskyblue;
+    border: outset 2px red;
+}
+
+
 
 /* USER CUSTOMIZATIONS */
     .user-background-image {
